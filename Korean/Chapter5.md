@@ -1,6 +1,6 @@
 # 5. Front-end for Klaytn Addition Game development
- 
-5.1 Settings
+
+## 5.1 Settings
 
 
 Now that you have created a contract that will be used for BApp's in the previous classes, let's do a front-end development. 
@@ -44,7 +44,7 @@ Click Install. This extension provides the color highlighting for each solidity 
 Installation is completed. I will end the configuration session which is necessary for Frontend development.
  
  
-5.2 Download boilerplate
+## 5.2 Download boilerplate
  
  
 Let's download the boiler plate, the basic template for development. 
@@ -90,7 +90,7 @@ Until now, I’ve downloaded and explained the starter template to make a Klaytn
 
 
 
-5.3 Deploying smart contract to Baobab 1
+## 5.3 Deploying smart contract to Baobab 1
  
 From now on, let's deploy the AdditionGame smart contract that we made to the baobab test net. Before we start, we will run the npm install command in the terminal and install the necessary dependencies for the BApp. 
 If you do not see the terminal below, select the new terminal on the Terminal tab. 
@@ -143,7 +143,7 @@ If you’ve followed all stages so far, now We can store the information we want
  
  
  
-5.4 Deploying smart contract to Baobab 2
+## 5.4 Deploying smart contract to Baobab 2
  
  
 Lastly, you need to set up the setting. You have to decide which network you are going to deploy. 
@@ -200,7 +200,7 @@ compile all recompiles all contracts. The reset forces the script files in the M
  
  
  
-5.5 Account verification UI
+## 5.5 Account verification UI
  
  
 Let's start by logging in with your account created through your baobab wallet. 
@@ -298,7 +298,7 @@ Well then, modal is up and you have the option to choose a file and enter a pass
 So far, I've created a UI that verify accounts.
  
  
-5.6 Account verification logic (keystore validation)
+## 5.6 Account verification logic (keystore validation)
  
  
  
@@ -440,7 +440,7 @@ Retrieve the password value via the html onchange event and then, assign it to t
 So far, I have done the validation file of the keystore file.
  In the next lecture, I'll create a secret key and add my account information to Wallet.
  
-5.7 Account verification (integrate wallet)
+## 5.7 Account verification (integrate wallet)
  
 
 We have completed parts for retrieving the keystore file and the typing password, 
@@ -593,7 +593,7 @@ Now that you've completed your account verification logic,
 let's complete the section that maintains account verification through session storage in the next class.
  
  
-5.8 Account Session 
+## 5.8 Account Session 
 
 Let's see what happens when we log in and refresh the page. 
 Click the login button and select the keystore file. 
@@ -646,7 +646,7 @@ So far, we have implemented a part of maintaining account verification.
  
  
  
-5.9 KLAY transfer via contract (deposit)
+## 5.9 KLAY transfer via contract (deposit)
  
  
 I will now send the KLAY to the contract using the operator account. 
@@ -810,7 +810,7 @@ return;
 I have completed the part that sends the KLAY to the deposit function of contract, and I will change the UI and test it in the next class. 
  
  
-5.10 KLAY transfer via contract (UI change and testing)
+## 5.10 KLAY transfer via contract (UI change and testing)
  
  
 
@@ -916,7 +916,7 @@ Yes. As the spinner comes out, a more spectacular scene is being produced.
 The transfer function works well, and the UI is well reflected. 
 So far, I have covered the KLAY transfer from the owner account to the contract.
 
-5.11Generating a random number
+## 5.11Generating a random number
 
 Now let 's try to make an interesting part. 
 Let's create two random numbers to be used for addition. 
@@ -1009,7 +1009,7 @@ When you click Start, your random numbers are generated and rendered in html.
 Soon, focus moved to where I write the answer. 
 This is the end of today’s class and I will try to create a timer in the next class.
 
-5.12  Generating a timer
+## 5.12  Generating a timer
 
 
 
@@ -1070,7 +1070,7 @@ So far, I have created a timer.
  
  
  
-5.13 Submitting answers and receiving KLAY
+## 5.13 Submitting answers and receiving KLAY
  
 This is the last class. If the user submits the answer and the answer is correct, let's implement the part that sends the KLAY to the user account from the contract. Go to the submitAnswer function. Load the value of correct answer which is stored in the session storage.
 const result = sessionStorage.getItem('result');
