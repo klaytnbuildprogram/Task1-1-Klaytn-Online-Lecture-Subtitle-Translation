@@ -1,5 +1,5 @@
 # 4. Developing an addition game with Klaytn Tools
-4.1 Intro
+## 4.1 Intro
  
 
 Hi, everyone. In this tutorials, I will try to develop a BApp called a simple addition game using the Klaytn blockchain. For reference, BApp is an acronym for Blockchain Applications. Let's create a simple, pop-up game that will pay 0.1 Klay for free if you solve the addition problem in 3 seconds.
@@ -23,7 +23,7 @@ Let's use a scope search engine to find transaction information.
 
  
  
-4.2 Klaytn Wallet & account management
+## 4.2 Klaytn Wallet & account management
  
 
 To use a blockchain network, you have to have your own account. You need a bank account to manage your KLAY tokens. So I'm going to use Wallet from Klaytn. It is user-friendly and very easy to use. https://baobab.klaytnwallet.com/ If you go to this address, you can connect to the Baobab network and create and manage your account. For your reference, this Wallet is for testing purposes, and the Klay used here has no monetary value. First, let's create a new account. Click Create a new wallet. It’s a process that is creating password and keystore file. Before that, I will explain what the keystore file is. It’s like we are now in the process of going to the bank to make a bankbook, which we will put in the safe so that others can not use it. This vault is a keystore file and password combination, which protects the secret key required for transaction signing from hackers and external intrusions.
@@ -62,7 +62,7 @@ Let's try Send transaction now. On the next page, you'll see information on how 
 
  
 
-4.3 Klaytn IDE & Smart Contract 1
+## 4.3 Klaytn IDE & Smart Contract 1
  
 With the IDE provided by Klaytn, let's create a simple smart contract for our add-on game. Rather than focusing on smart contracts, I'm going to focus on Klaytn tools.
 You can create and test smart contracts by visiting http://ide.klaytn.net/. It is similar to Ethereum's remix IDE, but here it is used to connect to the Klaytn node, not to the Ethereum node. Now let's look at the features of the Klaytn IDE by creating our own smart contracts for our add-on games.
@@ -94,7 +94,7 @@ Yes This is the account address of the person who deployed this Contract. I have
 
 
  
-4.4 Klaytn IDE & Smart Contract 2
+## 4.4 Klaytn IDE & Smart Contract 2
  
 
 Let's continue to create a function that looks at how many remaining KLAY balances are in the contract address. Please select the auto checkbox next to it. Inside the constructor, we're going to create a getBalance function.
@@ -127,7 +127,7 @@ And the gas limit is the limit of gas, which is auto by default. In other words,
  
 
  
-4.5 Klaytn IDE & Smart Contract 3
+## 4.5 Klaytn IDE & Smart Contract 3
  
 
 With this last function, let's write a logic to transfer the money in the contract to the user account when the user has solved the problem of the addition game. For reference, the user who answered the correct answer calls this function directly to receive the money.
