@@ -19,6 +19,3 @@ Finally, let's take time to understand the benefits of Klaytn by creating a simp
 
 Use Klaytn which is to lead the blockchain platform 
 and create a blockchain application (BApp) that will become popular in the future.
-
-## Head 2
-### Head 3
