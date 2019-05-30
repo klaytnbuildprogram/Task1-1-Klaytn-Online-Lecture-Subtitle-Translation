@@ -1,6 +1,6 @@
 # 3. Understanding "Klaytn"
 
-3.1 Consensus
+## 3.1 Consensus
  
 In previous chapters, we discussed the problems of the existing blockchain. Let's talk about how the Klaytn blockchain solves problems using a consensus algorithm. There are many types of consensus algorithms, such as pow or pos, which are commonly used in public blockchains, and pbft or raft, which are used in private blockchains. In general, private blockchains can reach agreement more efficiently than public blockchains. In particular, BFT-based private blockchains can achieve high performance and efficiency by limiting the number of participating nodes. However, this configuration limits the number of consensus nodes, weakens decentralization, and the content of consensus results is only disclosed to small groups. As a result, it limits transparency and harms the benefit of blockchain.
 
@@ -27,7 +27,7 @@ Finally, in the commit phase, it is the process of communicating with other node
 So the advantage is that communication leads to consensus and completeness immediately. However, there is a disadvantage that traffic increases exponentially as the number of consensus nodes increases. This part is set to pick only the part of the consensus node and maintain the form bft.
  
 Let's see how the block is created and propagated in the next class.
-3.2 Block generation and dissemination
+## 3.2 Block generation and dissemination
  
 
 Let's see how Klaytn creates and propagates blocks to provide a satisfying user experience.
@@ -52,7 +52,7 @@ So far, we have come to understand how proposers and committees can be selected 
  
  
 
-3.3 Network structure
+## 3.3 Network structure
  
 Let's take a moment to explain Klaytn's network structure. On the left is the summarized version of the network. There is a core cell network in the whole network, and there is an endpoint node network surrounding the core cell. If you look at the enlargement next to it, inside the red box is the core cell network and the blue box outside is the endpoint network. In the core cell network, the yellow part is the CNN, consensus node network, and the red part is the PNN, proxy node network. The CNs in the yellow will be in charge of the consensus.
  
@@ -65,7 +65,7 @@ And on the outside, the endpoint nodes are connected to the core cell network. T
  
 And again, you have a CN boot node, a PN boot note, and an EN boot node, which is a special type node operated by Klaytn that helps new nodes register to the network and connect to another node. The CN boot node is inside the CN network and is not published. The PN and EN boot nodes are public nodes. PN boot nodes allow you to register only allowed proxy nodes and helps you to connect to endpoint nodes. The EN boot node provides information to the endpoint nodes about which proxy node to connect to. So far we have briefly covered the Klaytn network structure.
  
-3.4 Core Cell
+## 3.4 Core Cell
  
 
  
@@ -96,7 +96,7 @@ To summarize, because CN is the node responsible for the agreement, the connecti
  
  
  
-3.5 Service Chain
+## 3.5 Service Chain
  
 
 
@@ -120,7 +120,7 @@ By the way, in Klaytn's service chain, you can set zero gas fee for all transact
  
  
  
-3.6  Difference between Klaytn and Ethereum - Different roles of nodes
+## 3.6  Difference between Klaytn and Ethereum - Different roles of nodes
  
  
 Let's talk briefly about the difference between Ethereum and Klaytn.
