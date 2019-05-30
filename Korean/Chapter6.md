@@ -1,4 +1,4 @@
-6. Summary
+# 6. Summary
 
 Let’s wrap up. Through this tutorial, we’ve learned theoretically about what Klaytn is, and we’ve used Klaytn’s tools: wallet, ide, and scope. And we’ve developed a simple addition game BApp through caver.js. 1-sec finality can be noticed while we create a transaction. It's a huge advantage. The service chain is not yet under development, but if you are wondering, go to Klaytn’s official documentation website, and experiment and try it by yourself.
 
