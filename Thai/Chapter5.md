@@ -209,6 +209,8 @@ There were two ways for us to verify our accounts.
 The way we implement it is to verify through a combination of keystore files and passwords. 
 First, I will write html code. 
 Go to Index.html and add the contents inside the body tag.
+
+```
   <div class="container">
     <div class="row">
   	<div class="col-md-8 col-md-offset-2">
@@ -236,6 +238,7 @@ Go to Index.html and add the contents inside the body tag.
 	</div>
   </div> 
  
+ ```
  
  
 Please stop this video now and write this code. 
