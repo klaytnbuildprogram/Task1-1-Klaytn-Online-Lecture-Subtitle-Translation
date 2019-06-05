@@ -12,6 +12,7 @@ The Truffle framework that we will install also needs to be downloaded via npm.
 If you already have node.js and npm installed, check the version and skip this section if node.js is version 8 or higher and npm is version 5 or higher.
 
 
+
 Please come to https://nodejs.org and download 10.15.3 LTS. Please install it. 
 I already installed it and so I’m skipping. 
 After installation, we will check if the node.js are installed properly in PowerShell. 
@@ -210,7 +211,7 @@ The way we implement it is to verify through a combination of keystore files and
 First, I will write html code. 
 Go to Index.html and add the contents inside the body tag.
 
-'''
+```
   <div class="container">
     <div class="row">
   	<div class="col-md-8 col-md-offset-2">
@@ -237,7 +238,7 @@ Go to Index.html and add the contents inside the body tag.
   	</div>
 	</div>
   </div> 
- '''
+```
  
  
 Please stop this video now and write this code. 
