@@ -210,6 +210,7 @@ The way we implement it is to verify through a combination of keystore files and
 First, I will write html code. 
 Go to Index.html and add the contents inside the body tag.
 
+```
 <br />     
   <div class="container">
     <div class="row">
@@ -237,7 +238,7 @@ Go to Index.html and add the contents inside the body tag.
   	</div>
 	</div>
   </div> 
- 
+ ```
  
  
 Please stop this video now and write this code. 
