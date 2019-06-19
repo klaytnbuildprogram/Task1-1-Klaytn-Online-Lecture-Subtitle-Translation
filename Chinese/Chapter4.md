@@ -2,93 +2,109 @@
 ## 4.1 Intro
  
 
-Hi, everyone. In this tutorials, I will try to develop a BApp called a simple addition game using the Klaytn blockchain. For reference, BApp is an acronym for Blockchain Applications. Let's create a simple, pop-up game that will pay 0.1 Klay for free if you solve the addition problem in 3 seconds.
+嗨，大家好。在本教程中，我将尝试使用Klaytn区块链开发一个名为简单加法游戏的BApp。作为参考，BApp是Blockchain Applications的首字母缩写。让我们创建一个简单的弹出式游戏，如果您在3秒内解决了添加问题，将免费支付0.1 Klay。
  
  
-Let's look at how it works. First, log in to the operator account. We will verify the account using the keystore file and password combination. So select the keystore file and enter the password. Once the account is verified, use the Send KLAY to Contract button to set the total amount to be used for this event. The reason we send the KLAY to the contract address is to show the user the amount of money to be used for this event in a transparent way. Note that this can only be done with an operator account.
+让我们来看看它是如何工作的。首先，登录操作员帐户。我们将使用密钥库文件和密码组合验证帐户。因此，选择密钥库文件并输入密码。验证帐户后，使用Send KLAY to Contract按钮设置要用于此活动的总金额。我们将KLAY发送到合同地址的原因是以透明的方式向用户显示用于此事件的金额。请注意，这只能通过运营商帐户完成。
 
 
-I'm sending it to contract now. I send about 1KLAY. Once the transaction is completed, the user will be shown the amount to be spent on the event. Like this. Now users can start the addition game. If you set it in 3 seconds, 0.1 KLAY will be sent to user account from contract. Let's get started.
-If the solution is wrong while doing this, it will be reset again. If you try again, and if you solve it,  you can get KLAY by pressing the OK button. When the transaction is completed, the balance is reduced by 0.1 in the contract. As you can see, transaction processing is very fast. It’s a strong point Klaytn. If you click on the link below, you will be taken to the Klaytn scope where you can see the information of the transaction just created.
+我现在正在发送合同。我发送约1KLAY。交易完成后，将向用户显示在活动上花费的金额。像这样。现在用户可以开始添加游戏了。如果您在3秒内设置，将从合同中将0.1 KLAY发送到用户帐户。让我们开始吧。
+如果解决方法在执行此操作时出错，则会再次重置。如果再试一次，如果你解决了，你可以按OK按钮获得KLAY。交易完成后，合同中的余额减少0.1。如您所见，事务处理速度非常快。这是Klaytn的一个强项。如果单击下面的链接，您将进入Klaytn范围，在那里您可以看到刚刚创建的事务的信息。
 
 
-If you have experience developing the Ethereum DApp, upcoming course will be quite easy for you. Klaytn is a platform forked out by Byzantine versions of Ethereum, so you will feel familiar in many ways. For example, the JavaScript library, caver.js, which can communicate with the Klaytn blockchain, is similar to Ethereum’s web3.js. In addition, We support solidity languages ​​most commonly used for smart contract development. Finally,
+如果您有开发以太坊DApp的经验，即将开始的课程将非常简单。 Klaytn是拜占庭版以太坊的平台，所以你会在很多方面感到熟悉。例如，可以与Klaytn区块链通信的JavaScript库caver.js类似于以太坊的web3.js.此外，我们支持最常用于智能合约开发的可靠性语言。最后，
 
  
-Because it’s using the Truffle framework, you can quickly adapt to the development of BApp. Those who have no experience developing BApp can develop BApp in Klaytn blockchain platform with this exercise. But first of all, it is good to understand the basic blockchain and solidity which is a smart contract development language. I put a link to learn.
-Yes, we are going to develop with some tools that support Klaytn,
-First, I write an IDE that can test smart development,
-A wallet that can manage accounts,
-Let's use a scope search engine to find transaction information.
+因为它使用的是Truffle框架，所以可以快速适应BApp的发展。那些没有开发BApp经验的人可以通过这个练习在Klaytn区块链平台上开发BApp。但首先，理解作为智能合约开发语言的基本区块链和可靠性是很好的。我把一个链接学习。
+是的，我们将开发一些支持Klaytn的工具，
+首先，我编写了一个可以测试智能开发的IDE，
+可以管理帐户的钱包，
+让我们使用范围搜索引擎来查找交易信息。
 
  
  
 ## 4.2 Klaytn Wallet & account management
  
 
-To use a blockchain network, you have to have your own account. You need a bank account to manage your KLAY tokens. So I'm going to use Wallet from Klaytn. It is user-friendly and very easy to use. https://baobab.klaytnwallet.com/ If you go to this address, you can connect to the Baobab network and create and manage your account. For your reference, this Wallet is for testing purposes, and the Klay used here has no monetary value. First, let's create a new account. Click Create a new wallet. It’s a process that is creating password and keystore file. Before that, I will explain what the keystore file is. It’s like we are now in the process of going to the bank to make a bankbook, which we will put in the safe so that others can not use it. This vault is a keystore file and password combination, which protects the secret key required for transaction signing from hackers and external intrusions.
+
+要使用区块链网络，您必须拥有自己的帐户。您需要一个银行帐户来管理您的KLAY令牌。所以我将使用Klaytn的钱包。它用户友好，非常易于使用。
+
+https://baobab.klaytnwallet.com/
+
+如果您转到此地址，则可以连接到Baobab网络并创建和管理您的帐户。作为参考，这个钱包是出于测试目的，这里使用的Klay没有货币价值。首先，让我们创建一个新帐户。单击“创建新钱包”。这是一个创建密码和密钥库文件的过程。在此之前，我将解释密钥库文件是什么。就像我们现在正在去银行制作银行存折一样，我们会把它存放在保险箱中，以便其他人不能使用它。此保管库是密钥库文件和密码组合，用于保护交易签名所需的密钥，防止黑客和外部入侵。
 
 
-Now, let's continue and create a keystore file. Enter your password here, click next step, and download the keystore file. Downloaded,
-Then I will tell my next screen to save my secret key somewhere. The secret key here is an essential requirement for signing a transaction in the Klaytn BApp. This secret key should never be exposed to the outside. It is like going away my bankbook and bankbook passwords and losing all the amounts.
+
+现在，让我们继续并创建一个密钥库文件。在此输入您的密码，单击下一步，然后下载密钥库文件。下载
+然后我会告诉我的下一个屏幕在某处保存我的密钥。这里的密钥是在Klaytn BApp中签署交易的基本要求。这个密钥永远不应暴露在外面。这就像离开我的银行存折和银行存折密码并丢失所有金额。
  
 
 
-That's why I create a keystore file to protect my secret key. The keystore file and the keystore password must be known before the secret key is accessed. Even if a hacker  gets a keystore file, if he does not know the secret key, the secret key is not accessible and he cannot get the money. That does not mean you can easily shed keystore. Do not expose it to the outside.
-Now I'll save this secret key in Notepad. This is not necessarily the case, but it is a test net and I will do it for convenience. You can save your private key in the place you feel safe. Once you have saved, click on the view wallet info on the left. Now I can access my wallet, my wallet. There are two ways to approach it. The first is to use the secret key, and the second is to access the keystore file and password. First, let's access it using the secret key. Copy and paste it in Notepad.
+这就是为什么我创建一个密钥库文件来保护我的密钥。在访问密钥之前，必须知道密钥库文件和密钥库密码。即使黑客获得密钥库文件，如果他不知道密钥，也无法访问密钥并且他无法获得金钱。这并不意味着你可以轻松摆脱密钥库。不要将它暴露在外面。
+现在我将在记事本中保存此密钥。这不一定是这种情况，但它是一个测试网，我会为方便起见。您可以将私钥保存在您感到安全的地方。保存后，单击左侧的视图钱包信息。现在我可以访问我的钱包，我的钱包了。有两种方法可以解决它。第一种是使用密钥，第二种是访问密钥库文件和密码。首先，让我们使用密钥访问它。将其复制并粘贴到记事本中。
 
  
-My Wallet information is now available. Here is my account public address and my secret key below. I can see my transaction list. I don’t have to deal with this because I have not had a transaction yet. On the right side, I can see how many KLAY I have and I can also add a token to my Wallet by clicking on the plus button.
+我的电子钱包信息现已推出。这是我的帐户公共地址和下面的密钥。我可以看到我的交易清单。我没有必要处理这个因为我还没有交易。在右侧，我可以看到我有多少KLAY，我也可以通过点击加号按钮为我的钱包添加一个令牌。
  
-Now let's get KLAY on my account. Click on the KLAY faucet tab to get free klay. My current account address has a zero balance. If you press the Run faucet button, you will receive 5 KLAYs. Once you receive it, you can receive it again in 24 hours. Since you can not get many KLAYs in a short time, you should split KLAY as much as possible when testing. The reason we get it after 24 hours is that some people have been using this KLAY  have been identified with malicious use of KLAY. Klaytn said that they are working on it, so it'll be better. Now let's transfer the KLAY to another account. (pause here)
- 
-
-
-If you go to the Send klay & token tab, you can send money from my address to another address. Enter the recipient address. I'm going to send a KLAY in the bottom to decide how much to spend. It says that 0.000625 KLAY will go out with the below transaction fee limit. It’s like paying for a commission fee. How this cost is measured is equal to the gas price multiplied by the gas limit. You can think of the gas price as the money paying for asking transaction to the consensus node. Klaytn's gas price is always fixed, unlike Ethereum. It is difficult to predict the total commission cost because the gas price of the Ethereum is fluctuating. However, Klaytn's gas price is always fixed at 25 ston, no matter what transaction you process.
-
+现在让我们在我的帐户上获取KLAY。点击KLAY水龙头标签获得免费的klay。我当前的帐户地址余额为零。如果按下“运行龙头”按钮，您将收到5个KLAY。收到后，您可以在24小时内再次收到。由于您无法在短时间内获得许多KLAY，因此您应该在测试时尽可能多地拆分KLAY。我们24小时后得到它的原因是有些人一直在使用这个KLAY被认定是恶意使用KLAY。 Klaytn说他们正在努力，所以它会更好。现在让我们将KLAY转移到另一个帐户。
  
 
-The gas limit is the maximum cost of the gas dealing with this transaction. For example, let's say we have some infinite loop in this transaction we are sending. Then this simple transaction is going to continue running in the network. This causes a performance degradation of the network. You should not hurt everyone. So, if you have more than 25,000 gas, you think that something is strange and you have to stop processing.
 
+如果您转到发送克莱和令牌标签，您可以从我的地址汇款到另一个地址。输入收件人地址。我将在底部发送一个KLAY来决定花多少钱。它说0.000625 KLAY将以下面的交易费限制出去。这就像支付佣金一样。如何衡量这一成本等于天然气价格乘以天然气限制。您可以将天然气价格视为向共识节点询问交易所支付的资金。与以太坊不同，Klaytn的汽油价格总是固定的。由于以太坊的天然气价格波动，很难预测总佣金成本。但是，无论您处理什么交易，Klaytn的天然气价格总是固定在25美元。
 
-
-And the gas price is said to contain 25 test_ston, ston is one of the currency units of KLAY. Just like a dollar in the United States is 100 cents, there are many units of KLAY. https://docs.klaytn.com/klaytn/design/computation/exec_model The Klaytn official document shows KLAY units. There are many things. There is a standard KLAY unit in the middle, and the peb at the top is the minimum unit that represents the KLAY. The unit that is used for the 10th round of the peb is ston. So what would be the 25 ston converted to klay. https://blockchains.tools/pebConverter?l=KLAY If you come to this site, you will convert many units. If you put 25 on ston, KLAY will get this. If gas limit 25000 is multiplied by this, 0.000625 KLAY will come out. It is used as a transaction fee. Let's try it with a calculator. If you copy this and multiply it by the calculator gas limit 25000, the transaction cost comes out. This is the cost of processing transactions.
-
-
-Note that when you send these simple remittances from Klaytn, the transaction cost is always fixed at 0.000625 KLAY. However, the transaction cost is not fixed in transaction through smart contract function because the gas limit changes according to the complexity of transaction. I will explain more about this later.
  
-You can manually change the price by clicking the Edit button next to it. But I recommend you to proceed with the default setting.
-Let's try Send transaction now. On the next page, you'll see information on how much you send to someone and how much the transaction costs will go. Click yes to the question ‘Do you want to continue?’ Then the transaction is completed in a blink of an eye. Then click on view transaction info and the contents we send to you will be saved in the block and shown to the user. I will explain this later in more detail. So far, I've used Klaytn Wallet.
+
+天然气限制是处理此交易的天然气的最高成本。例如，假设我们在发送的事务中有一些无限循环。然后这个简单的事务将继续在网络中运行。这会导致网络性能下降。你不应该伤害每个人。所以，如果你有超过25,000气体，你认为有些东西是奇怪的，你必须停止处理。
+
+
+
+据说天然气价格包含25个test_ston，ston是KLAY的货币单位之一。就像美国的一美元是100美分一样，KLAY有很多单位。
+
+https://docs.klaytn.com/klaytn/design/computation/exec_model 
+
+
+Klaytn官方文件显示了KLAY单位。有很多事情。中间有一个标准的KLAY单元，顶部的peb是代表KLAY的最小单位。用于第10轮peb的单位是ston。那么25 ston转换为klay是什么。
+
+https://blockchains.tools/pebConverter?l=KLAY 
+
+如果你来到这个网站，你将转换许多单位。如果你把25放在斯通，KLAY就会得到这个。如果气体限制25000乘以此值，则0.000625 KLAY将出现。它用作交易费用。我们用计算器试试吧。如果您将其复制并乘以计算器气体限制25000，则会产生交易成本。这是处理交易的成本。
+
+
+请注意，当您从Klaytn发送这些简单的汇款时，交易成本始终固定为0.000625 KLAY。然而，交易成本并不是通过智能合约功能在交易中固定的，因为天然气限制根据交易的复杂性而变化。我稍后会详细解释这个问题。
+ 
+您可以通过单击旁边的“编辑”按钮手动更改价格。但我建议您继续使用默认设置。
+我们现在尝试发送交易。在下一页，您将看到有关您向某人发送了多少以及交易成本将会增加多少的信息。单击是以“是否要继续？”问题，然后在一眨眼间完成交易。然后单击查看交易信息，我们发送给您的内容将保存在块中并显示给用户。我将在后面更详细地解释这一点。到目前为止，我使用过Klaytn钱包。
 
  
 
 ## 4.3 Klaytn IDE & Smart Contract 1
  
-With the IDE provided by Klaytn, let's create a simple smart contract for our add-on game. Rather than focusing on smart contracts, I'm going to focus on Klaytn tools.
-You can create and test smart contracts by visiting http://ide.klaytn.net/. It is similar to Ethereum's remix IDE, but here it is used to connect to the Klaytn node, not to the Ethereum node. Now let's look at the features of the Klaytn IDE by creating our own smart contracts for our add-on games.
+使用Klaytn提供的IDE，让我们为我们的附加游戏创建一个简单的智能合约。我不会专注于智能合约，而是专注于Klaytn工具。
+
+您可以访问 http://ide.klaytn.net/ 来创建和测试智能合约。它类似于以太坊的混音IDE，但在这里它用于连接到Klaytn节点，而不是连接到以太坊节点。现在让我们通过为我们的附加游戏创建自己的智能合约来了解Klaytn IDE的功能。
  
-For reference, smart contract is called smart contract in English. I’m going to call it as ‘Contract’ in my class. If you look here, you already have a count contract created by default. I'll erase this and start. Please delete it. And as you can see in the comments at the top, the Klaytn IDE writes the Solidity 0.4.24 version, so you have to proceed with this version.
+作为参考，智能合约被称为英语智能合约。我将在课堂上将其称为“合同”。如果你看这里，你已经默认创建了一个计数合约。我会删除它并开始。请删除它。正如您在顶部的注释中所看到的，Klaytn IDE编写了Solidity 0.4.24版本，因此您必须继续使用此版本。
  
-Our contract has three functions. The first is to send the KLAY to the contract, the second to load the balance of the contract, and finally the function to send the KLAY from the contract to the user account. We will make one by one and use the tools to test it. First, let's name the contract as AdditionGame. Contract Edition game
+我们的合同有三个功能。第一个是将KLAY发送到合同，第二个是加载合同的余额，最后是将KLAY从合同发送到用户帐户的功能。我们将逐个制作并使用这些工具进行测试。首先，让我们将合同命名为AdditionGame。合约版游戏
  
-At the moment of deployment, you create a state variable that can store the address of the operator account. And I'm creating a constructor. Before that, what does the constructor usually do? Yes. It is primarily responsible for initialization. In the case of solidity, you can not write or load the constructor again, especially since it is the constructor that is first loaded when you deploy. I can take advantage of this and set up an account for the owner of the contract. First we create the state variable owner. The type is an address type. I'm building a constructor. Owner is msg. Sender.
+在部署时，您将创建一个状态变量，该变量可以存储操作员帐户的地址。我正在创建一个构造函数。在此之前，构造函数通常做什么？是。它主要负责初始化。在可靠性的情况下，您无法再次编写或加载构造函数，尤其是因为它是部署时首次加载的构造函数。我可以利用这个并为合同所有者建立一个帐户。首先，我们创建状态变量所有者。类型是地址类型。我正在构建一个构造函数。所有者是消息。发件人。
  
-I just created a constructor. msg.sender is the person currently calling this context. Msg.sender in the constructor means the account being used to deploy. So, I will assign that account to the owner state variable and save it to the blockchain forever. This is the initialization. So let's test the code we just added. You need to compile first. Click on the Auto checkbox at the top of the right panel to automatically compile each time you write the code. At first you have to click on the compile button to see if it compiles. Yes, the compiled information is on the bottom. Let's set the environment again. Environment There are several options to choose from: DEV NODE and Baobab. And I can add a new network. The Add New Network function connects to the rpc address where the Klaytn node is currently running and tests it. I will skip this part once. Dev node is an option to connect to and test the development node provided by Klaytn. It creates a random account and allows you to pre-order 100 KLAYs. And it's set to run out of gas for testing. So if you see From Account below, there are already 100 test KLAYs in this account. The option to connect to Baobab is also connected to the official test net. And the moment you select Baobab, the KLAY in the account below changes to zero. Dev nodes and baobab nodes operate independently of each other, so accounts at the same address are recognized by each other, but the state of the account is different because the nodes are different. So the balance will change.
- 
- 
-Let's try to refresh the page with the Dev node selected again. Next to Loading account, there is no account that I used before, and I create another new account. The funny thing is that you can download this account as a separate keystore file or secret key and reuse it. If you are testing on another computer, you may want to continue with the account you used. You can use this option at that time. For example, if you click on an account, you have a backup current account. When you select it, a window opens and you have the option to receive your keystore or secret key. Simply back up your secret key. When you click Copy to clipboard, you have now backed up the secret key for this account.
+我刚刚创建了一个构造函数。 msg.sender是当前调用此上下文的人。构造函数中的Msg.sender表示用于部署的帐户。因此，我将该帐户分配给所有者状态变量并将其永久保存到区块链中。这是初始化。所以让我们测试一下我们刚刚添加的代码。你需要先编译。单击右侧面板顶部的“自动”复选框，每次编写代码时自动编译。首先，您必须单击编译按钮以查看它是否编译。是的，编译的信息在底部。让我们再次设置环境。环境有几种选择可供选择：DEV NODE和Baobab。我可以添加一个新的网络。添加新网络功能连接到Klaytn节点当前正在运行的rpc地址并对其进行测试。我将跳过这一部分一次。 Dev节点是连接和测试Klaytn提供的开发节点的选项。它创建一个随机帐户，允许您预订100个KLAY。并且它将耗尽用于测试的气体。因此，如果您在下方的帐户中看到此帐户中已有100个测试KLAY。连接到Baobab的选项也连接到官方测试网。当您选择Baobab时，下面帐户中的KLAY会变为零。 Dev节点和baobab节点彼此独立地操作，因此在相同地址处的帐户彼此被识别，但是帐户的状态是不同的，因为节点是不同的。所以平衡会发生变化。
  
  
-Then refresh the page again. Once the account is created, click again and select the import an account option. Go to the Private key tab and paste the backed up secret key. The display label will be called the test account. Import. If you select the account again, you will have the test account we imported below. So when you come back to this page in this way, or on another computer, you can do the test consistently.
+让我们尝试再次选择Dev节点刷新页面。在加载帐户旁边，我之前没有使用过任何帐户，而是创建了另一个新帐户。有趣的是，您可以将此帐户作为单独的密钥库文件或密钥下载并重复使用。如果您在另一台计算机上进行测试，则可能需要继续使用您使用的帐户。您可以在此时使用此选项。例如，如果您单击某个帐户，则会有一个备用当前帐户。选择它后，将打开一个窗口，您可以选择接收密钥库或密钥。只需备份您的密钥即可。单击“复制到剪贴板”时，您现在已备份此帐户的密钥。
  
  
-Rather than explaining Tx Value, I will try to deploy it first. Deploy
-. After you click the compile button, you have the option to deploy our AdditionGame. Deploy Click. Then, deployment was completed in less than 3 seconds. There is a TX hash in the middle panel, right? This is the transactional hash information that was generated by the deployment. On top of that, it shows which address the contract address was deployed to.
+然后再次刷新页面。创建帐户后，再次单击并选择导入帐户选项。转到私钥选项卡并粘贴备份的密钥。显示标签将被称为测试帐户。进口。如果您再次选择该帐户，您将拥有我们在下面导入的测试帐户。因此，当您以这种方式或在另一台计算机上返回此页面时，您可以始终如一地进行测试。
  
  
-If you look at the panel next to it, you will see which address currently has the contract deployed, and below you have the option to load the value of the owner state variable. This is a getter function. Since we have declared the visibility of the state variable owner public, we can automatically generate a getter function to retrieve the value of the owner variable. When you press the Call button, the address below appears. What is this address?
+我将尝试首先部署它，而不是解释Tx值。部署
+。单击编译按钮后，您可以选择部署我们的AdditionGame。部署单击。然后，部署在不到3秒的时间内完成。中间面板中有一个TX哈希，对吧？这是部署生成的事务哈希信息。最重要的是，它显示了部署合同地址的地址。
  
-Yes This is the account address of the person who deployed this Contract. I have deployed the contract with the account visible from the from account, so this account is saved as the value of the state variable owner. Yes, I've written solidity code through the Klaytn IDE and tested the contract owner. Next, we will write and test the remaining two functions in the next class.
+ 
+如果查看旁边的面板，您将看到当前部署了合同的地址，下面您可以选择加载所有者状态变量的值。这是一个getter函数。由于我们已声明状态变量所有者public的可见性，因此我们可以自动生成getter函数以检索所有者变量的值。按“呼叫”按钮时，将显示以下地址。这是什么地址？
+ 
+是这是部署此合同的人员的帐户地址。我已使用来自帐户的帐户部署合同，因此此帐户将保存为状态变量所有者的值。是的，我通过Klaytn IDE编写了可靠性代码并测试了合同所有者。接下来，我们将编写并测试下一课程中剩余的两个函数。
 
 
 
@@ -97,56 +113,56 @@ Yes This is the account address of the person who deployed this Contract. I have
 ## 4.4 Klaytn IDE & Smart Contract 2
  
 
-Let's continue to create a function that looks at how many remaining KLAY balances are in the contract address. Please select the auto checkbox next to it. Inside the constructor, we're going to create a getBalance function.
+让我们继续创建一个函数，查看合同地址中剩余的KLAY余额数量。请选中旁边的自动复选框。在构造函数中，我们将创建一个getBalance函数。
 
-The function keyword is used, the name is getBalance (), the visibility is public, and the type is read-only with view. Finally, define uint type as a function that returns.
+使用function关键字，名称为getBalance（），可见性为public，类型为只读视图。最后，将uint类型定义为返回的函数。
 
-address (this) refers to the current contract itself. This is the edition game contract. And accessable the ballance as a member. This completes the function to load the KLAY balance at this contract address. Let’s re-deploy it for testing. Click on the Deploy button, then the getBalance () function is created and the Call button is activated. Let's click on this once. Then the current balance is zero. I have not send anything yet.
+地址（this）是指当前合同本身。这是版本游戏合约。并且可以作为会员使用平衡。这样就完成了在此合同地址加载KLAY余额的功能。让我们重新部署它进行测试。单击Deploy按钮，然后创建getBalance（）函数并激活Call按钮。我们点击这一次。然后当前余额为零。我还没发送任何东西。
  
  
-Next, let's create a function that sends KLAY to the contract address from the owner account.
+接下来，让我们创建一个函数，将KLAY从所有者帐户发送到合同地址。
 
-I made the visibility public and made the type payable. Whenever you send a KLAY to a solidity function in your account, you must always make the type as payable. That way I can get money from the function. Next, we will check the validity.
+我公开了可见性，并且应付了类型。每当您将KLAY发送到帐户中的可靠性功能时，您必须始终将类型设为应付款。这样我就能从这个功能中获得收益。接下来，我们将检查有效性。
 
-If you do not use the require keyword, the function will be terminated. msg.sender refers to the account that called this function now, and compares that account to the state variable owner account, so that if the account that currently loads this function is not the owner account, it will not execute the function. So I checked the validity check to see if I could transfer the KLAY from the owner account to the contract. Now, let's try testing.
+如果不使用require关键字，则该函数将被终止。 msg.sender是指现在调用此函数的帐户，并将该帐户与状态变量所有者帐户进行比较，这样，如果当前加载此函数的帐户不是所有者帐户，则不会执行该函数。所以我检查了有效性检查，看看我是否可以将KLAY从所有者帐户转移到合同中。现在，让我们试试吧。
  
  
-
-Please press the Deploy button. The deposit function is now activated. If you send a KLAY with the deposit function, you have to use Tx.value. If the function has a payable type, you have to use tx.value. With test_KLAY next to it, enter 1 as the value. Then click the deposit send button. Your transaction succeeded and returned a transaction receipt. If you look at the account from the from account, the balance is reduced from 100 KLAY to 99 KLAY. If this were the original, we would have to deduct the balance, including the cost of gas used to process the transaction, but we have chosen dev node, which does not include the development node or gas bill.
- 
-
-Now let's call the getbalance function to see how much the contract's balance is. It contains a value. Please note that we have only sent 1 KLAY, and the number is so large that you may get confused. This is now the value of 1 KLAY converted to peb, the minimum unit of KLAY. In the Klayton virtual machine, you need to convert KLAY to the smallest unit of peb and process it, so you see this number. When typing a value from tx value and sending it to the deposit function, thankfully the IDE will automatically convert it to the smallest unit, peb.
-It's a very useful feature for testing. Conversely, you can also test with different units in tx value, this time with the lowest unit, peb. Let's convert 2 KLAYs to peb and send it to the contract. Return to the unit conversion site, enter 2 KLAYs, copy the converted value to peb, and paste it into tx value.
- 
- 
-And then you call the deposit function. The transaction was successful. Let's call the getbalance function. Then the value increased. I've learned that you can test with unit conversion.
- 
+请按“部署”按钮。存款功能现已激活。如果您使用存款功能发送KLAY，则必须使用Tx.value。如果函数具有应付款类型，则必须使用tx.value。在其旁边的test_KLAY中，输入1作为值。然后单击存款发送按钮。您的交易成功并返回了一个交易收据。如果您从来自帐户查看帐户，余额将从100 KLAY减少到99 KLAY。如果这是原始的，我们将不得不扣除余额，包括用于处理交易的天然气成本，但我们选择了dev节点，其中不包括开发节点或天然气账单。
  
 
-And the gas limit is the limit of gas, which is auto by default. In other words, it calculates the gas limit for entering the function and automatically defines it. This is because calculation depends on the complexity of the function. So the gas limit for function processing is not fixed. When we send money with wallet from the former course, the gas limit was fixed at 25000. It's just a transaction that sends money, so there is no complexity and the gas limit is fixed. In fact, you can manually enter this gas limit and try more precise test. So far, I have learned the gas limit, and I have covered the part of transferring money from the owner account using transaction value to contract.
+现在让我们调用getbalance函数来查看合约余额是多少。它包含一个值。请注意，我们只发送了1个KLAY，而且数量太大，您可能会感到困惑。现在这是1 KLAY的值转换为peb，KLAY的最小单位。在Klayton虚拟机中，您需要将KLAY转换为最小的peb单位并对其进行处理，因此您可以看到此数字。从tx值键入值并将其发送到存储函数时，谢天谢地，IDE会自动将其转换为最小的单位peb。
+这是一个非常有用的测试功能。相反，您也可以使用tx值中的不同单位进行测试，这次使用最低单位peb。让我们将2个KLAY转换为peb并将其发送给合同。返回单位转换网站，输入2个KLAY，将转换后的值复制到peb，然后将其粘贴到tx值。
+ 
+ 
+然后你调用存款功能。交易成功。我们来调用getbalance函数。然后价值增加。我了解到你可以用单位转换进行测试。
+ 
+ 
+
+气体限制是气体的限制，默认为自动。换句话说，它计算进入功能的气体限制并自动定义它。这是因为计算取决于函数的复杂性。因此功能处理的气体限制不固定。当我们从前一个路线发送钱包钱时，气体限制固定在25000.这只是一个汇款的交易，所以没有复杂性，气体限制是固定的。实际上，您可以手动输入此气体限制并尝试更精确的测试。到目前为止，我已经了解了天然气限制，并且我已经涵盖了使用交易价值从合同转移资金的方式。
  
 
  
 ## 4.5 Klaytn IDE & Smart Contract 3
  
 
-With this last function, let's write a logic to transfer the money in the contract to the user account when the user has solved the problem of the addition game. For reference, the user who answered the correct answer calls this function directly to receive the money.
+使用这最后一个函数，让我们写一个逻辑，当用户解决了加法游戏的问题时，将合同中的钱转移到用户帐户。作为参考，回答正确答案的用户直接调用此功能来接收钱。
  
-get a KLAY value to pass to the user as an argument. Note that this value is converted from the front end to peb and passed. And a function that returns a Boolean. Next, you need to validate that the balance in the contract is equal to the value you want to send to the user.
- 
-
-Call the getbalance () function above to call up the remaining balance in the current contract and pass it if it is equal to or greater than the value received as an argument.
+获取KLAY值作为参数传递给用户。请注意，此值从前端转换为peb并传递。还有一个返回布尔值的函数。接下来，您需要验证合同中的余额是否等于您要发送给用户的值。
  
 
-msg.sender, The user with the correct answer has called this function(transfer (_value)) to get the prize money and send the KLAY to the user using the transfer function. And finally, I'll return success.
+调用上面的getbalance（）函数调用当前合约中的剩余余额，如果它等于或大于作为参数接收的值，则传递它。
  
 
-Now we have written the smart contract code that we will use. It was very simple. Now let's do the final test. To deploy, set Tx value to 0 and set gas limit back to auto. Your deploy was successful. In order to use the transfer function, we will send the KLAY again because the contract balance is 0 after the new deployment. Tx value is 3 and I’ll change Test_peb into Test_klay. Press send button in deposit function. If the transaction was successful, click ‘get balance’, your money came in. Remember that my account balance is 94 KLAY.
- 
-Now let's use the transfer function. Set the Tx value back to 0 and click the send button of the transfer function. Now, this is a function that contains parameters, you have to send the argument value when the window comes out. You must also convert the KLAY to peb when you send it. Remember that KLAY values ​​sent to the contract are converted to peb and passed. Go back to the conversion site and convert 1 KLAY. Copy and paste Peb values. Presse the call button and the transaction will be executed and the receipt will be returned successfully. Balance of ‘From account’ has been increased by one more KLAY. It was 94 KLAY just before. Finally, when calling the getbalance function, there are a total of 2 KLAYs left, with 1 KLAY decreased.
+msg.sender，具有正确答案的用户已调用此功能（转移（_value））以获得奖金并使用转移功能将KLAY发送给用户。最后，我会回归成功。
  
 
-For reference, this dev node is a node that is actually running, so, the track of the transactions we did will be recorded in the network. How do you test it? All you have to know is the contract address. The information under the deploy button is the contract address we have deployed to the dev node. Copy this and refresh the page.
+现在我们已经编写了我们将使用的智能合约代码。这很简单。现在让我们做最后的测试。要部署，请将Tx值设置为0并将气体限制设置回自动。您的部署成功。为了使用转移功能，我们将再次发送KLAY，因为新部署后合同余额为0。 Tx值为3，我将Test_peb更改为Test_klay。按存款功能中的发送按钮。如果交易成功，请点击“获取余额”，您的资金进入。请记住，我的帐户余额为94 KLAY。
  
 
-Click the compile button again and click the addition game arrow. Under it, paste the contract address again. Then the functions are activated again. Let's call the Getbalance function. Your balance will remain the same amount as before. It's easy. If you know only the contrack address, you can see the records I have tested. So far, we’ve studied the addition and testing of the addition game using the Klaytn IDE.
+现在让我们使用传递函数。将Tx值设置回0并单击传递函数的发送按钮。现在，这是一个包含参数的函数，您必须在窗口出现时发送参数值。您还必须在发送时将KLAY转换为peb。请记住，发送给合同的KLAY值将转换为peb并通过。返回转换网站并转换1个KLAY。复制并粘贴Peb值。按下呼叫按钮，将执行交易，并且将成功返回收据。 “来自账户”的余额增加了一倍。就在之前是94 KLAY。最后，当调用getbalance函数时，总共剩下2个KLAY，其中1个KLAY减少。
+ 
+
+作为参考，该dev节点是实际运行的节点，因此，我们所做的事务的跟踪将被记录在网络中。你是如何测试的？所有你必须知道的是合同地址。部署按钮下的信息是我们部署到dev节点的合同地址。复制此并刷新页面。
+ 
+
+再次单击编译按钮，然后单击添加游戏箭头。在它下面，再次粘贴合同地址。然后再次激活这些功能。我们来调用Getbalance函数。您的余额将保持与以前相同的金额。这很简单。如果您只知道对方地址，则可以看到我测试过的记录。到目前为止，我们已经使用Klaytn IDE研究了添加游戏的添加和测试。
