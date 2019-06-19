@@ -2,93 +2,97 @@
 
 ## 3.1 Consensus
  
-In previous chapters, we discussed the problems of the existing blockchain. Let's talk about how the Klaytn blockchain solves problems using a consensus algorithm. There are many types of consensus algorithms, such as pow or pos, which are commonly used in public blockchains, and pbft or raft, which are used in private blockchains. In general, private blockchains can reach agreement more efficiently than public blockchains. In particular, BFT-based private blockchains can achieve high performance and efficiency by limiting the number of participating nodes. However, this configuration limits the number of consensus nodes, weakens decentralization, and the content of consensus results is only disclosed to small groups. As a result, it limits transparency and harms the benefit of blockchain.
+在前面的章节中，我们讨论了现有区块链的问题。让我们来谈谈Klaytn区块链如何使用一致性算法解决问题。有许多类型的共识算法，例如pow或pos，它们通常用于公共区块链，而pbft或raft则用于私有区块链。一般而言，私有区块链可以比公共区块链更有效地达成协议。特别是，基于BFT的专用区块链可以通过限制参与节点的数量来实现高性能和高效率。然而，这种配置限制了共识节点的数量，削弱了分散，并且共识结果的内容仅向小组公开。因此，它限制了透明度并损害了区块链的好处。
 
-On the other hand, Klaytn chooses Istanbul BFT as a consensus algorithm since it believes that by well utilizing BFT's advantages, it can combine both advantages of public and private blockchains. It’s aiming for a public blockchain that provides big enterprises-supporting performance and stability while maintaining strong security and transparency. To achieve this goal, Klaytn adopts a trust model of private consensus with public disclosure. It consists of a small number of private nodes that achieve consensus, and other nodes that can publicly access and verify the outcome of block generation. Now let's see more about Istanbul bft that Klaytn is using as an agreement algorithm.
+另一方面，Klaytn选择伊斯坦布尔BFT作为共识算法，因为它相信通过充分利用BFT的优势，它可以结合公共和私人区块链的优势。它的目标是建立一个公共区块链，为大企业提供支持性能和稳定性，同时保持强大的安全性和透明度。为了实现这一目标，Klaytn采用了私人共识的信任模型，并进行了公开披露。它由少量实现共识的私有节点和其他可以公开访问和验证块生成结果的节点组成。现在让我们看看更多关于Klaytn用作协议算法的Istanbul bft。
  
-The Istanbul bft has a three-step consensus process. There are pre-prepare, prepare, and commit steps. Klaytn uses round-robin method to pick proposer among the consensus nodes every round. It means to be a proposer. The remaining consensus nodes are validators. And do the verification.
+伊斯坦布尔bft有一个三步共识的过程。有预备，准备和提交步骤。 Klaytn使用循环方法在每一轮的共识节点中选择提议者。这意味着成为一个提议者。剩余的共识节点是验证器。并进行验证。
  
-If you look at the picture, there are proposer, validator 1, 2, 3, and so on. Among them, the node marked with X is in a state that it is currently in a faulty state. It means that it is not functioning properly as a verifier. When the computer is broken, the network is disconnected, or the computer maliciously acts this kind of thing happens.
+如果你看图片，有提议者，验证器1,2,3等。其中，标有X的节点处于当前处于故障状态的状态。这意味着它作为验证者无法正常运行。当计算机坏了，网络断开，或者计算机恶意行为发生这种事情。
  
-The first step is a “propose” in which one of the consensus nodes is selected as a proposer.
-The second step is a pre-prepare where the proposer node creates blocks and makes suggestions to other nodes.
-Then, send the suggestion to the validator1 node, send it to the validator2 nodes, and send it to the validator3 nodes.
-This is the step to pass along with the message.
+第一步是“提议”，其中选择一个共识节点作为提议者。
+第二步是预先准备，其中提议者节点创建块并向其他节点提出建议。
+然后，将建议发送到validator1节点，将其发送到validator2节点，并将其发送到validator3节点。
+这是传递消息的步骤。
  
 
-In the third prepare step, when the verifier 1, 2, or 3 nodes receive the message from the proposer, they send messages that they have received the node successfully to the other nodes. The validator1 node sends the message to all three nodes, and the validator2 node also sends the message to all three nodes.
-However, the validator3 node sends nothing and just receive the messages because it is currently faulted.
+在第三准备步骤中，当验证者1,2或3个节点从提议者接收消息时，他们将已经成功接收到节点的消息发送到其他节点。 validator1节点将消息发送到所有三个节点，validator2节点也将消息发送到所有三个节点。
+但是，validator3节点不发送任何内容，只是接收消息，因为它当前出现故障。
  
-At the end of the prepare state, you can see how many nodes are in the system. Like this image here, we can see that all three are survived: proposers, validator1, and validator2.
-This process will ensure that all the verifiers are in the same round.
+在准备状态结束时，您可以看到系统中有多少节点。就像这里的图像一样，我们可以看到所有三个都存活下来：提交者，验证者1和验证者2。
+此过程将确保所有验证者处于同一轮。
  
-Finally, in the commit phase, it is the process of communicating with other nodes to decide whether to accept a block received from a proposer. For example, it sends a response to nodes to check if blocks from the proposer are okay or wrong. If nodes more than two-thirds agree, the block will be immediately approved. In the end, it is decided in the commit phase and the finality is made. That is, the absence of finality doesn’t exist and unchangeable final state is formed at this stage. It's not a vague state like PoW.
+最后，在提交阶段，它是与其他节点通信以决定是否接受从提议者接收的块的过程。例如，它向节点发送响应以检查来自提议者的块是好还是错。如果超过三分之二的节点同意，则该块将立即被批准。最后，在提交阶段决定并完成最终结果。也就是说，不存在终结性，并且在此阶段形成不可改变的最终状态。它不是像PoW那样模糊的状态。
  
-So the advantage is that communication leads to consensus and completeness immediately. However, there is a disadvantage that traffic increases exponentially as the number of consensus nodes increases. This part is set to pick only the part of the consensus node and maintain the form bft.
+因此，优势在于沟通可以立即达成共识和完整性。然而，存在一个缺点，即随着共识节点数量的增加，流量呈指数增长。此部分设置为仅选择共识节点的一部分并保持形式bft。
  
-Let's see how the block is created and propagated in the next class.
+让我们看看块是如何在下一个类中创建和传播的。
+
 ## 3.2 Block generation and dissemination
  
 
-Let's see how Klaytn creates and propagates blocks to provide a satisfying user experience.
+
+让我们看看Klaytn如何创建和传播块以提供令人满意的用户体验。
  
-Let's first look at the block creation cycle. Klaytn's block creation cycle is called a `round,` and a new block is created each round and a new round is started as soon as it ends. The block creation interval takes about 1 second.
+我们先来看一下块创建周期。 Klaytn的块创建周期称为“round”，每轮创建一个新块，并在新一轮结束时立即启动。块创建间隔大约需要1秒。
 
 
 
-Let's see how the proposer and committee choices work.
-In each round, the proposer to generate the block is pulled from one of the governance council nodes randomly but decisively. The governance council is a collection of core cells or consensus nodes. If you look at the image, these circles are the consensus nodes, of which the blue color was chosen as the proposer of the current round. And then select another consensus node group as the committee of that round. They are the validator nodes with pink color that is selected by the committee. More specifically, each consensus node uses a random number derived from the most recent block header to perform a cryptographic operation to prove that it has been selected for this round.
- 
-
-
-Let's take a look at the block suggestion and verification.
-When a consensus node is selected as a proposer, it will notify other consensus nodes of the evidence that it has been selected as a proposer in the round. At this time, it’ll prove this with the cryptographic proof which can be verified with public key of the proposer. Then, the consensus node group which is elected to the committee in the round tells the proposer, likewise, with evidence, why they were chosen to be a member of the committee. (Click) Now that you know who is the proposer and the committee, the proposer selects and sorts the transactions in the transaction pool and creates blocks. It then consents with the committee, agrees to the newly created block, and finishes.
+让我们看看提议者和委员会的选择是如何运作的。
+在每一轮中，生成块的提议者随机但果断地从一个治理委员会节点中提取出来。治理委员会是核心单元或共识节点的集合。如果你看图像，这些圆圈是共识节点，其中蓝色被选为当前轮次的提议者。然后选择另一个共识节点组作为该轮的委员会。它们是委员会选择的粉红色验证器节点。更具体地，每个共识节点使用从最近的块头导出的随机数来执行加密操作以证明它已被选择用于该轮。
  
 
-Finally, let's look at block propagation.
-The proposed block must be signed by two thirds of the members of the committee to be successfully completed. When the committee reaches agreement, the new block is delivered to all consensus nodes and the consensus round ends. Then you can now propagate the block to the endpoint nodes through the (click) proxy node.
-So far, we have come to understand how proposers and committees can be selected and agreed to block generation and propagate.
 
+我们来看看块建议和验证。
+当选择共识节点作为提议者时，它将通知其他共识节点证据表明它已被选为该轮次中的提议者。此时，它将通过加密证明来证明这一点，该加密证据可以使用提议者的公钥进行验证。然后，在该轮中被选入委员会的共识节点组同样向证据提供者提供证据，为什么他们被选为委员会成员。 （单击）现在您知道谁是提议者和委员会，提议者选择并对事务池中的事务进行排序并创建块。然后它与委员会同意，同意新创建的块，并完成。
+ 
+
+最后，让我们看一下块传播。
+拟议的区块必须由三分之二的委员会成员签署才能顺利完成。当委员会达成协议时，新的块将被传递给所有共识节点，并且共识轮结束。然后，您现在可以通过（单击）代理节点将块传播到端点节点。
+到目前为止，我们已经了解了如何选择提议者和委员会并同意阻止生成和传播。
  
  
 
 ## 3.3 Network structure
  
-Let's take a moment to explain Klaytn's network structure. On the left is the summarized version of the network. There is a core cell network in the whole network, and there is an endpoint node network surrounding the core cell. If you look at the enlargement next to it, inside the red box is the core cell network and the blue box outside is the endpoint network. In the core cell network, the yellow part is the CNN, consensus node network, and the red part is the PNN, proxy node network. The CNs in the yellow will be in charge of the consensus.
+
+我们花一点时间来解释Klaytn的网络结构。左侧是网络的摘要版本。整个网络中有一个核心小区网络，核心小区周围有一个端点节点网络。如果你看一下旁边的放大图，红色框内是核心单元网络，外面的蓝色框是终端网络。在核心小区网络中，黄色部分是CNN，共识节点网络，红色部分是PNN，代理节点网络。黄色的CN将负责达成共识。
  
  
  
-One core cell is operated by one participant. It operates with one CN and several proxy nodes connected to CN. To participate in CN, you have to meet up with tough conditions. And the CNs are all connected together so that they can communicate with each other. If there are 10 CNs, they are connected to each other. It's all connected because they have to communicate with each other as fast as they can when they are in the process of consensus. And the CNs cannot make direct contact with the outside. Because it is a very private environment with no interference, it has the advantage of being able to decide quickly whether to make the block or not, as a consensus node. So, how do you approach it? As a core cell participant, it’s like you run your proxy network that you can manage and trust to represent them. 
+一个核心小区由一个参与者操作。它与一个CN和几个连接到CN的代理节点一起运行。要参加CN，你必须遇到困难的条件。并且CN全部连接在一起，以便它们可以相互通信。如果有10个CN，则它们相互连接。这一切都是相互联系的，因为他们必须在达成共识的过程中尽可能快地相互沟通。 CN不能与外界直接接触。因为它是一个没有干扰的非常私密的环境，所以它具有能够快速决定是否制作块的优点，作为共识节点。那么，你如何接近它？作为核心单元参与者，就像您运行代理网络一样，您可以管理并信任它们来代表它们。
  
-And on the outside, the endpoint nodes are connected to the core cell network. These endpoint nodes can connect to the proxy node in the core cell to receive information. Of course, the endpoint nodes can connect and exchange information with each other. However, if the endpoint node connects to the proxy node, you can receive the block more quickly. Note that there is no requirement to be an endpoint node. Anyone can be an endpoint node and pass the information to clients such as the web or mobile. It's the endpoint node that acts as a service provider.
+在外部，端点节点连接到核心小区网络。这些端点节点可以连接到核心单元中的代理节点以接收信息。当然，端点节点可以相互连接和交换信息。但是，如果端点节点连接到代理节点，则可以更快地接收块。请注意，不需要是端点节点。任何人都可以是端点节点，并将信息传递给客户端，例如Web或移动设备。它是充当服务提供者的端点节点。
  
  
-And again, you have a CN boot node, a PN boot note, and an EN boot node, which is a special type node operated by Klaytn that helps new nodes register to the network and connect to another node. The CN boot node is inside the CN network and is not published. The PN and EN boot nodes are public nodes. PN boot nodes allow you to register only allowed proxy nodes and helps you to connect to endpoint nodes. The EN boot node provides information to the endpoint nodes about which proxy node to connect to. So far we have briefly covered the Klaytn network structure.
+同样，您有一个CN启动节点，一个PN启动注释和一个EN启动节点，它是由Klaytn运营的特殊类型节点，可帮助新节点注册到网络并连接到另一个节点。 CN引导节点位于CN网络内部，未发布。 PN和EN引导节点是公共节点。 PN启动节点允许您仅注册允许的代理节点，并帮助您连接到端点节点。 EN引导节点向端点节点提供有关要连接到哪个代理节点的信息。到目前为止，我们已经简要介绍了Klaytn网络结构。
  
 ## 3.4 Core Cell
  
 
  
  
-Let's talk more about core cells. When the main net is launched, in the core cell which is responsible for the consensus will operate in a few dozen units. As services become better, what should we do in terms of scalability if there are more connections to the core cell?
-In a general case, not blockchain, as users grow, we'll grow the server and split up the requests. However, in the case of a blockchain, increasing the number of nodes can slow down the processing speed because more information needs to be passed to each node as it grows. Increasing the number of nodes does not increase performance. So, rather than increasing the number of nodes, increasing the performance of the node itself is the right way. For example, you can increase the performance of ram or cpu. Let's look at the conditions for joining as a consensus node. The performance of the participant
+让我们来谈谈核心细胞。当主网启动时，负责共识的核心小区将在几十个单元中运行。随着服务变得更好，如果与核心单元有更多连接，我们应该在可扩展性方面做些什么？
+在一般情况下，不是区块链，随着用户的增长，我们将扩展服务器并拆分请求。但是，在区块链的情况下，增加节点数会降低处理速度，因为随着增长，需要将更多信息传递给每个节点。增加节点数不会提高性能。因此，不是增加节点数量，而是提高节点本身的性能是正确的方法。例如，您可以提高ram或cpu的性能。让我们看一下作为共识节点加入的条件。参与者的表现
  
  
-1. More than 40 physical cores
+
+1.超过40个物理核心
 2. 256GB RAM
-3. Saving approximately 14TB of data for one year
-4. 10G network
+3.节省大约14TB的数据一年
+4. 10G网络
  
  
  
-Note that the high performance of one of the participant's consensus nodes doesn’t mean the high speed of the entire core cell network. Because the remaining nodes with lower performance are operating at their low specifications. Therefore, in order to improve the performance of the core cell, it is necessary to match the same specifications to improve the performance.
+
+请注意，参与者的一致意见节点之一的高性能并不意味着整个核心小区网络的高速性。因为性能较低的其余节点以低规格运行。因此，为了提高核心单元的性能，必须匹配相同的规格以改善性能。
  
  
  
  
-And looking at the structure of the core cell again, it can be seen that it consists of one CN and several PNs. There are several reasons why a proxy node is called a PN. Because CN has limited resources to connect and the number of CNs is limited, it supports connection of endpoints using PN. For example, let's say that endpoint nodes can connect directly to the CN. If this CN can accept up to a thousand endpoint connections, then if it goes beyond that, it will be burdened by the CN and its performance might go wrong. So PN is doing this part instead. The PN connects with the endpoint nodes and passes the transits to the CN. And since CN only needs to connect to a few PNs, it is much less burdensome, and you can solve the connectivity problems of endpoints trying to connect to the core cell by placing multiple PNs.
+再看一下核心单元的结构，可以看出它由一个CN和几个PN组成。将代理节点称为PN的原因有几个。由于CN的连接资源有限且CN的数量有限，因此它支持使用PN连接端点。例如，假设端点节点可以直接连接到CN。如果这个CN可以接受多达一千个端点连接，那么如果它超出了这个连接，它将受到CN的负担，并且它的性能可能会出错。所以PN正在做这个部分。 PN与端点节点连接并将传输传递给CN。由于CN只需连接几个PN，因此负担更轻松，您可以通过放置多个PN来解决尝试连接核心单元的端点的连接问题。
  
-To summarize, because CN is the node responsible for the agreement, the connection should not be a performance hindrance. So, the role of the PN is to protect the CN, and the problem of scalability can be solved by placing multiple PNs.
+总而言之，因为CN是负责协议的节点，所以连接不应成为性能障碍。因此，PN的作用是保护CN，并且可以通过放置多个PN来解决可扩展性问题。
  
  
  
@@ -102,17 +106,17 @@ To summarize, because CN is the node responsible for the agreement, the connecti
 
 
  
-Klaytn's service chain is an independently operated blockchain connected to the main net. This idea comes from scalability. In a situation where you want to use a service chain, you need to set it in a special node environment, or if you want to customize the security level, for example, when you want to run a private blockchain. Services that require tremendous throughput. When it is not economically feasible to distribute services to Main net, they use the service chain.
+Klaytn的服务链是一个独立运营的区块链，连接到主网。这个想法来自可扩展性。在您想要使用服务链的情况下，您需要在特殊节点环境中设置它，或者如果要自定义安全级别，例如，当您要运行私有区块链时。需要巨大吞吐量的服务。如果将服务分配给主网在经济上不可行，他们就会使用服务链。
  
-If you look at the image, the big circle in the middle is the main net. It can be seen that the service chain holds trust in the main chain, which is not free to communicate between the main chain and the service chain, and only limited transactions can be used. Also, the transmission of the KLAY will be allowed only when there are later restrictions.
- 
- 
+如果你看图像，中间的大圆是主网。可以看出，服务链在主链中保持信任，主链在主链和服务链之间不能自由通信，并且只能使用有限的事务。此外，只有在以后的限制时才允许传输KLAY。
  
  
  
-In other words, the service chain builds a separate service space and locks the trust on the main net when needed. Other blockchain platforms are also moving toward adopting technologies such as service chains. In the case of Ethereum, I felt the limitations of the main network in terms of capacity and speed.  It is well known that Crypto Kitty,which once made a huge boom slowed the Ethereum main network. So, on the Ethereum side, they put a concept based on a sidechain technology called Plasma, which, if done correctly, would lessen the burden on the main chain and allow more transactions to be processed per second. But it is still not coming out.
  
-By the way, in Klaytn's service chain, you can set zero gas fee for all transactions. It means that the BApp developers or service providers can build their own environment and provide services to users in the service chain. Yes, I've talked about what Klaytn's service chain is all about.
+ 
+换句话说，服务链构建一个单独的服务空间，并在需要时锁定主网上的信任。其他区块链平台也正在采用服务链等技术。在以太坊的情况下，我感受到主网络在容量和速度方面的局限性。众所周知，Crypto Kitty曾经引发了巨大的繁荣，减缓了以太坊的主要网络。因此，在以太坊方面，他们提出了一个基于Sidechain技术的概念，称为Plasma，如果正确完成，将减轻主链的负担，并允许每秒处理更多的事务。但它仍然没有出来。
+ 
+顺便说一句，在Klaytn的服务链中，您可以为所有交易设置零燃气费。这意味着BApp开发人员或服务提供商可以构建自己的环境并为服务链中的用户提供服务。是的，我已经谈到了Klaytn的服务链是什么。
  
  
  
@@ -123,47 +127,47 @@ By the way, in Klaytn's service chain, you can set zero gas fee for all transact
 ## 3.6  Difference between Klaytn and Ethereum - Different roles of nodes
  
  
-Let's talk briefly about the difference between Ethereum and Klaytn.
+让我们简单谈谈以太坊和Klaytn之间的区别。
  
-Ethereum is a single network. There is no distinction between network members. Anyone can create a block, but when it comes to creating a block, a person needs to be the first to notify that he or she made it first, and that it should be known to many places.
-So if you add a block to a blockchain, you get a compensation.
-This is PoW, a proof-of-work method used by Ethereum as a consensus protocol.
- 
- 
-In Ethereum, you need to stick to as many nodes as possible because you do not know who will be the block mining node.
-In other words, nodes that write blocks have up-to-date information.
-So I want to get information quickly but I do not know where this node is.
-If you know that the node A is always fastest at writing a block on node, you only need to stick to this node A, then you can receive information most fast.
- 
-However, since Ethereum is always changing its node, you have to stick to as many as possible, thereby, being gossiped to as many nodes as possible.
+以太坊是一个单一的网络。网络成员之间没有区别。任何人都可以创建一个块，但是当涉及创建一个块时，一个人需要成为第一个通知他或她首先创建一个块的人，并且它应该为许多地方所知。
+因此，如果您向区块链添加一个区块，您将获得补偿。
+这是PoW，一种以太坊作为共识协议使用的工作证明方法。
  
  
-Then this will give you a chance to get the latest information.
-Since any node can write and propagate blocks, you need to connect with as many nodes as possible to get the latest data.
+在以太坊中，您需要坚持尽可能多的节点，因为您不知道谁将是块挖掘节点。
+换句话说，写块的节点具有最新信息。
+所以我想快速获取信息，但我不知道这个节点在哪里。
+如果您知道节点A在节点上写入块总是最快的，那么您只需要坚持这个节点A，然后就可以最快地接收信息。
  
-Klaytn, on the other hand, is not a single network, but a network with two layers.
-I said that one of the consensus nodes in the core cell network would be taken as a proposer and played a role of block writing per round.
-So how do you get the latest information?
-I should stick around.
-The end-point nodes sticked to core cell know that consensus nodes are building blocks, so they are attached next to CNs.
+但是，由于以太坊总是在改变它的节点，你必须坚持尽可能多的节点，从而尽可能多地节目。
  
  
-That way you can load or write reliable information.
-When we create an application we build servers that are shown here.
-You can deploy Java or SQL DB to cloud or private servers like Azure or AWS.
-However, because this server cannot be directly associated with the core cell, you must first connect to the endpoint node to access blockchain data.
-You can connect your computer to an endpoint node or use it to connect to another endpoint node.
-However, running this endpoint node personally is not easy.
-Since the blockchain system needs to synchronize all nodes when operating a node, it needs to be synchronized every time new blocks are added in order to write properly.
+然后，这将使您有机会获得最新信息。
+由于任何节点都可以编写和传播块，因此您需要连接尽可能多的节点以获取最新数据。
+ 
+另一方面，Klaytn不是一个单一的网络，而是一个有两层的网络。
+我说核心小区网络中的一个共识节点将被视为提议者，并且每轮都扮演着块写入的角色。
+那么你如何获得最新信息？
+我应该坚持下去。
+粘在核心单元上的终点节点知道共识节点是构建块，因此它们附加在CN旁边。
  
  
+这样您就可以加载或写入可靠的信息。
+当我们创建应用程序时，我们构建了这里显示的服务器。
+您可以将Java或SQL DB部署到云或私有服务器（如Azure或AWS）。
+但是，由于此服务器无法与核心单元直接关联，因此必须先连接到端点节点才能访问区块链数据。
+您可以将计算机连接到端点节点，也可以使用它连接到另一个端点节点。
+但是，亲自运行此端点节点并不容易。
+由于区块链系统在操作节点时需要同步所有节点，因此每次添加新块时都需要对其进行同步才能正确写入。
  
  
  
  
-In addition, there is also a concern that the computer may be crashed by an attack.
-Because of these problems, you can connect to a trusted external node, such as Ethereum’s infrastructure node.
-For example, you have a web developer here. He wants to connect to Klaytn and just read the data. Then, it’s better to connect to the external, public node and use it to make it much easier and less time-consuming than to run a personal endpoint node.
  
-Finally, unlike Ethereum, there is a service chain that can communicate partially with the main net on the right and builds a separate service space.
-To summarize, Klaytn is a network in which two layers trust each other, and when accessing an internal blockchain, the endpoint node can connect to the core cell network and write or receive data quickly.
+ 
+此外，还有人担心计算机可能会受到攻击而崩溃。
+由于这些问题，您可以连接到受信任的外部节点，例如以太坊的基础结构节点。
+例如，您在这里有一个Web开发人员。他想连接到Klaytn，只是读取数据。然后，最好连接到外部公共节点并使用它来使其比运行个人端点节点更容易，更省时。
+ 
+最后，与以太坊不同，有一个服务链可以与右侧的主网部分通信，并构建一个单独的服务空间。
+总而言之，Klaytn是一个网络，其中两个层相互信任，当访问内部区块链时，端点节点可以连接到核心单元网络并快速写入或接收数据。
