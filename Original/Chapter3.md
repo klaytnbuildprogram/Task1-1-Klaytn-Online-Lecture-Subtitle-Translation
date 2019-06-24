@@ -1,6 +1,6 @@
-## 3. Understanding "Klaytn"
+# 3. Understanding "Klaytn"
 
-# 3.1 Consensus
+## 3.1 Consensus
  
  
  
