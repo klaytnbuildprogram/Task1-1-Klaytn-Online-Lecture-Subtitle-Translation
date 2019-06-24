@@ -1,6 +1,6 @@
-#2. The weakness of the Blockchain platform
+# 2. The weakness of the Blockchain platform
 
-##2.1 Scalability
+## 2.1 Scalability
  
  
 Scalability means to scale the platform. 
@@ -43,7 +43,7 @@ Performance of a computer doesn’t make any difference than that of tens of tho
 As a result, blockchain networks such as Bitcoin or Ethereum are not able to handle large volumes of transactions and the network itself is slow.
  
  
-##2.2 Lack of finality
+## 2.2 Lack of finality
  
  
 Finality refers to the unchangeable final state. 
@@ -73,7 +73,7 @@ In a little difficulty, finality measures how long to wait to get a reasonable g
 Lastly, waiting for a long time in a blockchain network can have a significant impact on your business, so the fast finality is an important business asset. 
 So far I have briefly explained the absence of finality of existing representative blockchains.
  
-##2.3 Fork
+## 2.3 Fork
   
 Fork refers to the phenomenon that the connections of blocks are split into two or more branches. 
 The reason forking occurs because all participants in a blockchain p2p network can independently mine. 
