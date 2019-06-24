@@ -9,8 +9,8 @@ Languages: Vietnamese, Thai, Japanese, Chinese, Korean
 *Should you prefer to work with any other languages, feel free to let us know by writing to us at [community@klaytn.com].
 
 Contribution Steps:
-1. Go to GitHub (Task 1–2 Klaytn Online Lecture Subtitle Translation). Choose the language and the chapter you would like to contribute to.
-2. Start translating the English version into the desired language.
+1. Go to GitHub (Task 1–2 Klaytn Online Lecture Subtitle Translation). See the English version of the subtitle text under the 'Original' folder.
+2. Choose one of the language folders and start translating the English version into the designated language.
 3. Feel free to provide feedback and suggest other amendments if needed. We encourage you to collaborate amongst yourselves.
 4. Your pull requests will be reviewed and merged by our team.
 
