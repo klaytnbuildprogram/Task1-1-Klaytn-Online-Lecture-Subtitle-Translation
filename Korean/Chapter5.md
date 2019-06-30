@@ -239,18 +239,472 @@ abi는 application binary interface의 약자입니다.
  
 ## 5.5 계정 검증 UI
 
+바오밥 월렛을 통해 만들어진 계정으로 로그인을 해보는 부분을 지금부터 시작해 보도록 하겠습니다.
+우리가 계정 인증하기 위한 방법이 두가지가 있었죠.
+키스토어 파일과 비밀 번호 조합을 사용하는 것과 프라이빗 키, 즉 비밀 키를 사용해서 인증하는 방법이 있습니다.
+저희가 구현할 방법은 키스토어 파일과 비밀번호 조합을 통해 인증할 건데요.
+먼저 html 코드를 작성하겠습니다.
+index.html 파일로 오셔서 여기 바디 태그 있죠. 여기 안에다가 내용을 추가할 껀데
+일단 먼저 추가 했구요. 여러분들 지금 이 영상 멈추고 코드 작성해 주시기 바랍니다.
+
+  <div class="container">
+    <div class="row">
+  	<div class="col-md-8 col-md-offset-2">
+    	<h1 class="text-center">클레이튼(Klaytn)</h1>
+    	<h3 class="text-center">속전속결 덧셈 게임</h1>
+    	<h3 class="text-center">
+      	<code>3초안에 맞출 시 0.1 KLAY 지급 이벤트</code> 
+      	<button type="button"
+              	class="btn btn-info pull-right"
+              	id="login"
+              	data-toggle="modal"
+              	data-target="#loginModal">
+              	로그인
+      	</button>
+      	<button type="button"
+              	class="btn btn-info pull-right"
+              	id="logout"
+    	          style="display: none;"
+              	onclick="App.handleLogout()">
+              	로그아웃
+      	</button>
+    	</h3>        
+    	<hr />
+  	</div>
+	</div>
+  </div> 
+
+아주 간단한 세팅인데 제가 설명해 드릴게요.
+위에서부터 이 class 안에 container나 row나 col-md-8, text-center 이런 애들은 ui를 이쁘기 위해 부트스트랩을 사용하는 거구요.
+이게 별로 중요한게 아니라서 부트스트랩에 대한 자세한 설명은 건너 뛰도록 하겠습니다.
+우선 윗부분에는 이렇게 설명하는 문구들을 넣었구요.
+아래쪽에는 로그인 버튼과 로그아웃 버튼을 추가를 했습니다.
+로그인 버튼을 클릭했을 때, 모달창을 띄울거 구요.
+로그아웃 버튼을 클릭했을 때에는 이 handleLogout() 함수를 실행시킬 겁니다.
+참고로 로그아웃 버튼은 여기 있는 css 부분을 통해 안보이게 세팅을 해두었구요.
+일단 앱 실행해서 우리가 작성한 코드가 잘 나오나 확인해 보겠습니다.
+터미널에 npm run dev 커맨드 실행시키시구요.
+그리고 브라우저 하나 열어서 여기서 localhost:8081 입력하시고 오시면 됩니다.
+그러면 그렇게 아름답지는 않지만 보기 괜찮은 뷰가 렌더링 됬습니다. 
+이제 로그인 버튼을 클릭했을때 뜨게 되는 모달을 작성해 볼건 데요.
+이 사이트로 오시면은 부트스트랩 사이트입니다. 제가 이걸 링크 걸어드릴게요. 'https://bootstrapdocs.com/v3.3.6/docs/javascript/#modals'
+자 여기서 모달 코드를 가져올 수가 있는데 아래쪽으로 내려가 보시면은 이 부분이에요.
+여기 있는거 다 복사해 옵니다. 
+복사하시고 다시 html파일로 오셔서 이 container div 바깥쪽에다가 붙여넣습니다. 이렇게요.
+이제 이 모달 안에 있는 내용들을 변경을 해 보겠습니다.
+먼저 여기 맨 위쪽에 div id를 loginModal로 설정하겠습니다.
+
+<div class="modal fade" tabindex="-1" role="dialog" id="loginModal">
+
+네 이렇게 해야 로그인 버튼 클릭했을 때 이 모달이 열릴 수 있어요.
+위쪽 로그인 버튼 이 data-target 속성 보시면은 loginModal 이라고 했죠.
+자 이 값과 지금 서로 매칭을 해주는 겁니다. 그렇죠 이렇게 해야 열릴 수 있구요.
+자 그 다음으로는 모달의 크기를 작은걸로 좀 바꾸겠습니다.
+여기다가 modal-sm, 그리고 이 modal-header 부분은 지우시고요. 네 다 지웁니다.
+그리고 modal-body 안에도 이 내용 지금 지우구요.
+네 이 modal-body 안에다가 이제 keystore 파일 불러올 수 있는 부분이랑 비밀번호 입력하는 부분 추가할 건데요.
+자 이렇게 해 주십니다.
+
+<div class="form-group">
+
+자 부트스트랩 사용해서 이쁘게 만들거구요.
+레이블 하나 추가합니다.
+
+<label for="keystore">Keystore</label>
+
+자 인풋 하나 추가하구요.
+
+<input type="file" id="keystore" onchange="App.handleImport()">
+
+여기까지 하면 됐구요. 다시한번 설명을 하면은 input 타입은 file 그리고 onchange 이벤트를 통해 index.js 파일 안에 있는 handleImport() 함수를 실행시킵니다.
+그리고 그 밑에 비밀번호 입력할 수 있는 부분도 추가할 껀데 자 form-group 바로 아래다가 이거 일단 복사를 할게요.
+똑같은 복사하시고 붙여넣구요. 그다음에 이름만 좀 변경을 하겠습니다.
+자 label for에는 input-password로 바꾸어 주시구요.
+여기는 비밀번호 타입은 비밀번호겠죠. password
+자 그리고 부트스트랩을 써서 좀 이쁘게 만들겠습니다.
+id는 input-password 자 여기도 onchange 이벤트를 사용할껀데 이번에는 handlePassword() 함수를 불러올껍니다. 호출할 꺼구요.
+마지막으로 p 섹션 하나를 추가를 하죠.
+
+<p class="help-block" id="message"></p>
+
+네 자 이 부분이 지금 인증을 통과했거나 에러났을 때, 메세지로 보여주는 부분을 추가한 거 구요.
+마지막으로 footer에 Close는 닫기로 바꿔주시고 그리고 save chages는 제출로 바꿉니다.
+그리고 이 부분에 id 속성 하나 추가 하는데요. submit라고 하고 onclick 이벤트를 또 실행시킵니다.
+클릭했을 때 handleLogin()이라는 함수를 호출을 할꺼구요.
+자 이제 완성된 코드가 뷰에서 잘 작동하나 확인해 보겠습니다.
+다시 이쪽으로 가셔서 로그인 버튼 클릭해보구요.
+그러면 모달이 뜨고 파일 선택할 수 있는 옵션과 비밀번호 입력할 수 있는 부분이 잘 생성됬습니다.
+여기까지 계정 인증하는 ui를 만들어 보았습니다.
+
 ## 5.6 계정 검증 로직(키스토어 확인)
+
+앞에서 보여지는 ui를 만들었으니 이제 작동하게끔 로직을 구현해보도록 하죠.
+index.js 파일로 가시면은 위에 App이라는 상수고 있구요 그 안에 여러가지 함수들이 있습니다.
+그리고 맨 마지막으로 내려가면은 페이지가 로드될 때, 제일 먼저 App 상수 안에 있는 이 start() 함수를 실행시킨다는 걸 알 수 있구요.
+그래서 이 start() 함수를 구현을 할 껀데, 그전에 klaytn 블록체인과 소통할 수 있는 caver.js 라이브러리를 불러오고 BApp안에서 쓸 수 있도록 인스턴스화 시켜야 합니다.
+자 맨 위에다가 여기다가 임포트 하나 할게요.
+
+import Caver from "caver-js";
+
+맨 위에다가 caver.js 임포트 시켰구요.
+그리고 환경설정 상수 하나 만듭니다. 자 여기 위에다가
+
+const config = {
+  rpcURL: 'https://api.baobab.klaytn.net:8651'
+}
+
+config 안에 rpcURL이 있는데요.
+우리가 어떤 클레이튼 노드에 연결해서 쓸지 여기에다가 정의를 한 겁니다.
+바오밥 테스트넷이라구 했구요.
+마지막으로 이 rpcURL을 Caver 생성자에 넘겨서 인스턴스화하는 상수를 만들겠습니다.
+바로 아래에다가 
+
+const cav = new Caver(config.rpcURL);
+
+인스턴스화 작업이 이렇게 끝났구요. 이 caver 상수를 이제 BApp 안에서 쓸 수 있게 해놓았습니다.
+이제 start() 함수를 꾸미면 되는데, 사실 start() 함수에서는 session이라는 것을 통해 계정 인증을 했던 적이 있었는지 체크를 먼저 해야합니다.
+그런데 session 사용하는 부분이 나중에 있어서 일단 start() 함수를 공백으로 납두도록 하겠습니다.
+handleImport() 함수부터 구현하도록 하죠.
+우리가 로그인 버튼 클릭하고 모달이 뜬 다음에 키스토어 파일을 선택할 수가 있죠.
+그런데 이파일이 과연 유효한 키스토어 파일인가 먼저 검사를 해야합니다. 
+그 과정을 이 handleImport() 함수에서 해 보도록 하구요.
+먼저 FileReader 객체를 생성해서 상수에 담습니다.
+
+const fileReader = new FileReader();
+
+그리고 readAsText() 함수를 통해 선택한 파일을 읽구요.
+
+fileReader.readAsText(event.target.files[0]);
+
+event.target.files 이 부분은 우리가 선택한 파일을 뜻합니다.
+이제 readAsText()가 실행이 완료 되면, FileReader의 onload 이벤트가 발생합니다.
+
+fileReader.onload = (event) => {  	
+  
+}
+
+callback으로 받은 이 event, 즉 파일의 내용을 이제 이 코드 블록 안에서 쓸 수 있는데요.
+이 파일의 내용이 유효한 키스토어 파일인가 검사를 할 겁니다.
+먼저 안에다가 try catch 블록 추가 하구요.
+
+try {
+   	
+} catch (event) {
+
+}
+
+이제 파일의 내용이 유효한지, 즉 진짜 키스토어 파일이 맞는지 if문을 통해 확인을 합니다.
+
+if (!this.checkValidKeystore(event.target.result)) {
+ 
+}
+
+이 checkValidKeystore()라는 함수에 우리가 읽은 파일의 내용을 인자로 이렇게 넘겼죠.
+자 이제 checkValidKeystore() 함수를 꾸며 보도록 하겠습니다.
+이쪽으로 가시면은 이 함수가 인자로 keystore를 받구요, 파일을 받은거죠.
+그리고 받은 keystore 파일이 json 파일인데 이 json 안에 있는 속성들을 변수로 활용하기 위해서 자바스크립트 오브젝트로 바꾸겠습니다.
+
+const parsedKeystore = JSON.parse(keystore);
+
+JSON의 parse함수를 써서 keystore 파일 안에 있는 내용을 분해하고 오브젝트로 변환해서 이 상수에다가 저장을 했습니다.
+그다음에는 무엇을 해야 할까요?
+네 키스토어 구성에 필요한 속성들이 잘 들어가 있는지 확인을 합니다.
+제가 키스토어 파일을 직접 보면서 뭐가 필요한지 보도록 하죠.
+여기 보시면은 키스토어 구성에 필수적인 요소들이 이 version, id, address, 그리고 crypto가 있습니다.
+이 네가지 field들이 존재해야 키스토어 파일인 거 구요.
+그래서 코드를 통해 체크하겠습니다.
+
+const isValidKeystore = parsedKeystore.version && (버전 필드가 있는지 그리고)
+  	parsedKeystore.id && (id가 있는지)
+  	parsedKeystore.address && (그리고 주소 address가 있는지)
+  	parsedKeystore.crypto; (마지막으로 crypto 필드가 있는지 확인해 줍니다.)
+
+이 네가지가 있어야 되구요.
+마지막으로 이 상수를 return해주면 마무리가 됩니다.
+
+return isValidKeystore;
+
+네 이렇게 하면 마무리가 되구요.
+이제 다시 위로 올라가서 이제 불러온 파일이 유효한 키스토어 파일인지 저희가 검증을 했죠.
+만약에 아니면은 메세지로 유효하지 않다고 보여주고 또 함수를 종료합니다.
+
+$('#message').text('유효하지 않은 keystore 파일입니다.');
+return;
+
+다시한번 정리를 하죠. 저희가 보낸 파일이 키스토어 파일인지 유효한 키스토어 파일이 아니면 이 에러 메시지도 보내고 함수를 종료합니다.
+반대로 검증을 통과했어요. 그러면 키스토어 파일의 내용을 전역변수에 저장합니다. 
+그러면 먼저 전역변수를 만들어야 하는데요. 
+start함수 바로 위에다가 auth라는 전역변수를 하나 만들구요.
+세개의 필드를 갖고 있을껍니다. accessType 값으로 저희는 keystore를 줄거구요.
+두번째 필드는 keystore, 마지막은 password입니다.	
+
+auth: {
+	accessType: 'keystore',
+	keystore: '',
+	password: ''
+  },
+
+자 이렇게 바꿔주고요. 자 이 auth 오브젝트 안에 세가지 필드가 있다고 했죠.
+accessType은 인증 방식인데요. 'keystore'타입과 'privatekey' 타입이 있죠.
+우리는 keystore타입으로 진행하는 거구요.
+두번째로 keystore 필드는 키스토어 파일의 전체내용을 저장하고 마지막으로 password는 키스토어 파일과 조합되는 비밀번호를 담는 필드입니다.
+다시 함수로 돌아가서 자 이제 검증을 통과하면은
+
+this.auth.keystore = event.target.result;
+
+네 우리가 만든 auth 이변수에 keystore 필드에다가 불러온 keystore 파일 전체 내용을 대입을 했습니다.
+자 그 다음에 성공했다는 메시지를 보냈구요. 자 이 위에꺼 복사하죠.
+복사해서 성공했다라는 메시지 "keystore 통과. 비밀번호를 입력하세요"
+그리고 곧바로 password 필드를 타이핑할 수 있도록 만듭니다.
+
+document.querySelector('#input-password').focus();
+
+마지막으로 파일 읽으면서 에러가 났을 시에 이 catch 블록 안에서 에러 메시지를 보내고 함수를 종료시키겠습니다.
+자 여기도 똑같이 복사하셔서 맨 위에꺼 복사하죠 똑같은 에러니까.
+이렇게 하고 return 문을 통해 함수를 종료 시킵니다.
+handleImport() 함수는 여기까지 하면 구현이 됬구요. 이제 테스트를 해보겠습니다.
+npm run dev해서 실행시켜주시구요.
+실행이 되면 브라우저로 가서 로그인 버튼 클릭하시구요. 키스토어 파일 선택합니다.
+네 그러면 통과 메시지가 떴죠. 그리고 비밀번호 입력하는 곳으로 포커스가 바로 옮겨졌습니다.
+네 반대로 아무 파일이나 선택해 보겠습니다.
+아무 파일, 키스토어 파일 말고 선택하면 유효하지 않은 keystore 파일입니다 라고 에러 메시지 떴죠.
+잘 작동을 하구요. 이제 이 아래에 비밀번호를 입력하면 비밀번호를 전역 변수에 저장하는 함수를 구현해 보도록 하겠습니다.
+아주 간단한 거 구요.
+html로 가보시면 우리가 비밀번호 입력할 때, 이 handlePassword 함수가 호출되죠.
+그러면은 handlePassword 함수에다가 여기서
+
+this.auth.password = event.target.value;
+
+html onchange 이벤트를 통해 이렇게 비밀번호 값을 불러오고 전역변수 auth에 password 필드에다가 대입을 했습니다.
+간단했죠. 여기까지 키스토어 파일의 유효성 검사를 해보았구요.
+다음 강좌에서 비밀키를 생성하고 wallet에 내 계정 정보를 추가하는 작업을 해보겠습니다.
 
 ## 5.7 계정 검증(지갑 통합)
 
+키스토어 파일 불러오는 부분이랑 비밀번호 입력하는 부분 완성했으니까요 이제 이 정보들을 바오밥 노드에 보냈을 때, 인증을 성공할 수 있는 계정인지 확인해 보겠습니다.
+그전에 이 rpcURL에 http가 아니라 https로 바꾸겠습니다.
+index.html로 가보시면 제출 버튼 클릭시에 handleLogin() 함수를 호출하죠.
+이제 이것을 구현을 할텐데 어서 구현을 해보자.
+handleLogin() 여기 있습니다.
+여기다가 먼저 accessType이 keystore인지 확인을 해야해요.
+
+if (this.auth.accessType === 'keystore') { 
+}
+
+저희가 이 if문을 쓰는 이유가 계정을 인증할 때 keystore나 프라이빗 키 사용하는게 있다고 했었죠.
+저희는 비록 키스토어만 써서 하지만 나중에 여러분들이 프라이빗 키도 넣어서 인증을 하고 싶을때 그때를 대비해서 이런 if문을 추가를 했습니다.
+그리고 이 아래다가 try catch 문을 추가를 하시구요.
+
+try {       
+} catch (e) 
+}
+
+네, 드디어 caver 인스턴스를 사용할 때가 되었습니다.
+여기서 문제하나 내드릴게요.
+키스토어 파일과 비밀번호 조합을 통해 얻을 수 있는 게 무엇일까요?
+잘 기억하신다면 바로 아실 수 있는데
+바로 프라이빗 키(비밀 키)를 얻을 수 있죠.
+이 비밀 키를 통해 월렛 인스턴스를 생성할 수가 있습니다.
+자 그래서 제일 먼저 해야될 것이 키스토어 파일과 비밀번호를 통해 비밀키를 가져와야 되요.
+
+const privateKey = cav.klay.accounts.decrypt(this.auth.keystore, this.auth.password).privateKey;
+
+네 설명해 드리죠.
+caver 인스턴스의 accounts 멤버를 통해서 decrypt 함수를 쓸 수 있습니다.
+해독한다는 뜻이죠.
+어떻게 해독하냐면 keystore 파일의 내용과 비밀번호를 인자로 넘겨서 decrypt된 계정 object를 반환 받을 수 있습니다.
+그 object안에는 여러가지 멤버들이 있는데 그중에서 privateKey를 가져와서 상수에다가 저장시키는 겁니다.
+아시겠죠?
+만약 decrypt하는데 에러가 났다면 메시지를 보냅니다.
+catch 밑에다가 저 위에 껄 일단 복사해오죠.
+그리고 붙여놓고요 내용만 변경하겠습니다.
+비밀번호가 일치하지 않습니다.
+에러가 안 났다면 비밀키를 통해서 월렛 인스턴스를 만들 거구요.
+그래서 아래다가 
+
+this.integrateWallet(privateKey);
+
+intergrateWallet 함수에 프라이빗키, 비밀키를 넘깁니다.
+자 그러면 이 함수로 가 보시구요.
+여기서 이 인자로 받던 privateKey를 사용해서 월렛 인스턴스를 가져오는 코드를 추가할 겁니다.
+
+const walletInstance = cav.klay.accounts.privateKeyToAccount(privateKey);
+
+네 이 walletInstance가 내 계정 정보들을 가지고 있는거에요.
+그리가 이 인스턴스를 월렛에 추가를 해야 됩니다.
+바로 아래에다가
+
+cav.klay.accounts.wallet.add(walletInstance)
+
+이렇게 caver 월렛에 내 계정을 추가하면, 앞으로 어떤 트랜잭션을 생성하게 될 때, 쉽게 내 계정 정보를 이 caver 인스턴스를 통해 다시 불러와서 트랜잭션을 처리할 수가 있습니다.
+다음은 sessionStorage에다가 walletInstance를 또 저장할 건데요.
+드디어 이제 세션 놔왔죠.
+sessionStorage는 탭이 닫히거나 웹브라우저가 꺼지기 전까지 웹브라우저 내의 저장 공간에다가 walletInstance를 저장하게 됩니다.
+아주 유용한 기능이구요.
+
+sessionStorage.setItem('walletInstance', JSON.stringify(walletInstance))
+
+setItem은 key, value를 쌍으로 받습니다.
+그래서 첫 번째 파라미터가 key고, 두번째 파라미터가 value인데 나중에 내가 세션으로 내 계정 정보를 불러와야 되요 그러면 이 key 값만 불러옵니다. 
+그래서 우리는 walletInstance를 키 값으로 이렇게 했죠. 그럼 나중에 이거를 불러오면 쌍으로 같이 저장된 이 value 값이 자동적으로 불러와 집니다.
+우리가 세션 스토리지를 쓰는 이유는 계정에 로그인된 상태를 계속 유지하기 위해서에요.
+이 부분, 왜냐하면 caver 월렛에 저장된 내 계정 정보는 내가 다른 사이트 방문했다가 오거나 아니면 페이지가 새로고침하면 그 정보가 날라가요.
+하지만 세션 스토리지에 저장하면은 내가 잠시 따른 사이트 방문했다가 돌아와도 그게 유지가 되고 또는 페이지가 새로고침되도 계정 정보가 계속 유지가 됩니다.
+그래서 나중에 start 함수에서 wallet instance 세션을 불러오고 로그인된 상태를 계속 유지하도록 구현 할거에요.
+자 그래서 우리가 처음에 start 함수는 구현을 안 했던 거고요.
+세션을 사용할때까지 기다린 겁니다.
+네 이제 지금 당장은 ui를 업데이트 시켜야 되는데요.
+우리가 이 integrateWallet 함수를 통해 계정인증을 완료했으니까 ui를 알맞게 변경해야 됩니다.
+바로 밑에다가 
+
+this.changeUI(walletInstance);  
+
+changeUI 함수에 제가 walletInstance를 보냈죠.
+그러면 changeUI 함수에서는 무엇을 해야 될까요?
+changeUI 함수로 가보면은 일단은 모달을 닫습니다.
+
+$('#loginModal').modal('hide');
+ 
+그다음에는 로그인 버튼도 안보이게 다시 하구요.
+
+$("#login").hide();
+
+또, 안보이게 했던 로그아웃 버튼도 다시 보이도록 변경을 합니다.
+
+$('#logout').show();
+
+그 다음에 로그인 했으니까 내 계정 주소도 보이게 하면 좋겠죠.
+
+$('#address').append('<br>' + '<p>' + '내 계정 주소: ' + walletInstance.address + '</p>'); 
+
+주소에 접근해서 이렇게 메시지를 저희가 보내주는 거에요.
+네 다 작성했습니다.
+이 $('#address').append 이 부분이 html에서 id 속성이 address인 것에 계정 주소를 지금 이 메시지를 보내주는 겁니다.
+그러면은 html로 가서 그 부분을 작성을 해보죠.
+메시지를 보여주는 부분은 저희가 이 h3 태그 바로 밑에다가 해보도록 하겠습니다.
+
+<div class="text-center" id="address"></div>   
+
+이렇게 하면 바로 이 위치에서 내 계정 주소를 볼 수 있게 되는거구요.
+여기까지 하겠습니다. 이제 잘 작동하나 테스트를 해보도록 하죠.
+터미널에서 npm run dev 하시구요.
+네 로그인버튼 클릭하고 키스토어 파일 불러오구요
+비밀번호 입력하고 제출버튼을 누르면
+계정 인증이 완료되고 로그아웃 버튼으로 바뀌었구요.
+아래에는 내 계정 주소가 보입니다.
+마지막으로는 로그아웃하는 기능도 구현해 보도록 하죠.
+네 html로 가보시면 로그아웃 버튼을 클릭했을 때 handleLogout() 함수를 호출해서 거기로 가 보겠습니다.
+handleLogout 함수 네 여기 있네요.
+여기다가 removeWallet이라는 함수를 불러올 껀데요.
+
+this.removeWallet();
+
+이 함수를 통해서 wallet을 클리어시키고 세션 스토리지도 clear시키겠습니다.
+removeWallet 함수로 가셔서 이 코드를 추가합니다.
+
+cav.klay.accounts.wallet.clear();
+
+저희가 로그아웃을 하니까 기존에 인증됬던 정보들을 wallet에 추가됬던 정보들을 clear하는 거에요.
+자 계정 정보를 지우는 과정이구요. 그 다음으로 세션을 지웁니다.
+
+sessionStorage.removeItem('walletInstance');
+
+지울때는 이 key값만 입력해서 지우면 되구요.
+마지막으로 reset 함수를 호출하면 끝이납니다.
+
+this.reset();
+
+이 reset 함수에서는 그냥 단순하게 글로벌 변수, 즉 전역변수죠. 전역변수 auth를 초기화시키면 되구요.
+함수로 가셔서 자 위에 있네요.
+auth 변수를 초기화 시킵니다.
+
+this.auth = {
+    keystore: '',
+    password: ''
+};
+
+auth에 accessType도 있는데 accessType은 어차피 값이 keystore가 될꺼라서 안 지워도 되는거구요.
+대신 우리가 로그인 했을 때 이 키스토어와 패스워드 필드에는 값이 입력이 됬었죠.
+그부분을 로그아웃하면서 안전하게 지우는 겁니다.
+다시 handleLogout 함수로 가셔서요.
+페이지 새로고침하는 코드를 넣고 마무리를 하겠습니다.
+새로고침을 하는 이유는 처음 상태 때의 ui로 돌아가기 위해서 하는 거구요.
+
+location.reload();
+
+잘 하셨습니다. 이제 마지막으로 테스트하고 끝내도록 하겠습니다.
+로그인 하시구요. 계정 인증이 됬고 이제 로그아웃 버튼을 클릭하면서 계정 정보가 사라지고 새로고침을 통해 초기화 화면으로 돌아왔습니다.
+여기까지 계정인증 로직을 완료해 보았구요. 다음강좌에서 세션 스토리지를 통한 계정 인증 상태를 유지하는 부분을 완성해 보겠습니다.
+
 ## 5.8 계정 세션
+
+우리가 로그인하고 페이지 새로고침하면 어떻게 되는지 한번 보겠습니다.
+로그인 버튼 클릭하고 키스토어 파일 선택하시구요.
+비밀번호 입력한 다음에 제출버튼 클릭하면 계정인증이 됬구요.
+이 상태에서 f5 눌러서 새로고침 해보죠.
+자 그러면 다시 초기화 상태가 됬죠.
+로그인 상태를 유지하면 좋을텐데 어떻게 하면 될까요?
+우리가 로그인에 성공하면 계정인증한 정보를 세션 스토리지에 저장했었죠.
+이거를 이제 활용할 겁니다.
+BApp이 실행 되면서 가장 먼저 부르는 함수가 start 함수이죠.
+여기에서 세션 스토리지에 저장된 내 계정정보를 불러옵니다.
+네 그럼 start 함수로 가서 맨위에 있죠
+
+const walletFromSession = sessionStorage.getItem('walletInstance');
+
+getItem을 써서 key 값을 넘기면, 쌍으로 저장됬던 value 값을 불러오고 그거를 상수에다가 저장을 하는 겁니다.
+내 wallet instance를 저장을 한거에요.
+다음으로는 walletFromSession 에 값이 들어가 있는지 확인을 합니다. 
+if문을 통해서
+
+if (walletFromSession) {
+ 
+}
+
+만약 값이 있다면 try catch 생성하구요.
+
+try { 
+     
+} catch (e) {
+ 
+  }
+
+그리고 caver 월렛에 다시 내 계정 정보를 추가합니다.
+
+cav.klay.accounts.wallet.add(JSON.parse(walletFromSession));
+
+페이지가 새로고침 되거나 다시 방문 되면 wallet에 추가 됬었던 기존의 계정 정보가 다 지워지기 때문에 세션을 통해서 다시 추가를 하는 겁니다.
+다음으로 로그인 되었다는 상태를 보여주기 위해 ui를 업데이트 시켜야 되는데요.
+
+this.changeUI(JSON.parse(walletFromSession));
+
+이렇게 하면 로그아웃 버튼으로 바뀌고 내 계정 주소를 보여주겠죠.
+마지막으로 세션 스토리지에 있던 값이 유효한 walletInstance가 아닐 때, catch문으로 가게 됩니다.
+그리고 세션 스토리지에 있는 walletInstance를 지우구요.
+
+sessionStorage.removeItem('walletInstance');
+
+네 여기까지하면 됬고요.
+잘 작동하나 테스트를 해보죠.
+여기서 이제 새로고침 하면은 f5 눌러서 그러면 초기화 상태로 돌아가지 않고 로그인된 상태를 계속 유지합니다.
+여기까지 계정 인증 상태를 계속 유지하는 부분을 구현해 보았습니다.
+
 
 ## 5.9 컨트랙트에 클레이 전송하기(입금)
 
+
+
 ## 5.10 컨트랙트에 클레이 전송하기(UI 변경과 테스트)
+
+
 
 ## 5.11 무작위 숫자 생성하기
 
+
+
 ## 5.12 타이머 생성하기
 
+
+
 ## 5.13 답안 제출하기 및 클레이 받기
+
