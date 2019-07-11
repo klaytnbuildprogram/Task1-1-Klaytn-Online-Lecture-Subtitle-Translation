@@ -21,12 +21,18 @@ Tiếp tục, gửi đề xuất đến node validator1, và nó sẽ gửi đ�
 Bước cuối cùng (commit step), quy trình này sẽ tương tác các node khác, xem có chấp nhận Block mà nó nhận từ node proposer hay không. Ví dụ, nó sẽ phản hồi tới các node, nếu được hơn 2/3 đồng ý, sẽ phê duyệt Block ngay lập tức. Không tồn tại vô hạn và trạng thái không thay đổi không xuất hiện trong giai đoạn này. Hơn thế nữa, nó không ở trạng thái mơ hồ so với PoW.
 
 Kết luận, điểm mạnh của cơ chế này là sự tương tác giữa các node sẽ dẫn đến tính đồng thuận. Tuy nhiên, vẫn có điểm bất lợi là lưu lượng tăng theo cấp số nhân một khi số lượng node đồng thuận tăng. Cơ chế này sẽ chọn ra node đồng thuận và duy trì cơ chế đồng thuận BFT. Chúng ta tiếp tục khám phá các Block được tạo ra và lan truyền đến các giai đoạn khác như thế nào.
+
+
+
+
+
+
 ## 3.2 Tạo Block và tính phổ biến
  
 
 Hãy xem cách Klaytn tạo ra Block và cung cấp trải nghiệm thú vị cho người dùng.
  
-LChúng ta hãy nhìn vào chu trình tạo Block của Klaytn được gọi là một vòng. Mỗi round tạo ra Block mới, mặt khác sẽ tiến hành round mới khi nó kết thúc. Khoảng thời gian tạo Block mất khoảng 1 giây.
+Chúng ta hãy nhìn vào chu trình tạo Block của Klaytn được gọi là một vòng. Mỗi round tạo ra Block mới, mặt khác sẽ tiến hành round mới khi nó kết thúc. Khoảng thời gian tạo Block mất khoảng 1 giây.
 
 
 
