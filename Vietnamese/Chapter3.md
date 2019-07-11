@@ -71,7 +71,6 @@ Và một lần nữa, node CN, PN và EN boot là những node loại đặc bi
  
  
 Chúng tôi sẽ đưa ra cái nhìn về các tế bào lõi. Khi mainet được đưa ra, tế bào lõi sẽ quản lý hàng loạt node đồng thuận. Một khi các dịch vụ trở nên tốt hơn, chúng ta nên làm gì về tính mở rộng nếu có nhiều node liên kết với mạng lưới tế bào lõi?
-
 Nhìn chung, không phải riêng Blockchain, chúng tôi sẽ phát triển server và chia nhỏ theo yêu cầu. Tuy nhiên, trong trường hợp của Blockchain, việc tăng số lượng node có thể làm giảm tốc độ xử lý vì cần thêm thông tin cho mỗi node khi phát triển. Tăng số lượng node sẽ làm giảm hiệu suất. Vì vậy, thay vì tăng số lượng node, tăng hiệu suất node hợp lý hơn. Ví dụ: bạn có thể tăng hiệu suất RAM hoặc CPU. Sau đây là điều kiện để liên kết các node
  
  
