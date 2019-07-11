@@ -1,3 +1,5 @@
+1 - Một phút giới thiệu
+
 Xin chào tất cả mọi người. Rất vui được gặp các bạn tại đây. Tôi muốn giới thiệu cho các bạn khóa học về công nghệ Blockchain - điểm nổi bật trong dự án Klaytn. Như các bạn đã biết các nền tảng blockchain hiện nay đang gặp phải vấn đề về tốc độ xử lý, hiệu suất và tính hoàn thiện. 
 Nền tảng Blockchain Klaytn của tập đoàn Kakao nâng cấp hiệu suất bằng cách rút ngắn thời gian tạo ra khối khi xử lý hơn 3000 giao dịch mỗi giây. 
 Chi phí của mỗi giao dịch không hề mắc. 
