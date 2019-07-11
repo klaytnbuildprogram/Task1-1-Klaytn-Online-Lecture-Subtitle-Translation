@@ -1,133 +1,48 @@
-# 2. Weakness of Blockchain platform
+# 2. Các nhược điểm của nền tảng Blockchain
 
-## 2.1 Scalability
+## 2.1 Khả năng mở rộng
  
  
-Scalability means to scale the platform. 
-It simply means how much it can process things quickly. 
-We don’t know how bitcoin or ethereum will solve an issue of scalability, even though they keep saying that they are working on it. 
-Let's talk about what scalability is and why it's important.
- 
-In terms of scalability, we use the terms TPS and block interval. 
-TPS is an abbreviation of transaction per second, which means you can check how many transactions per second can be handled. 
-The block interval is the time interval at which each block is created.
- 
-We compare the processing speed of blockchains with Visa a lot. It is said that the Visa is handling an average of 1700 transactions per second. 
-In the case of bitcoin, it is said that it can process 7 transactions per second.
-In real, it can process 2 to 5 transactions
- Ethereum is said to be 15 to 20 tps.
- 
-The block interval of bitcoin is 10 minutes and the block interval of Ethereum is 15 to 20 seconds. 
-So if Ethereum is 20 tps and the block interval is 15 seconds, then 20 times 15, so a total of 300 transactions will be in one block.
+Khả năng mở rộng có nghĩa là việc mở rộng nền tảng. Hiểu đơn giản là nó có thể xử lý nhiều công việc một cách nhanh chóng. Chúng tôi không biết Bitcoin hay Ethereum sẽ giải quyết vấn đề về khả năng mở rộng như thế nào, mặc dù họ vẫn đang làm việc để giải quyết vấn đề này. Hãy nói về khả năng mở rộng, và tại sao lại quan trọng.
+
+Về khả năng mở rộng, chúng tôi sử dụng thuật ngữ TPS và khoảng thời gian block. TPS là từ viết tắt của giao dịch mỗi giây, có nghĩa là bạn có thể kiểm tra số lượng giao dịch trong mỗi giây có thể được xử lý. Khoảng thời gian block là khoảng thời gian mà mỗi block được tạo.
+
+Chúng tôi có sự so sánh nhiều lần giữa tốc độ xử lý của Blockchain với Visa. Visa xử lý trung bình 1.700 giao dịch mỗi giây. Đối với Bitcoin thì có thể xử lý 7 giao dịch mỗi giây. Nhưng trên thực tế, Bitcoin chỉ có thể xử lý 2 đến 5 giao dịch mỗi giây, còn Ethereum thì tầm khoản 15 đến 20 giao dịch mỗi giây..
+
+Khoảng thời gian tạo ra một block của Bitcoin là 10 phút, và thời gian tạo block của Ethereum là 15 đến 20 giây. Vì vậy, nếu Ethereum là 20 tps và thời gian tạo block là 15 giây, thì 20 nhân 15, tổng cộng sẽ có 300 giao dịch trong một block.
+
+Đây là một câu hỏi. Nếu bạn có một nền tảng blockchain với tps lên tới 10.000 và khoảng thời gian block là 10 phút thì trải nghiệm người dùng sẽ như thế nào? Vâng, điều đó có nghĩa là phải mất tới 10 phút để hoàn thành xong một block với 10.000 giao dịch trong một giây. Điều gì xảy ra sau đó? Chỉ đơn giản tôi muốn gửi tiền cho bạn bè, tôi nhấn nút chuyển và có thể mất tới 10 phút mà giao dịch vẫn chưa hoàn thành. Ethereum thì ngắn hơn đáng kể so với Bitcoin, nhưng 15 đến 20 giây cũng là khá dài đối với người dùng. Chúng tôi cảm thấy thất vọng vì không nhận được kết quả nào có thể xử lý trong 5 giây trên Internet. điều này là không thể chấp nhận được ở thế kỷ 21.
+
+Vậy, lý do tại sao các Blockchain hiện nay lại chậm. Lý do đầu tiên, đặc điểm của một mạng blockchain được đặc trưng bởi một thực tế là nhiều node, nhưng nhiều node không có nghĩa là mạng lưới đó nhanh hơn. Các dịch vụ phổ biến như web cũng như mobile của chúng tôi có số lượng máy chủ lớn để đảm bảo sự đáp ứng nhanh chóng cho người dùng khi lượng lớn yêu cầu được gửi tới, các yêu cầu sẽ được phân tách và xử lý.
+
+Mặc dù, một máy chủ được gọi là một node - tạo thành ra mạng lưới blockchain, khi nhận 100 công việc thì sẽ xử lý toàn bộ công việc mà không bị phân tán. Như vậy, mỗi node sẽ lặp lại cùng một công việc. Kết quả là hiệu suất của toàn bộ mạng lưới sẽ bị chậm lại. Hiệu suất của một máy tính không có gì khác biệt so với hàng chục ngàn mạng lưới hoặc máy tính khác. Do đó, các mạng blockchain như Bitcoin hay Ethereum không thể xử lý một block lượng giao dịch lớn và chính bản thân mạng lưới chậm đi.
  
  
-Here is a question.
- If you have a blockchain platform with a tps of 10,000 and a block interval of 10 minutes, how will the user experience be? 
-Yes, it is. It means that it takes up to 10 minutes to complete a block that is dealing with ten thousand transactions in a second. 
-What happens then? 
-I simply want to send money to my friend, so I press the transfer button and it can take up to 10 minutes without completing it. 
-It does not make sense. 
-Ethereum is also significantly shorter than bitcoin, but 15-20 seconds is quite long for users. 
-We are frustrated when we do not get any results within 5 seconds on the Internet. 
-It should not happen in the 21st century.
+## 2.2 Thiếu tính hữu hạn
  
- 
-So let's look at why the existing blockchain is slower. 
-First, the characteristics of a blockchain network are characterized by a fact that more nodes don’t mean faster network. 
-Our commonly used Web services and mobile services increase the number of servers to respond as quickly as possible to users, and when a large number of requests arrive, they are deployed and handled separately.
- 
-However, a server called a node that constitutes a blockchain network must process 100 jobs without distributing 100 jobs when 100 jobs are received. 
-That is, every node repeats the same thing. 
-The result is that the performance of the entire network is downgraded to the slowest node. 
-Performance of a computer doesn’t make any difference than that of a tens of thousands of different networks or computers.
-As a result, blockchain networks such as Bitcoin or Ethereum are not able to handle large volumes of transactions and the network itself is slow.
- 
- 
-## 2.2 Lack of finality
- 
- 
-Finality refers to the unchangeable final state. 
-The finality of a block in a blockchain guarantees that transactions in the block can never be changed. 
-The transaction must be believed to have been completed without ambiguity. 
-However, bitcoin and ethereum's mining mechanism lacks this finality. 
-For example, I paid to buy a plane ticket with a bitcoin. 
-Then the transaction will be created at that moment. 
-This means that a transaction that can be left in the record is created.
- However, this transaction is not processed immediately. 
-It is not a perfect guarantee. 
-It only provides a probabilistic finality that will eventually be processed. 
-It means that I have made a payment but later, I might found that it may not be paid.
- 
-Now let's see how long it takes to reach the finality on average.
- 
-(Table picture) 
- 
-If you look at this table, in the case of bitcoin, the average time to reach the finality is 60 minutes. 
-The block mining takes 10 minutes, but it takes 1 hour with 6 steps to reach the finality. Ethereum says it takes 6 minutes to finality. 
-The more you verify this step, the more likely it is that your transaction is sufficient to be trusted. 
-But it takes too long because we have to go through this verification step a few times. Cryptocurrency is difficult to commercialize because of this. After you make a payment, the rate at which it takes to finality is too unusual.
- How many people will wait for up to an hour? 
-So finality plays a very important role. 
-In a little difficulty, finality measures how long to wait to get a reasonable guarantee that a transaction is unchangeable.
- 
-Lastly, waiting for a long time in a blockchain network can have a significant impact on your business, so the fast finality is an important business asset. 
-So far I have briefly explained the absence of finality of existing representative blockchains.
+Tính hữu hạn đề cập đến trạng thái cuối cùng không thể thay đổi. Tính hữu hạn của một block trong blockchain đảm bảo các giao dịch trong block không bị thay đổi. Mọi người tin chắc rằng giao dịch này sẽ hoàn thành mà không có nghi ngờ nào . Tuy nhiên, cơ chế khai thác trong Bitcoin và Ethereum lại thiếu tính hữu hạn. Ví dụ, tôi dùng Bitcoin để mua vé máy bay, giao dịch sẽ được tạo ra tại thời điểm đó. Điều này có nghĩa là một giao dịch đó được lưu lại trong hồ sơ. Tuy nhiên, giao dịch này không được xử lý ngay. Nhưng không có gì đảm bảo, nó chỉ cung cấp tính hữu hạn để cuối cùng các giao dịch được xử lý. Điều đó có nghĩa là tôi đã thanh toán nhưng sau đó tôi nhận ra việc thành toán vẫn chưa thành công.
+
+(bảng)
+
+Nếu bạn nhìn vào bức tranh này, trong trường hợp với Bitcoin, trung bình mất 60 phút để đạt đến tính hữu hạn. Việc khai thác một block mất 10 phút, nhưng tốn 1 giờ với 6 bước để đạt tính hữu hạn. Còn với Ethereum thì phải mất 6 phút để đạt tính hữu hạn. Nếu bạn xác minh bước này, mức độ giao dịch của bạn đáng tin cậy hơn. Nhưng sẽ mất rất nhiều thời gian để thực hiện bước xác minh này vài lần. Vì điều này khiến tiền mã hóa rất khó thương mại hóa. Sau khi bạn thanh toán xong, tốc độ đạt đến tính hữu hạn là không khả thi. Có bao nhiêu người sẵn sàng đợi đến một tiếng? Vì vậy, tính hữu hạn đóng một vai trò rất quan trọng. Có một khó khăn nhỏ, tính hữu hạn cần khoảng thời gian chờ nhất định để đảm bảo giao dịch sẽ không bị thay đổi.
+
+Cuối cùng, việc chờ đợi trong thời gian dài ở mạng lưới blockchain có thể có tác động đáng kể đến doanh nghiệp của bạn, vì vậy tính hữu hạn nhanh đóng vai trò như là một loại tài sản kinh doanh. Từ nãy giờ, tôi đã ngắn gọn tầm quan trọng tính hữu hạn trong mạng lưới blockchain ngày nay.
  
 ## 2.3 Fork
  
  
-Fork refers to the phenomenon that the connections of blocks are split into two or more branches. 
-The reason forking occurs because all participants in a blockchain p2p network can independently mine. 
-First, I'll explain bitcoin or ethererum’s proof of work. 
-It solves the problem of finding the hash value to add blocks to the blockchain. 
-Several nodes try to solve the problem while competing. 
-Sometimes two nodes solve the problem at a similar time. 
-Then two blocks are added as candidates to be added to the blockchain. 
-At this point, a branch occurs.
+Fork đề cập đến hiện tượng kết nối của các block được chia thành hai hoặc nhiều nhánh. Lý do fork xảy ra là vì tất cả những người tham gia vào mạng blockchain P2P có thể khai thác độc lập với nhau. Đầu tiên, tôi sẽ giải thích về PoW trong Bitcoin hoặc Ethererum. PoW giải quyết giá trị băm để thêm vào các block trên mạng lưới Blockchain. Các node cạnh tranh nhau để giải quyết vấn đề này. Đôi khi hai node giải quyết vấn đề tại cùng một thời điểm. Sau đó, Sau đó, hai block đóng vai trò như ứng cử viên được thêm vào mạng lưới blockchain. Tại thời điểm này, sẽ xuất hiện thêm nhánh.
 
- 
- 
-For example, let's say you are mining from two nodes. 
-A and B nodes. 
-One day I wired a remittance to my friend. 
-Then a transaction occurs and enters transaction pool. 
-A, B nodes now put transactions in the transaction pool in their own blocks to make the block. 
-At this time, both nodes include transactions that I sent to my friend.
- 
-At the end of this process, the nodes now solve the problem of adding their own blocks to the existing blockchain. 
-The nodes have to go through a difficult computation process, and both A and B nodes solve the problem. 
-Then the nodes propagate it to other nodes that I solved.
- 
+Ví dụ: Giả sử bạn đang khai thác từ hai node, node A và node B. Một ngày no, tôi chuyển tiền cho bạn tôi. Sau đó, giao dịch xảy ra và đi vào pool giao dịch. Các node A, B đặt giao dịch này trong pool của mỗi block riêng để tạo block. Tại thời điểm này, cả hai node bao gồm các giao dịch mà tôi đã gửi cho bạn tôi.
 
- 
-When this propagation occurs, some nodes receive the purple block of node A and others receive the black block of node B. 
-This is where the branch occurs as in the third block. 
-Nodes that receive a purple block in the propagation process will also receive a black block later. 
-But they ignore the black block. 
-Because the transaction I sent to my friend has already been added to the purple block. Conversely, nodes that receive a black block will ignore the other because they contain the same transaction when they receive a purple block.
- 
-Next, we find the hash value from node c, solve the problem, and create and propagate the fourth block. 
-In this case, the c-node that created the fourth block is the node that received the third black block. 
-Blackline will be added because it has the parent hash of the third black block.
- 
-However, the nodes that have the third purple block cannot receive it when the fourth black block arrives later. 
-It can’t be received even if It is obviously a valid block created by solving the problem and the fourth block that comes along the height of the block. 
-Because the parental hash of the fourth block is not the third purple block but a black block.
- 
-Then the nodes that received the third purple block immediately discard the purple block they had and download it again, starting with the third black block. 
-It means that the black line gets longer. 
-The longer the line is, the more likely it will be recognized as the next block and added to the blockchain. 
-This is the longest chain rule. 
-This process of branching and merging proceeds in a very natural way.
- 
-However, there are some areas where this rule can be used maliciously. 
-For example, if I have more than 51 percent of the total computing power, I can dig up much faster and produce more blocks than other miners. 
-This means that you will be able to continue with the line you created in the branching process.
- 
-For example, in the third block, a branch is formed. 
-I have created a black block, and I have to wait for the fourth block as usual, but I don’t have to wait for another node to create a block, and I can create and add it in this case. Strong hashing power allows to make blocks faster. In this way, I don’t have to spread the line to other nodes, and I keep extend my own line secretly. 
-In this process, you can ignore transactions in a specific address in my block, or record that I haven’t sold my coin to cash it. 
-Here’s where my line on the network works. 
-This is the rule that adds the block to the blockchain by selecting the longest line at the end of the branch. 
-This means that the more lines my line has, the more the blocks in my line are legally added to the blockchain. 
-This is the possibility of breaking the network, and every time this occurs, it takes a long time to finalize because the line must go through the validation phase longer.
+Giai đoạn cuối của quy trình này, các node sẽ giải quyết các vấn đề thêm trong block riêng của chúng vào blockchain đang có. Các node A và B phải giải quyết quy trình tính toán độ khó. Sau đó, các node này sẽ lan truyền vấn đề này đến các node khác.
+
+Khi sự lan truyền này xảy ra, một số node nhận được block màu tím từ node A và các node khác nhận được block màu đen từ nút B. Đây là nơi nhánh được tạo ra như trong block thứ ba. Trong quá trình lan truyền, các node sau khi nhận được một block màu tím, sẽ nhận một block màu đen sau đó. Nhưng các node này bỏ qua block màu đen. Bởi vì giao dịch tôi gửi cho bạn tôi đã được thêm vào block màu tím. Ngược lại, các node nhận được một block màu đen sẽ từ chối các block khác vì chúng chứa trong cùng giao dịch ở block màu tím.
+
+Tiếp theo, chúng tôi tìm giá trị băm từ node C để giải quyết vấn đề và tạo và lan truyền tới block thứ tư. Trong trường hợp này, node C tạo ra block thứ tư và cũng nhận được block đen thứ ba. Blackline sẽ được thêm vào vì nó chứa hàm băm “cha” của block đen thứ ba.
+
+Tuy nhiên, các node có chứa block màu tím thứ ba sẽ từ chối block màu đen thứ tư đến sau. Thậm chí block đen thứ 4 hợp lệ thì vẫn bị từ chối. Bởi vì hàm băm “cha” của block màu đen thứ 4 không phải là block màu tím thứ 3.
+
+Sau đó, các node ngay lập tức loại bỏ block màu tím thứ 3 vừa được nhận và tiến hành tải lại, bắt đầu với block đen thứ 3. Điều này có nghĩa là Blackline sẽ được duy trì mãi. Chuỗi càng dài, càng có nhiều khả năng công nhận cho block tiếp theo và được thêm vào blockchain. Đây là quy tắc chuỗi dài nhất. Quá trình phân nhánh và sáp nhập được tiến hành một cách rất tự nhiên. Tuy nhiên, quy tắc này sẽ không mang lợi ích cho một vài khía cạnh. Ví dụ, nếu tôi có hơn 51% sức mạnh tính toán, tôi có thể đào nhanh hơn nhiều và tạo ra nhiều block hơn so với các thợ mỏ khác. Điều này có nghĩa là bạn sẽ có thể tiếp tục với chuỗi mà bạn vừa tạo.
+
+Ví dụ, nhánh được hình thành trong block thứ ba. Tôi tạo ra một block màu đen và như thường lệ phải đợi block thứ tư, nhưng trong trường hợp tôi không cần phải đợi một node khác tạo ra block. Thay vào đó tôi có thể tạo và thêm block thứ tư vì sức mạnh hàm băm cho phép tạo các block nhanh hơn. Theo cách này, tôi không phải lan truyền cái chuỗi này sang các node khác và tôi tiếp tục mở rộng chuỗi của mình một cách bí mật. Ở quá trình này, bạn có thể phớt lờ các giao dịch có địa chỉ cụ thể trong block của tôi, hoặc ghi lại rằng tôi đã không bán coin ra tiền mặt. Đây là nơi mà chuỗi trong blockchain đang hoạt động. Đây là quy tắc thêm block vào mạng lưới blockchain bằng cách chọn chuỗi dài nhất ở cuối nhánh. Điều này có nghĩ chuỗi dài nhất, thì có nhiều block hợp lệ được thêm vào chuỗi trong blockchain. Một khi mạng lưới bị phá vỡ thì sẽ phải mất rất nhiều thời gian để hoàn thiện vì chuỗi phải trải qua giai đoạn xác thực lâu hơn.
