@@ -1,6 +1,6 @@
 # 3. Hiểu về "Klaytn"
 
-## 3.1 Sự đồng thuận
+## 3.1 Cơ chế đồng thuận
 
  
 
@@ -120,7 +120,7 @@ Bằng cách này, trong chuỗi dịch vụ Klaytn, bạn có thể thiết l�
 
  
 
-##3.6 Sự khác biệt giữa Klaytn và Ethereum - Vai trò khác nhau của các nút
+## 3.6 Sự khác biệt giữa Klaytn và Ethereum - Vai trò khác nhau của các nút
 
 Hãy nói ngắn gọn về sự khác nhau giữa Ethereum và Klaytn.
 
