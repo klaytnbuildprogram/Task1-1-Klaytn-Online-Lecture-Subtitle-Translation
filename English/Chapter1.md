@@ -1,4 +1,4 @@
-1. 1-minute introduction
+# 1. 1-minute introduction
 
 Hello everyone. Nice to meet you. I have created a course to introduce you to a blockchain platform that is noteworthy in Klaytn. 
 Existing blockchain platforms have limitations in terms of speed, performance, and completeness. 
@@ -10,7 +10,6 @@ Entry barriers have also been drastically lowered so that legacy DApp developers
 Klaytn is now easier to use because it supports the solidity as smart contract language, 
 and supports the Truffle framework, which is a DApp development framework. 
 Even those who are new to the course can make it easy to follow them while watching the lecture.
- 
 
 
 I will point out the problems of existing blockchain platforms 
