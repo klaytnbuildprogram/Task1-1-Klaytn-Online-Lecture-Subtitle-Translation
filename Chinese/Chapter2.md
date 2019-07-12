@@ -3,131 +3,129 @@
 ## 2.1 Scalability
  
  
-Scalability means to scale the platform. 
-It simply means how much it can process things quickly. 
-We don’t know how bitcoin or ethereum will solve an issue of scalability, even though they keep saying that they are working on it. 
-Let's talk about what scalability is and why it's important.
+可伸缩性意味着扩展平台。
+它只是意味着它可以快速处理多少事情。
+我们不知道比特币或以太坊如何解决可扩展性问题，即使他们一直在说他们正在努力。
+让我们来谈谈可扩展性是什么以及它的重要性。
  
-In terms of scalability, we use the terms TPS and block interval. 
-TPS is an abbreviation of transaction per second, which means you can check how many transactions per second can be handled. 
-The block interval is the time interval at which each block is created.
+在可伸缩性方面，我们使用术语TPS和块间隔。
+TPS是每秒事务的缩写，这意味着您可以检查每秒可处理的事务数。
+块间​​隔是创建每个块的时间间隔。
  
-We compare the processing speed of blockchains with Visa a lot. It is said that the Visa is handling an average of 1700 transactions per second. 
-In the case of bitcoin, it is said that it can process 7 transactions per second.
-In real, it can process 2 to 5 transactions
- Ethereum is said to be 15 to 20 tps.
+我们将区块链的处理速度与Visa进行了大量的比较。据说Visa每秒平均处理1700笔交易。
+在比特币的情况下，据说它可以每秒处理7次交易。
+实际上，它可以处理2到5个事务
+ 以太坊据说是15至20 tps。
  
-The block interval of bitcoin is 10 minutes and the block interval of Ethereum is 15 to 20 seconds. 
-So if Ethereum is 20 tps and the block interval is 15 seconds, then 20 times 15, so a total of 300 transactions will be in one block.
- 
- 
-Here is a question.
- If you have a blockchain platform with a tps of 10,000 and a block interval of 10 minutes, how will the user experience be? 
-Yes, it is. It means that it takes up to 10 minutes to complete a block that is dealing with ten thousand transactions in a second. 
-What happens then? 
-I simply want to send money to my friend, so I press the transfer button and it can take up to 10 minutes without completing it. 
-It does not make sense. 
-Ethereum is also significantly shorter than bitcoin, but 15-20 seconds is quite long for users. 
-We are frustrated when we do not get any results within 5 seconds on the Internet. 
-It should not happen in the 21st century.
+比特币的块间隔是10分钟，以太坊的块间隔是15到20秒。
+因此，如果以太坊是20 tps并且阻止间隔是15秒，那么20次15，所以总共300个事务将在一个块中。
  
  
-So let's look at why the existing blockchain is slower. 
-First, the characteristics of a blockchain network are characterized by a fact that more nodes don’t mean faster network. 
-Our commonly used Web services and mobile services increase the number of servers to respond as quickly as possible to users, and when a large number of requests arrive, they are deployed and handled separately.
+这是一个问题。
+ 如果您的区块链平台的tps为10,000，块间隔为10分钟，用户体验如何？
+是的。这意味着完成一个处理一秒钟内一万笔交易的块需要10分钟。
+那么会发生什么？
+我只是想把钱寄给我的朋友，所以我按下转移按钮，最多可能需要10分钟才能完成。
+它没有任何意义。
+以太币也比比特币短得多，但对于用户而言，15-20秒的时间相当长。
+当我们在互联网上5秒内没有得到任何结果时，我们感到很沮丧。
+它不应该发生在21世纪。
  
-However, a server called a node that constitutes a blockchain network must process 100 jobs without distributing 100 jobs when 100 jobs are received. 
-That is, every node repeats the same thing. 
-The result is that the performance of the entire network is downgraded to the slowest node. 
-Performance of a computer doesn’t make any difference than that of a tens of thousands of different networks or computers.
-As a result, blockchain networks such as Bitcoin or Ethereum are not able to handle large volumes of transactions and the network itself is slow.
+ 
+那么让我们来看看为什么现有的区块链更慢。
+首先，区块链网络的特征的特征在于更多节点并不意味着更快的网络。
+我们常用的Web服务和移动服务增加了服务器的数量，以便尽快对用户做出响应，当大量请求到达时，它们将被单独部署和处理。
+ 
+但是，构成区块链网络的称为节点的服务器必须处理100个作业，而不会在收到100个作业时分配100个作业。
+也就是说，每个节点重复相同的事情。
+结果是整个网络的性能降级到最慢的节点。
+计算机的性能与成千上万的不同网络或计算机的性能没有任何区别。
+因此，比特币或以太坊等区块链网络无法处理大量交易，网络本身也很慢。
  
  
 ## 2.2 Lack of finality
  
  
-Finality refers to the unchangeable final state. 
-The finality of a block in a blockchain guarantees that transactions in the block can never be changed. 
-The transaction must be believed to have been completed without ambiguity. 
-However, bitcoin and ethereum's mining mechanism lacks this finality. 
-For example, I paid to buy a plane ticket with a bitcoin. 
-Then the transaction will be created at that moment. 
-This means that a transaction that can be left in the record is created.
- However, this transaction is not processed immediately. 
-It is not a perfect guarantee. 
-It only provides a probabilistic finality that will eventually be processed. 
-It means that I have made a payment but later, I might found that it may not be paid.
+终结性是指不可改变的最终状态。
+区块链中块的最终性保证了块中的事务永远不会被更改。
+必须相信交易已经完成而没有含糊不清。
+然而，比特币和以太坊的采矿机制缺乏这种终极性。
+例如，我付钱买了一张比特币的机票。
+然后将在那一刻创建交易。
+这意味着可以创建可以保留在记录中的事务。
+ 但是，此事务不会立即处理。
+这不是一个完美的保证。
+它只提供最终将被处理的概率最终结果。
+这意味着我已付款，但稍后，我可能会发现它可能没有付款。
  
-Now let's see how long it takes to reach the finality on average.
+现在让我们看看平均达到终点需要多长时间。
  
-(Table picture) 
+如果你看一下这张表，就比特币来说，达到最终结果的平均时间是60分钟。
+块采矿需要10分钟，但需要1个小时，6个步骤才能达到最终目的。以太坊表示最终需要6分钟。
+验证此步骤越多，您的交易就越有可能被信任。
+但这需要很长时间，因为我们必须经过几次验证步骤。因此，加密货币难以商业化。付款后，最终付款的速度太不寻常了。
+ 有多少人会等一个小时？
+因此，终极性起着非常重要的作用。
+在一点点困难中，最终确定了等待合理保证交易不可更改的时间。
  
-If you look at this table, in the case of bitcoin, the average time to reach the finality is 60 minutes. 
-The block mining takes 10 minutes, but it takes 1 hour with 6 steps to reach the finality. Ethereum says it takes 6 minutes to finality. 
-The more you verify this step, the more likely it is that your transaction is sufficient to be trusted. 
-But it takes too long because we have to go through this verification step a few times. Cryptocurrency is difficult to commercialize because of this. After you make a payment, the rate at which it takes to finality is too unusual.
- How many people will wait for up to an hour? 
-So finality plays a very important role. 
-In a little difficulty, finality measures how long to wait to get a reasonable guarantee that a transaction is unchangeable.
- 
-Lastly, waiting for a long time in a blockchain network can have a significant impact on your business, so the fast finality is an important business asset. 
-So far I have briefly explained the absence of finality of existing representative blockchains.
+最后，在区块链网络中等待很长时间会对您的业务产生重大影响，因此快速终结是一项重要的业务资产。
+到目前为止，我已经简要地解释了现有代表性区块链缺乏最终性。
  
 ## 2.3 Fork
  
  
-Fork refers to the phenomenon that the connections of blocks are split into two or more branches. 
-The reason forking occurs because all participants in a blockchain p2p network can independently mine. 
-First, I'll explain bitcoin or ethererum’s proof of work. 
-It solves the problem of finding the hash value to add blocks to the blockchain. 
-Several nodes try to solve the problem while competing. 
-Sometimes two nodes solve the problem at a similar time. 
-Then two blocks are added as candidates to be added to the blockchain. 
-At this point, a branch occurs.
+Fork指的是块的连接被分成两个或更多个分支的现象。
+分叉的原因是因为区块链p2p网络中的所有参与者都可以独立挖掘。
+首先，我将解释比特币或以太坊的工作证明。
+它解决了找到哈希值以将块添加到区块链的问题。
+几个节点试图在竞争时解决问题。
+有时两个节点在相似的时间解决问题。
+然后添加两个块作为候选者以添加到区块链中。
+此时，发生分支。
 
  
  
-For example, let's say you are mining from two nodes. 
-A and B nodes. 
-One day I wired a remittance to my friend. 
-Then a transaction occurs and enters transaction pool. 
-A, B nodes now put transactions in the transaction pool in their own blocks to make the block. 
-At this time, both nodes include transactions that I sent to my friend.
+例如，假设您从两个节点挖掘。
+A和B节点。
+有一天，我汇款给我的朋友。
+然后发生事务并进入事务池。
+A，B节点现在将事务池中的事务放在它们自己的块中以构成块。
+此时，两个节点都包含我发送给我朋友的交易。
  
-At the end of this process, the nodes now solve the problem of adding their own blocks to the existing blockchain. 
-The nodes have to go through a difficult computation process, and both A and B nodes solve the problem. 
-Then the nodes propagate it to other nodes that I solved.
+在此过程结束时，节点现在解决了将现有块添加到现有区块链的问题。
+节点必须经历一个困难的计算过程，A和B节点都解决了这个问题。
+然后节点将它传播到我解决的其他节点。
  
 
  
-When this propagation occurs, some nodes receive the purple block of node A and others receive the black block of node B. 
-This is where the branch occurs as in the third block. 
-Nodes that receive a purple block in the propagation process will also receive a black block later. 
-But they ignore the black block. 
-Because the transaction I sent to my friend has already been added to the purple block. Conversely, nodes that receive a black block will ignore the other because they contain the same transaction when they receive a purple block.
+当这种传播发生时，一些节点接收节点A的紫色块，而其他节点接收节点B的黑色块。
+这是分支在第三个块中出现的位置。
+在传播过程中接收紫色块的节点稍后也会收到黑色块。
+但是他们忽略了黑块。
+因为我发给我朋友的交易已被添加到紫色区块。相反，接收黑色块的节点将忽略另一个节点，因为它们在收到紫色块时包含相同的事务。
  
-Next, we find the hash value from node c, solve the problem, and create and propagate the fourth block. 
-In this case, the c-node that created the fourth block is the node that received the third black block. 
-Blackline will be added because it has the parent hash of the third black block.
+接下来，我们从节点c找到哈希值，解决问题，并创建和传播第四个块。
+在这种情况下，创建第四块的c节点是接收第三黑块的节点。
+将添加Blackline，因为它具有第三个黑色块的父哈希。
  
-However, the nodes that have the third purple block cannot receive it when the fourth black block arrives later. 
-It can’t be received even if It is obviously a valid block created by solving the problem and the fourth block that comes along the height of the block. 
-Because the parental hash of the fourth block is not the third purple block but a black block.
+但是，当第四个黑色块稍后到达时，具有第三个紫色块的节点不能接收它。
+即使它显然是通过解决问题创建的有效块和沿块高度出现的第四个块，也无法接收。
+因为第四个块的父母哈希不是第三个紫色块而是黑色块。
  
-Then the nodes that received the third purple block immediately discard the purple block they had and download it again, starting with the third black block. 
-It means that the black line gets longer. 
-The longer the line is, the more likely it will be recognized as the next block and added to the blockchain. 
-This is the longest chain rule. 
-This process of branching and merging proceeds in a very natural way.
+然后，接收到第三个紫色块的节点立即丢弃它们所具有的紫色块并从第三个黑色块开始再次下载。
+这意味着黑线会变长。
+线越长，它就越有可能被识别为下一个块并被添加到区块链中。
+这是最长的连锁规则。
+这种分支和合并过程以非常自然的方式进行。
  
-However, there are some areas where this rule can be used maliciously. 
-For example, if I have more than 51 percent of the total computing power, I can dig up much faster and produce more blocks than other miners. 
-This means that you will be able to continue with the line you created in the branching process.
+但是，在某些方面可以恶意使用此规则。
+例如，如果我占总计算能力的51％以上，我可以比其他矿工更快地挖掘并产生更多的块。
+这意味着您将能够继续在分支过程中创建的行。
  
-For example, in the third block, a branch is formed. 
-I have created a black block, and I have to wait for the fourth block as usual, but I don’t have to wait for another node to create a block, and I can create and add it in this case. Strong hashing power allows to make blocks faster. In this way, I don’t have to spread the line to other nodes, and I keep extend my own line secretly. 
-In this process, you can ignore transactions in a specific address in my block, or record that I haven’t sold my coin to cash it. 
-Here’s where my line on the network works. 
-This is the rule that adds the block to the blockchain by selecting the longest line at the end of the branch. 
-This means that the more lines my line has, the more the blocks in my line are legally added to the blockchain. 
-This is the possibility of breaking the network, and every time this occurs, it takes a long time to finalize because the line must go through the validation phase longer.
+例如，在第三块中，形成分支。
+我创建了一个黑色块，我必须像往常一样等待第四个块，但我不必等待另一个节点创建一个块，我可以在这种情况下创建并添加它。强大的散列功能可以更快地制作块。通过这种方式，我不必将线路扩展到其他节点，并且我一直在秘密扩展自己的线路。
+在此过程中，您可以忽略我的块中特定地址中的交易，或记录我没有卖掉我的硬币来兑现它。
+这是我的网络线路工作的地方。
+这是通过选择分支末尾的最长行将块添加到区块链的规则。
+这意味着我的行越多，我的行中的块就越合法地添加到区块链中。
+这是破坏网络的可能性，每次发生这种情况时，最终确定需要很长时间，因为该线路必须经过更长时间的验证阶段。

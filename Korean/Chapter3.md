@@ -1,169 +1,81 @@
-# 3. Understanding "Klaytn"
+# Chapter 3 
 
-## 3.1 Consensus
- 
-In previous chapters, we discussed the problems of the existing blockchain. Let's talk about how the Klaytn blockchain solves problems using a consensus algorithm. There are many types of consensus algorithms, such as pow or pos, which are commonly used in public blockchains, and pbft or raft, which are used in private blockchains. In general, private blockchains can reach agreement more efficiently than public blockchains. In particular, BFT-based private blockchains can achieve high performance and efficiency by limiting the number of participating nodes. However, this configuration limits the number of consensus nodes, weakens decentralization, and the content of consensus results is only disclosed to small groups. As a result, it limits transparency and harms the benefit of blockchain.
+## 3-1 Consensus
 
-On the other hand, Klaytn chooses Istanbul BFT as a consensus algorithm since it believes that by well utilizing BFT's advantages, it can combine both advantages of public and private blockchains. It’s aiming for a public blockchain that provides big enterprises-supporting performance and stability while maintaining strong security and transparency. To achieve this goal, Klaytn adopts a trust model of private consensus with public disclosure. It consists of a small number of private nodes that achieve consensus, and other nodes that can publicly access and verify the outcome of block generation. Now let's see more about Istanbul bft that Klaytn is using as an agreement algorithm.
- 
-The Istanbul bft has a three-step consensus process. There are pre-prepare, prepare, and commit steps. Klaytn uses round-robin method to pick proposer among the consensus nodes every round. It means to be a proposer. The remaining consensus nodes are validators. And do the verification.
- 
-If you look at the picture, there are proposer, validator 1, 2, 3, and so on. Among them, the node marked with X is in a state that it is currently in a faulty state. It means that it is not functioning properly as a verifier. When the computer is broken, the network is disconnected, or the computer maliciously acts this kind of thing happens.
- 
-The first step is a “propose” in which one of the consensus nodes is selected as a proposer.
-The second step is a pre-prepare where the proposer node creates blocks and makes suggestions to other nodes.
-Then, send the suggestion to the validator1 node, send it to the validator2 nodes, and send it to the validator3 nodes.
-This is the step to pass along with the message.
- 
+네 이전 강좌들을 통해 기존 블록체인 플랫폼들의 문제점을 다루어 보았는데요. 클레이튼 블록체인이 어떤 합의 알고리즘을 사용하여 문제점들을 해결하는 지에 대해서 이야기해보겠습니다. 합의 알고리즘의 종류는 여러가지가 있는데 보통 퍼블릭 블록체인에서 많이 사용하는 POW 나 POS , 그리고 프라이빗 블록체인에서 사용하는 PBFT 나 Raft 가 있습니다. 보통 프라이빗 블록체인이 퍼블릭 블록체인보다 더 효율적으로 합의에 도달할 수 있는데 특히 BFT 기반의 프라이빗 블록체인은 참여 노드의 수를 제한하여 높은 성능과 효율성을 달성할 수가 있습니다. 그러나 이러한 구성은 합의 노드수를 제한하며, 분산화를 약화시키고 합의 결과에 대한 내용이 소규모 그룹에게만 공개되기 때문에 투명성이 저하되고 블록체인 혜택을 의미있게 사용하지 못합니다. 
 
-In the third prepare step, when the verifier 1, 2, or 3 nodes receive the message from the proposer, they send messages that they have received the node successfully to the other nodes. The validator1 node sends the message to all three nodes, and the validator2 node also sends the message to all three nodes.
-However, the validator3 node sends nothing and just receive the messages because it is currently faulted.
- 
-At the end of the prepare state, you can see how many nodes are in the system. Like this image here, we can see that all three are survived: proposers, validator1, and validator2.
-This process will ensure that all the verifiers are in the same round.
- 
-Finally, in the commit phase, it is the process of communicating with other nodes to decide whether to accept a block received from a proposer. For example, it sends a response to nodes to check if blocks from the proposer are okay or wrong. If nodes more than two-thirds agree, the block will be immediately approved. In the end, it is decided in the commit phase and the finality is made. That is, the absence of finality doesn’t exist and unchangeable final state is formed at this stage. It's not a vague state like PoW.
- 
-So the advantage is that communication leads to consensus and completeness immediately. However, there is a disadvantage that traffic increases exponentially as the number of consensus nodes increases. This part is set to pick only the part of the consensus node and maintain the form bft.
- 
-Let's see how the block is created and propagated in the next class.
-## 3.2 Block generation and dissemination
- 
+자 반면에 클레이튼은 BFT 의 성능 이점을 살려서 퍼블릭 블록체인의 장점과 결합할 수 있다는 믿음을 토대로 IBFT 를 합의 알고리즘으로 선택합니다. 강력한 보안 및 투명성을 유지하면서 엔터프라이즈급 성능 및 안정성을 제공하는 퍼블릭 블록체인이 지향하고 있고요. 이러한 목표를 달성하기 위해서 클레이튼은 공개를 통한 개인적인 합의 신뢰 모델을 채택하고 있습니다. 즉 합의를 달성하는 소수의 프라이빗한 노드들과 바깥에서 블록생성 결과를 공개적으로 접근 및 검증 할 수 있는 노드들로 구성되어있습니다. 네 이제 클레이튼에서 합의 알고리즘으로 사용하는 이스탄불 BFT 가 무엇인지 더 알아보도록 하겠습니다. 네 이스탄불 BFT 에서는 크게 세단계의 합의 과정에 있습니다. 프리프리페어, 프리페어, 그리고 커밋단계가 있는데요, 라운드 로빈 방식을 선택해서 매 라운드 마다 합의 노드들 중에 프로포절을 뽑습니다. 제안자라는 뜻이 있죠. 그리고 나머지 합의 노드들은 밸리데이터가 되요. 검증을 하게 되구요. 그림을 보시면 프로포저, 벨리데이터 1 2 3 이 다같은 합의 노드들이고요. 이중에 엑스표시가 되어있는 밸리데이터 3 노드가 현재 falt 한 상태. 즉 검증자로써 작동을 못하는 상태입니다. 컴퓨터가 고장났거나 네트워크가 끊어졋거나 또는 악의적으로 행동할 때를 말하구요. 네 첫번째 단계가 프로포즈라는 단계인데 이 단계에서 합의의 노드들 중에 한 노드가 프로포저 로 선택이 됩니다. 그리고 두번째 프리 프리페어 단게에서 프로포저 노드가 블록을 만들어서 다른 노드들에게 제안을 하게 되요. 자 여기보시면 밸리데이터 1 노드한테 보내고 2 노드한테 보내고 3 노드한테 보내죠. 이번에는 내가 제안하는 차례 이면서 이렇게 메세지와 함께 전달하는 단계입니다. 세번째 프리페어 단계에서 검증자 노드들이 벨리데이터 1 2 3 노드들이 프로포저한테 메세지를 받으면 자신을 제외한 다른 노드들에게 잘 받았다 라는 메세지를 보냅니다. 그래서 여기 보시면 밸리데이터 1 노드도 세군데에다가 보내고요, 밸리데이터 2 노드도 세군데에다가 보냅니다. 자 잘받았어 하면서 보내는 겁니다. 하지만 밸리데이터 3노드는 현재 falt 가 난 상태이기 때문에 아무것도 안보내고 계속 받기만 하는 상태이구요. 프리페어 상태가 이렇게 끝나면 시스템에서 총 몇개의 노드가 살아 있구나 하는 걸 알 수가 있어요. 이미지 같은 경우에는 프로포저 벨리데이터 1 벨리데이터 2 노드 해서 총 3개의 노드가 살아있다는 것을 알 수가 있죠. 이 과정을 검증자들이 모두 같은 라운드에 있는지 확인하는 겁니다. 마지막으로 커밋단게에서는 프로포저한테 보낸 블록을 수락할건지 다른 노드들과 소통하면서 결정하는 과정인데요. 예를 들어서 프로포저한테서 받은 블록이 괜찮다고 생각하는지 아니면 잘못되었다고 생각하는지 이렇게 각자 응답을 보냅니다. 만약 2/3이상이 합의를 했다고 계산하면 블록승인을 하고 곧바로 넘어가게 되는거구요. 결국에는 이 커밋단계에서 결정이 되고 파이널리티가 정리가 됩니다. 즉 파이널리티의 부재가 없고 변경불가능한 최종적인 상태가 이 스테이지에서 마무리가 되요. 비트코인이나 이더리움의 POW 처럼 애매모호한 상태가 아니라는 거죠. 자 그래서 장점은 합의 노드들끼리 통신을 통해 합의를 이끌어내고 그 즉시 완결성을 가집니다. 
 
-Let's see how Klaytn creates and propagates blocks to provide a satisfying user experience.
- 
-Let's first look at the block creation cycle. Klaytn's block creation cycle is called a `round,` and a new block is created each round and a new round is started as soon as it ends. The block creation interval takes about 1 second.
+하지만 그 합의 노드가 많아지면 많아질 수록 그만큼 통신량이 기하급수적으로 늘어난다는 단점도 있는데 이 부분은 합의 노드의 일부만 뽑아서 BFT  형태로 유지하게 설정되어있습니다. 
+
+다음 강좌에서 좀 더 자세히 블록이 어떤 방식으로 생성되고 전파되는지 알아보도록 하겠습니다.
 
 
+## 3-2 블록 생성 및 전파
 
-Let's see how the proposer and committee choices work.
-In each round, the proposer to generate the block is pulled from one of the governance council nodes randomly but decisively. The governance council is a collection of core cells or consensus nodes. If you look at the image, these circles are the consensus nodes, of which the blue color was chosen as the proposer of the current round. And then select another consensus node group as the committee of that round. They are the validator nodes with pink color that is selected by the committee. More specifically, each consensus node uses a random number derived from the most recent block header to perform a cryptographic operation to prove that it has been selected for this round.
- 
+네 클레이튼이 만족스러운 사용자 환경을 제공하기 위해 어떤 식으로 블록을 생성하고 전파하는지 알아보겠습니다. 먼저 블록 생성 사이클을 보도록 하죠. 
 
+클레이튼에 블록 생성 주기를 라운드 라고 하는데, 각 라운드는 새로운 블록을 생성하고 끝나는 즉시 새로운 라운드가 시작이 됩니다. 블록 생성간격은 약 1초정도 걸린다고 보시면 되고요, 네. 제안자와 위원의 선택이 어떤 식으로 이루어지나 보겠습니다. 
 
-Let's take a look at the block suggestion and verification.
-When a consensus node is selected as a proposer, it will notify other consensus nodes of the evidence that it has been selected as a proposer in the round. At this time, it’ll prove this with the cryptographic proof which can be verified with public key of the proposer. Then, the consensus node group which is elected to the committee in the round tells the proposer, likewise, with evidence, why they were chosen to be a member of the committee. (Click) Now that you know who is the proposer and the committee, the proposer selects and sorts the transactions in the transaction pool and creates blocks. It then consents with the committee, agrees to the newly created block, and finishes.
- 
+각 라운드에서 블록을 생성할 제안자를 무작위지만 결정적으로 거버넌스 커운시 노드들중 하나를 뽑게 됩니다. 이 거버넌스 council 은 코어 셀들의 집합, 즉 합의의 노드들을 말하는 건데요. 자 여기 이미지를 보시면 각각의 동그라미들이 다 합의 노드들인데 그 중 파란색깔이 현재 라운드에 제안자로 선택이 된거에요. 그리고 해당 라운드에 위원회로 다른 합의 노드 그룹을 선택합니다. 그래서 핑크색깔이 지금 위원회로 뽑힌 벨리데이터 노드들 이고요. 
 
-Finally, let's look at block propagation.
-The proposed block must be signed by two thirds of the members of the committee to be successfully completed. When the committee reaches agreement, the new block is delivered to all consensus nodes and the consensus round ends. Then you can now propagate the block to the endpoint nodes through the (click) proxy node.
-So far, we have come to understand how proposers and committees can be selected and agreed to block generation and propagate.
+좀더 자세히 설명 드리자면, 각각의 합의 노드가 가장 최근에 블록헤더에서 파생된 난수를 사용하여 자기가 이 라운드에서 선택되었는지를 증명하게 되는 암호화 작업을 하게됩니다.
 
- 
- 
+블록제안과 검증을 보겠습니다. 이 합의 노드가 제안자로써 선택이 되면 이 파란색이 제안자로써 선택이 됬어요. 그러면 자신이 그 라운드에서 제안자로 뽑힌 증거를 다른 합의 노드들에게 알리게 됩니다. 이때 어떤 증거를 대냐면 제안자의 공개키를 통해 입증 가능한 암호 증명을 쓰게 되구요. 그리고 나서 해당라운드에 위원으로 뽑힌 그룹은 제안자에게 자기들이 왜 위원회 멤버로 뽑혔는지 마찬가지로 증거와 함께 알려주게 됩니다. 이제 서로 누가 제안자이고 위원회인지 파악이 되면 제안자 같은 트랜잭션 풀에서 트랜잭션을 선택하고 정렬해서 블록을 만들게 되요. 그 후에 위원회와 합의를 하고 새로 생성된 블록에 동의하면 마무리를 짓게 됩니다. 
 
-## 3.3 Network structure
- 
-Let's take a moment to explain Klaytn's network structure. On the left is the summarized version of the network. There is a core cell network in the whole network, and there is an endpoint node network surrounding the core cell. If you look at the enlargement next to it, inside the red box is the core cell network and the blue box outside is the endpoint network. In the core cell network, the yellow part is the CNN, consensus node network, and the red part is the PNN, proxy node network. The CNs in the yellow will be in charge of the consensus.
- 
- 
- 
-One core cell is operated by one participant. It operates with one CN and several proxy nodes connected to CN. To participate in CN, you have to meet up with tough conditions. And the CNs are all connected together so that they can communicate with each other. If there are 10 CNs, they are connected to each other. It's all connected because they have to communicate with each other as fast as they can when they are in the process of consensus. And the CNs cannot make direct contact with the outside. Because it is a very private environment with no interference, it has the advantage of being able to decide quickly whether to make the block or not, as a consensus node. So, how do you approach it? As a core cell participant, it’s like you run your proxy network that you can manage and trust to represent them. 
- 
-And on the outside, the endpoint nodes are connected to the core cell network. These endpoint nodes can connect to the proxy node in the core cell to receive information. Of course, the endpoint nodes can connect and exchange information with each other. However, if the endpoint node connects to the proxy node, you can receive the block more quickly. Note that there is no requirement to be an endpoint node. Anyone can be an endpoint node and pass the information to clients such as the web or mobile. It's the endpoint node that acts as a service provider.
- 
- 
-And again, you have a CN boot node, a PN boot note, and an EN boot node, which is a special type node operated by Klaytn that helps new nodes register to the network and connect to another node. The CN boot node is inside the CN network and is not published. The PN and EN boot nodes are public nodes. PN boot nodes allow you to register only allowed proxy nodes and helps you to connect to endpoint nodes. The EN boot node provides information to the endpoint nodes about which proxy node to connect to. So far we have briefly covered the Klaytn network structure.
- 
-## 3.4 Core Cell
- 
+마지막으로 블록 전파를 알아보겠습니다. 제안된 블록은 성공적으로 완료되기 위해 위원회 멤버들의 2/3이상의 서명을 받아야 합니다. 위원회가 합의에 이르게 되면 새로운 블록이 모든 합의 노드 들에게 전달이 되고 그 합의 라운드는 끝이 납니다. 자 그렇게 되면 이제 프록시 노드를 통해 엔드 포인트 노드 들에게 블록을 전파할 수 있게 되고요. 
 
- 
- 
-Let's talk more about core cells. When the main net is launched, in the core cell which is responsible for the consensus will operate in a few dozen units. As services become better, what should we do in terms of scalability if there are more connections to the core cell?
-In a general case, not blockchain, as users grow, we'll grow the server and split up the requests. However, in the case of a blockchain, increasing the number of nodes can slow down the processing speed because more information needs to be passed to each node as it grows. Increasing the number of nodes does not increase performance. So, rather than increasing the number of nodes, increasing the performance of the node itself is the right way. For example, you can increase the performance of ram or cpu. Let's look at the conditions for joining as a consensus node. The performance of the participant
- 
- 
-1. More than 40 physical cores
-2. 256GB RAM
-3. Saving approximately 14TB of data for one year
-4. 10G network
- 
- 
- 
-Note that the high performance of one of the participant's consensus nodes doesn’t mean the high speed of the entire core cell network. Because the remaining nodes with lower performance are operating at their low specifications. Therefore, in order to improve the performance of the core cell, it is necessary to match the same specifications to improve the performance.
- 
- 
- 
- 
-And looking at the structure of the core cell again, it can be seen that it consists of one CN and several PNs. There are several reasons why a proxy node is called a PN. Because CN has limited resources to connect and the number of CNs is limited, it supports connection of endpoints using PN. For example, let's say that endpoint nodes can connect directly to the CN. If this CN can accept up to a thousand endpoint connections, then if it goes beyond that, it will be burdened by the CN and its performance might go wrong. So PN is doing this part instead. The PN connects with the endpoint nodes and passes the transits to the CN. And since CN only needs to connect to a few PNs, it is much less burdensome, and you can solve the connectivity problems of endpoints trying to connect to the core cell by placing multiple PNs.
- 
-To summarize, because CN is the node responsible for the agreement, the connection should not be a performance hindrance. So, the role of the PN is to protect the CN, and the problem of scalability can be solved by placing multiple PNs.
- 
- 
- 
- 
- 
- 
- 
-## 3.5 Service Chain
- 
+네 여기까지 어떤 식으로 제안자와 위원회가 선택이 되고 블록생성이 합의하며 전파가 되는지를 알아보았습니다.
+
+## 3-3 네트워크 구조
+
+네 클레이튼 네트워크 구조에 대해서 설명하는 시간을 갖도록 하겠습니다. 
+
+네 왼쪽에 있는게 네트워크 축소판인데요, 전체 네트워크 안에 코어 셀 네트워크가 존재하고, 이 코어셀을 둘러싸는 엔드포인트 노드 네트워크가 존재합니다. 옆에 확대된걸 보시면 이 빨간 박스 안에 있는게 코어 셀 네트워크고, 바깥에 파란색이 엔드포인트 네트워크입니다. 코어셀 네트워크 안에 자세히 보시면 이 노란색 부분이 있죠. 이 노란색 부분은 CNN  컨센서스 노드 네트워크, 합의 노드 네트워크고 빨간색은 PNN , 프록시 노드 네트워크입니다. 노란색 안에 있는 CN 들이 합의를 담당하게 되는 노드들 이고요. 자 이 하나의 코어셀은 하나의 참여자가 운영을 하게 되는데 한개의 CN 과 또 이 CN 과 연결되어있는 여러개의 프록시 노드로 운영이 됩니다. CN 으로 참여하기 위해서는 까다로운 조건들을 갖춰야하고요. 그리고 이 CN 들은 자기네들끼리 계속 소통할 수 있도록 각자가 다 연결되어 있는 구조입니다. 만약 10대가 있으면 서로 다 연결되어 있는 거고요. 합의하는 과정에서 서로 최대한 빨리 커뮤니케이션을 해야하기 때문에 다 연결되어 있는 거에요. 
+
+그리고 CN 들은 외부와는 직접적으로 접촉할 수가 없고요. 방해가 없는 굉장히 프라이빗한 환경이기 때문에 합의 노드로써 블록을 만드는 결정에 빨리 도달할 수 있는 장점이 있습니다. 
+
+그러면 어떻게 접근하느냐, 바로 코어셀 참여자로써 자기가 운영하고 관리해서 믿을 수 있는 이 프록시 네트워크를 앞에 내세운다. 라는 컨셉입니다. 
+
+자 바깥쪽에 보시면 엔드포인트 노드들이 이 코어셀 네트워크와 연결되어있죠. 이 엔드포인트 노드들이 코어셀안에 있는 프록시 노드와 연결해서 정보들을 주고받을 수 있습니다. 물론 엔드포인트 노드들끼리 서로 연결해서 정보를 주고받을 수도 있고요. 자 이렇게 서로 연결되어있죠. 하지만 엔드포인트 노드가 이 프록시 노드와 연결하면 더 빠르고 신속하게 신뢰도 높은 블록을 받을 수 있습니다. 이 엔드포인트 노드가 되기위한 조건은 없고요. 아무나 엔드포인트 노드가 되어서 웹이나 모바일같은 클라이언트들에게 정보를 전달할 수 가 있습니다. 서비스 제공자로써의 역할을 하는게 이 엔드포인트 노드입니다.
+
+그리고 또 보시면 CN Boot node 와 PN Boot node, EN Boot node 가 있죠. 이 Boot node 는 새로 들어온 노드가 네트워크에 등록하고 또 다른 노드에 연결할 수 있도록 도움을 주는 클레이튼을 운영하는 특수 유형 노드입니다. CN boot node 는 CN 네트워크 안에 있으면서 공개가 되지않고 PN 와 EN boot node 는 공개가 됩니다. PN boot node 는 허용된 프록시 노드만 등록할 수 있게 해주고요. 엔드포인트 노드들과 또 연결할 수 있도록 도와줍니다. EN boot node는 어떤 프록시 노드에 연결해야될지, 엔드포인트 노드들에게 정보를 제공하는 역할을 하고요. 네 여기까지가 클레이튼 네트워크 구조에 대해서 간략하게 알아보았습니다.
+
+## 3-4 코어셀
+
+네 코어셀에대해서 좀더 자세히 이야기해보도록 하겠습니다. 합의를 담당하는 코어셀에서는 메인넷이 런칭되면 몇십대 정도로 운영이 될겁니다. 그리고 서비스가 잘 됨에 따라 코어셀의 연결하는 커넥션이 많아질 경우, 확장성 측면에서 어떻게 해야할까요? 
+
+블록체인이 아닌 일반적인 경우 사용자가 늘어나면 서버를 늘리고 리퀘스트를 분할해서 처리하겠죠. 하지만 블록체인의 경우에는 노드를 늘려봤자 늘린만큼 정보를 각 노드들에게 더 전달해야되기 때문에 처리속도가 더 느려질 수 있습니다. 노드가 늘어난다고 노드의 성능이 늘어나지 않아요. 
+
+그래서 노드의 수를 늘리기 보다는 그 노드 자체의 성능을 늘려야합니다. 예를 들어 램이나 CPU 의 성능을 더 높히는 거죠. 자 그러면 합의 노드로써 참여하기위한 조건들을 보겠습니다. 참여자가 가지고 있는 성능이 피지컬 코어가 40개 이상이고, 램이 256GB 고, 1년치의 데이터 약 14TB 를 저장할 수 있고 네트워크 10GB 이상이면 합의 노드로써 참여가 가능합니다. 참고로 참여자의 합의 노드들 중 하나의 성능이 특별히 좋다고 해서 코어셀의 네트워크가 빨라지는 것은 아닙니다. 성능이 더 나아진 나머지 노드들은 자기 스펙에 맞게 운영하고 있기 때문인데요. 그렇게 때문에 코어셀에 더 높은 성능 향상을 위해서는 전체가 다 똑같은 스펙에 맞춰서 성능향상을 시켜야합니다. 
+
+자 코어셀의 구조를 다시 보시면 하나의 CN과 여러 대의 PN 으로 이루어져 있다는 것을 알 수 있죠. 이 PN이라는 프록시 노드가 왜 여러 대 있냐면 CN의 연결에 필요한 자원이 제한적이고 CN 역시 수가 한정되어있기 때문에 PN을 이용해서 이 엔드포인트에 연결을 지원하는거 에요. 예를 들어서 엔드포인트 노드들이 이 CN에 직접적으로 연결할 수 있다고 하겠습니다. 이 CN 이 엔드포인트 컨넥션을 1000개까지 허용할 수 있다 하면 그 이상 넘어가게 되면 CN으로써 부담이 되고 이상이 올 수 있겠죠. 그래서 PN이 그 역할을 대신해주는 겁니다. PN 이 엔드포인트 노드들과 연결하고 넘어온 트랜잭션들을 CN에 넘겨주는 거에요. 그리고 CN은 PN 몇대만 연결하면 되기 때문에 부담이 훨씬 덜 가고, 또 PN을 여러 대 둠으로써 코어셀에 연결하려는 엔드포인트 컨넥션 문제들을 해결할 수 있습니다. 
+
+요약을 하자면 CN은 합의를 담당하는 노드기 때문에 컨넥션으로 인해 성능에 걸림돌이 되어서는 안되요. 그래서  PN 이 CN 을 보호해주는 역할이고 또 PN을 여러 대 둠으로써 확장성 문제도 해결할 수 있습니다.
 
 
+## 3-5 서비스 체인
 
- 
-Klaytn's service chain is an independently operated blockchain connected to the main net. This idea comes from scalability. In a situation where you want to use a service chain, you need to set it in a special node environment, or if you want to customize the security level, for example, when you want to run a private blockchain. Services that require tremendous throughput. When it is not economically feasible to distribute services to Main net, they use the service chain.
- 
-If you look at the image, the big circle in the middle is the main net. It can be seen that the service chain holds trust in the main chain, which is not free to communicate between the main chain and the service chain, and only limited transactions can be used. Also, the transmission of the KLAY will be allowed only when there are later restrictions.
- 
- 
- 
- 
- 
-In other words, the service chain builds a separate service space and locks the trust on the main net when needed. Other blockchain platforms are also moving toward adopting technologies such as service chains. In the case of Ethereum, I felt the limitations of the main network in terms of capacity and speed.  It is well known that Crypto Kitty,which once made a huge boom slowed the Ethereum main network. So, on the Ethereum side, they put a concept based on a sidechain technology called Plasma, which, if done correctly, would lessen the burden on the main chain and allow more transactions to be processed per second. But it is still not coming out.
- 
-By the way, in Klaytn's service chain, you can set zero gas fee for all transactions. It means that the BApp developers or service providers can build their own environment and provide services to users in the service chain. Yes, I've talked about what Klaytn's service chain is all about.
- 
- 
- 
- 
- 
- 
- 
-## 3.6  Difference between Klaytn and Ethereum - Different roles of nodes
- 
- 
-Let's talk briefly about the difference between Ethereum and Klaytn.
- 
-Ethereum is a single network. There is no distinction between network members. Anyone can create a block, but when it comes to creating a block, a person needs to be the first to notify that he or she made it first, and that it should be known to many places.
-So if you add a block to a blockchain, you get a compensation.
-This is PoW, a proof-of-work method used by Ethereum as a consensus protocol.
- 
- 
-In Ethereum, you need to stick to as many nodes as possible because you do not know who will be the block mining node.
-In other words, nodes that write blocks have up-to-date information.
-So I want to get information quickly but I do not know where this node is.
-If you know that the node A is always fastest at writing a block on node, you only need to stick to this node A, then you can receive information most fast.
- 
-However, since Ethereum is always changing its node, you have to stick to as many as possible, thereby, being gossiped to as many nodes as possible.
- 
- 
-Then this will give you a chance to get the latest information.
-Since any node can write and propagate blocks, you need to connect with as many nodes as possible to get the latest data.
- 
-Klaytn, on the other hand, is not a single network, but a network with two layers.
-I said that one of the consensus nodes in the core cell network would be taken as a proposer and played a role of block writing per round.
-So how do you get the latest information?
-I should stick around.
-The end-point nodes sticked to core cell know that consensus nodes are building blocks, so they are attached next to CNs.
- 
- 
-That way you can load or write reliable information.
-When we create an application we build servers that are shown here.
-You can deploy Java or SQL DB to cloud or private servers like Azure or AWS.
-However, because this server cannot be directly associated with the core cell, you must first connect to the endpoint node to access blockchain data.
-You can connect your computer to an endpoint node or use it to connect to another endpoint node.
-However, running this endpoint node personally is not easy.
-Since the blockchain system needs to synchronize all nodes when operating a node, it needs to be synchronized every time new blocks are added in order to write properly.
- 
- 
- 
- 
- 
- 
-In addition, there is also a concern that the computer may be crashed by an attack.
-Because of these problems, you can connect to a trusted external node, such as Ethereum’s infrastructure node.
-For example, you have a web developer here. He wants to connect to Klaytn and just read the data. Then, it’s better to connect to the external, public node and use it to make it much easier and less time-consuming than to run a personal endpoint node.
- 
-Finally, unlike Ethereum, there is a service chain that can communicate partially with the main net on the right and builds a separate service space.
-To summarize, Klaytn is a network in which two layers trust each other, and when accessing an internal blockchain, the endpoint node can connect to the core cell network and write or receive data quickly.
+네. 클레이튼의 서비스 체인은 메인넷과 연결된 독립적으로 운영되는 블록체인입니다. 확장성에 기반을 둬서 나온 아이디어 인데 어느 상황에 서비스 체인을 쓰냐면, Bapp 이 특별한 노드 환경에서 셋팅되어야 한다거나, 또는 보안수준을 맞춤형으로 설정해서 운영하고 싶을때 에를 들어서 프라이빗 블록체인을 운영하고 싶을때이고요. 마지막으로 엄청나게 많은 처리량을 요구하는 서비스라 메인넷에 배포하는게 경제성이 낮다고 판단될 때 서비스 체인을 쓰게됩니다. 
+
+네 이미지를 보시면, 가운데 큰 동그라미가 메인넷이고요, 양쪽으로 체인처럼 메인넷과 연결된 것들이 서비스 체인입니다. 이 서비스 체인이 메인 체인에 신뢰를 고정시킨다고 보면 되는데, 메인 체인과 서비스 체인과의 소통이 자유로운 것은 아니고 오직 제한된 트랜잭션 만이 사용될 수 있습니다. 
+
+또한 클레이의 전송도 추후 제약 조건이 존재할 때에만 허용될 예정이고요. 다시 말해서, 서비스 체인은 독립된 서비스 공간을 구축해서 필요할 때 메인넷에 신뢰를 고정시키는 겁니다. 서비스 체인과 같은 기술이 탑 블록체인 플랫폼에서도 성능 문제로 인해 채택하려는 움직임이 있어요. 이더리움 같은 경우는 용량과 속도 면에서 메인 네트워크의 한계를 느꼈었죠. 크립토 키티라는 Dapp 이 한때 엄청 붐이 일어나서 이더리움 네트워크를 늘리게 만들었던 사실은 유명합니다. 그래서 이더리움 측에서 플라즈마라는 사이드 체인 기술에 기반을 둔 컨셉을 내놓았었는데 이게 제대로만 돌아간다면 메인체인에 부담을 줄이고 초당 더 많은 트랜잭션 들을 처리할 수 있게 됩니다. 하지만 아직은 미지수이죠. 참고로 클레이튼의 서비스 체인 안에서는 트랜잭션에 소요되는 가스 비용을 아예 안받게 설정할 수 있습니다. Bapp 개발사나 서비스 제공자가 서비스 체인안에서 자기가 원하는 환경을 구축하고 서비스를 유저들에게 제공할 수 있다는 뜻이죠. 
+
+네 여기까지 클레이튼의 서비스 체인이 어떠한 컨셉인지 이해하기 해보았습니다. 
+
+## 3-6 이더리움과 클레이튼의 차이
+
+네 이더리움과 클레이튼의 차이가 무엇인지 간단하게 이야기해보는 시간을 갖도록 하겠습니다. 
+
+이더리움은 단일 네트워크입니다. 네트워크 구성원간에 구분이 없죠, 누구나 블록을 생성할 수가 있는데 , 단 블록을 만들었을 때 내가 먼저 만들었다고 가장 빨리 알려야하고 또 많은 곳에 알려져야 합니다. 그렇게 해서 블록을 블록체인에 추가하게 되면 보상을 받게 되는 구조이죠. 이게 바로 이더리움의 합의 프로토콜로 사용하고 있는 POW 즉 작업 증명 방식입니다. 이더리움에서는 마이닝 노드 즉, 블록을 채굴하는 노드가 누가 될지 모르기 때문에 최대한 많은 노드 들한테 붙어야 합니다. 쉽게 말해서 블록을 쓰는 노드는 최신 정보를 가지고 있어요. 그래서 내가 이 정보를 빨리 받아야 되는데, 이 노드가 어디에 있는지 모릅니다. 만약 A 라는 노드에서 블록 쓰는 걸 항상 담당한다면 이 노드 옆에만 딱 달라붙으면 되겠죠. 정보를 가장 빨리 받아볼 수 있으니까요. 하지만 이더리움은 그 역할을 담당하는 노드가 항상 바뀌기 때문에 어떻게든 최대한 많은 노드 들에게 붙어서 전파, 즉 가십을 받아야 합니다. 이렇게 되면 확률적으로 최신 정보를 가져올 수 있겠죠. 어떤 노드든 블록을 쓰고 전파할 수 있기 때문에 최대한 많은 노드와 연결을 하고 블록 전파에 힘써야 최신 데이터를 확보할 수 있습니다. 
+
+반면에 클레이튼은 단일 네트워크가 아니고 두개의 레이어를 가지고 있는 네트워크 입니다. 제가 코어셀 네트워크에 있는 합의 노드들 중 라운드마다 한 노드가 제안자로 뽑혀서 블록 쓰기 역할을 담당한다고 했었죠. 그러면 최신정보를 받기 위해서는 어떻게 해야할까요? 
+
+네 바로 옆에 붙어야겠죠. 코어셀안에 있는 이 합의 노드들이 블록을 만든다는 사실을 바깥에 있는 엔드포인트 노드들이 알고 있기 때문에 옆에 바로 붙습니다. 그래야 신뢰도가 높은 정보를 불러오거나 쓸 수 있으니까요. 우리가 어떤 어플리케이션을 만들 때 여기 보시는 이 서버들도 같이 구축을 하게됩니다. JAVA 나 SQL DB를 , Azure 나 AWS 같은 클라우드 또는 개인 서버에 디플로이 시키게 되죠. 그런데 이 서버가 직접적으로 코어셀과 연결을 시킬 수가 없으니까 블록체인 데이터에 접근하려면 엔드포인트 , 엔드포인트 노드에 먼저 연결을 해야합니다. 내 컴퓨터를 엔드포인트 노드화 시켜서 연결하거나, 아니면 다른 엔드포인트 노드에 연결해서 쓸 수도 있어요. 하지만 이 엔드포인트 노드를 개인적으로 운영한다는 게 쉽지만은 않습니다. 블록체인 시스템은 노드를 운영할 때 모든 블록들을 동기화 시켜서 써야되기 때문에 제대로 쓰려면 새로운 블록들이 추가될 때마다 동기화를 계속 시켜줘야합니다. 그 외에 공격을 받아서 컴퓨터가 따운이 될수있는 불안감도 있겟죠. 네 이런 문제들 때문에 이더리움에 인퓨라 노드처럼 신뢰 가능한 외부 노드에 연결해서 쓸 수도 있습니다. 
+
+예를 들어서 웹 개발자가 있습니다. 그런데 이분이 클레이튼에 연결해서 단순히 데이터만 읽어오는 사이트를 만들고 싶어해요. 그러면 개인적인 엔드포인트 노드를 운영하는 것보다 신뢰가능한 외부 공용 노드에 연결해서 쓰는 것이 훨씬 편하고 시간절약도 되겠죠. 
+
+마지막으로 이더리움과는 달리 오른쪽에 메인넷과 부분적으로 소통할 수 있으며 독립된 서비스 공간을 구축하는 서비스 체인이 또 있습니다. 
+
+자 정리를 하자면 클레이튼은 두개의 레이어가 서로 신뢰하는 네트워크이고 내부 블록체인에 접근할 때 엔드포인트 노드가 코어셀 네트워크에 연결해서 빠르게 데이터를 쓰거나 받을 수 있는 구조입니다.
