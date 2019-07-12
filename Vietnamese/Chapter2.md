@@ -80,7 +80,8 @@ Fork đề cập đến hiện tượng kết nối của các block được ch
 Lý do fork xảy ra là vì tất cả những người tham gia vào mạng blockchain P2P có thể khai thác độc lập với nhau. 
 Đầu tiên, tôi sẽ giải thích về PoW trong Bitcoin hoặc Ethererum. 
 PoW giải quyết giá trị băm để thêm vào các block trên mạng lưới Blockchain. 
-Các node cạnh tranh nhau để giải quyết vấn đề này. Đôi khi hai node giải quyết vấn đề tại cùng một thời điểm. 
+Các node cạnh tranh nhau để giải quyết vấn đề này. 
+Đôi khi hai node giải quyết vấn đề tại cùng một thời điểm. 
 Sau đó, hai block đóng vai trò như ứng cử viên được thêm vào mạng lưới blockchain. 
 Tại thời điểm này, sẽ xuất hiện thêm nhánh.
 
