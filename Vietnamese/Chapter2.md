@@ -93,7 +93,7 @@ Một ngày nọ, tôi chuyển tiền cho bạn tôi.
 Sau đó, giao dịch xảy ra và đi vào pool giao dịch. 
 Các node A, B đặt giao dịch này trong pool của mỗi block riêng để tạo block. 
 Tại thời điểm này, cả hai node bao gồm các giao dịch mà tôi đã gửi cho bạn tôi.
-
+ 
 Giai đoạn cuối của quy trình này, các node sẽ giải quyết các vấn đề thêm trong block riêng của chúng vào blockchain đang có. 
 Các node phải trải qua một quá trình tính toán về độ khó, các node A và B phải giải quyết quy trình tính toán độ khó. 
 Sau đó, các node này sẽ lan truyền vấn đề này đến các node khác.
