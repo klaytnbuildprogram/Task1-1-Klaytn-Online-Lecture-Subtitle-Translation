@@ -1,6 +1,6 @@
-# 3. Hiểu về "Klaytn"
+# 3. Tìm hiểu về "Klaytn"
 
-## 3.1 Sự đồng thuận
+## 3.1 Cơ chế đồng thuận
 
 
 
