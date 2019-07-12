@@ -97,18 +97,18 @@ Tại thời điểm này, cả hai node bao gồm các giao dịch mà tôi đ�
 Giai đoạn cuối của quy trình này, các node sẽ giải quyết các vấn đề thêm trong block riêng của chúng vào blockchain đang có. 
 Các node phải trải qua một quá trình tính toán về độ khó, các node A và B phải giải quyết quy trình tính toán độ khó. 
 Sau đó, các node này sẽ lan truyền vấn đề này đến các node khác.
+ 
 
-
+ 
 Khi sự lan truyền này xảy ra, một số node nhận được block màu tím từ node A và các node khác nhận được block màu đen từ nút B. 
 Đây là nơi nhánh được tạo ra như trong block thứ ba. 
 Trong quá trình lan truyền, các node sau khi nhận được một block màu tím, sẽ nhận một block màu đen sau đó. 
 Nhưng các node này bỏ qua block màu đen. 
 Bởi vì giao dịch tôi gửi cho bạn tôi đã được thêm vào block màu tím. Ngược lại, các node nhận được một block màu đen sẽ từ chối các block khác vì chúng chứa trong cùng giao dịch ở block màu tím.
-
+ 
 Tiếp theo, chúng tôi tìm giá trị băm từ node C để giải quyết vấn đề và tạo và lan truyền tới block thứ tư. 
 Trong trường hợp này, node C tạo ra block thứ tư và cũng nhận được block đen thứ ba. 
 Blackline sẽ được thêm vào vì nó chứa hàm băm “cha” của block đen thứ ba.
-
 
 Tuy nhiên, các node có chứa block màu tím thứ ba sẽ từ chối block màu đen thứ tư đến sau. 
 Nó có thể nhận được ngay cả khi nó rõ ràng là một block hợp lệ được tạo bằng cách giải quyết vấn đề và block thứ tư đi dọc theo chiều cao của block.
@@ -120,15 +120,15 @@ Chuỗi càng dài, càng có nhiều khả năng công nhận cho block tiếp 
 Đây là quy tắc chuỗi dài nhất. 
 Quá trình phân nhánh và sáp nhập được tiến hành một cách rất tự nhiên. 
 
-
-
 Tuy nhiên, quy tắc này sẽ không mang lợi ích cho một vài khía cạnh. 
 Ví dụ, nếu tôi có hơn 51% sức mạnh tính toán, tôi có thể đào nhanh hơn nhiều và tạo ra nhiều block hơn so với các miner khác. 
 Điều này có nghĩa là bạn sẽ có thể tiếp tục với chuỗi mà bạn vừa tạo.
-
 
 Ví dụ, nhánh được hình thành trong block thứ ba. 
 Tôi tạo ra một block màu đen và như thường lệ phải đợi block thứ tư, nhưng trong trường hợp tôi không cần phải đợi một node khác tạo ra block. Thay vào đó tôi có thể tạo và thêm block thứ tư vì sức mạnh hàm băm cho phép tạo các block nhanh hơn. Theo cách này, tôi không phải lan truyền cái chuỗi này sang các node khác và tôi tiếp tục mở rộng chuỗi của mình một cách bí mật. 
 Ở quá trình này, bạn có thể phớt lờ các giao dịch có địa chỉ cụ thể trong block của tôi, hoặc ghi lại rằng tôi đã không bán coin ra tiền mặt. 
 Đây là nơi mà chuỗi trong blockchain đang hoạt động. 
-Đây là quy tắc thêm block vào mạng lưới blockchain bằng cách chọn chuỗi dài nhất ở cuối nhánh. Điều này có nghĩ chuỗi dài nhất, thì có nhiều block hợp lệ được thêm vào chuỗi trong blockchain. Một khi mạng lưới bị phá vỡ thì sẽ phải mất rất nhiều thời gian để hoàn thiện vì chuỗi phải trải qua giai đoạn xác thực lâu hơn.
+Đây là quy tắc thêm block vào mạng lưới blockchain bằng cách chọn chuỗi dài nhất ở cuối nhánh. 
+Điều này có nghĩ chuỗi dài nhất, thì có nhiều block hợp lệ được thêm vào chuỗi trong blockchain. 
+Một khi mạng lưới bị phá vỡ thì sẽ phải mất rất nhiều thời gian để hoàn thiện vì chuỗi phải trải qua giai đoạn xác thực lâu hơn.
+
