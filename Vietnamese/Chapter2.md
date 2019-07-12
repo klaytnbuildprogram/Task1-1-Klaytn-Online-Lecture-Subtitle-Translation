@@ -105,7 +105,7 @@ Khi sự lan truyền này xảy ra, một số node nhận được block màu 
 Trong quá trình lan truyền, các node sau khi nhận được một block màu tím, sẽ nhận một block màu đen sau đó. 
 Nhưng các node này bỏ qua block màu đen. 
 Bởi vì giao dịch tôi gửi cho bạn tôi đã được thêm vào block màu tím. Ngược lại, các node nhận được một block màu đen sẽ từ chối các block khác vì chúng chứa trong cùng giao dịch ở block màu tím.
- 
+
 Tiếp theo, chúng tôi tìm giá trị băm từ node C để giải quyết vấn đề và tạo và lan truyền tới block thứ tư. 
 Trong trường hợp này, node C tạo ra block thứ tư và cũng nhận được block đen thứ ba. 
 Blackline sẽ được thêm vào vì nó chứa hàm băm “cha” của block đen thứ ba.
