@@ -1,9 +1,9 @@
-# 6. Summary
+# 6. Tóm lại
 
-Let’s wrap up. Through this tutorial, we’ve learned theoretically about what Klaytn is, and we’ve used Klaytn’s tools: wallet, ide, and scope. And we’ve developed a simple addition game BApp through caver.js. 1-sec finality can be noticed while we create a transaction. It's a huge advantage. The service chain is not yet under development, but if you are wondering, go to Klaytn’s official documentation website, and experiment and try it by yourself.
+Hãy gói ghém chúng lại. Thông qua hướng dẫn này, chúng ta đã tìm hiểu về lý thuyết Klaytn là gì và tiến hành sử dụng các công cụ Klaytn, bao gồm: wallet, ide và scope. Và, chúng ta đã phát triển một trò chơi phép cộng đơn giản BApp thông qua caver.js. Tài chính 1-sec có thể được chú ý trong khi chúng ta tạo giao dịch. Đó là một lợi thế rất lớn. Chuỗi dịch vụ chưa được phát triển, nhưng nếu bạn hứng thú, hãy truy cập trang web chính thức của Klaytn, và tự mình trải nghiệm nó.
 
 https://docs.klaytn.com/node/sc
 
-This is Klaytn’s official document. Although it is in English, you can check out more information. For example, if you have more questions about the caver.js api, check the toolkit api caver.js in the api tab. And the tutorials tab gives you templates for creating ReAct versions of BApp. Reactors can learn more by following the tutorial. Finally, ask the Klaytn community for questions about the lecture and other questions. You can fill it out in Facebook Klaytn Group or Reddit. I'll give you a link in the course.
+Đây là tài liệu chính thức của Klaytn. Nó được biên soạn bằng tiếng Anh, vì vậy bạn hãy kiểm tra thêm những thông tin này. Ví dụ: nếu bạn có thêm câu hỏi về api caver.js, hãy kiểm tra bộ công cụ api caver.js trong tab api. Và tab hướng dẫn cung cấp cho bạn các mẫu để tạo phiên bản ReAct của BApp. Có thể tìm hiểu thêm bằng cách làm theo hướng dẫn. Cuối cùng, hãy hỏi cộng đồng Klaytn về các vấn đề khác. Bạn có thể truy cập Klaytn Group trên Facebook, hoặc Reddit. 
 
-We hope that the blockchain community will become more active and popularized through the Klaytn blockchain platform of Kakao. Thank you.
+Chúng tôi hi vọng rằng cộng đồng Blockchain sẽ ngày càng sôi nổi và tích cực hơn thông qua nền tảng blockchain Klaytn của Kakao. Xin cám ơn!
