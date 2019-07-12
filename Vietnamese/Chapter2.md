@@ -85,6 +85,8 @@ Các node cạnh tranh nhau để giải quyết vấn đề này.
 Sau đó, hai block đóng vai trò như ứng cử viên được thêm vào mạng lưới blockchain. 
 Tại thời điểm này, sẽ xuất hiện thêm nhánh.
 
+
+
 Ví dụ: Giả sử bạn đang khai thác từ hai node
 Node A và node B. 
 Một ngày nọ, tôi chuyển tiền cho bạn tôi. 
