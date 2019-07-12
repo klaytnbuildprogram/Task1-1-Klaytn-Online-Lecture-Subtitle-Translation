@@ -41,10 +41,10 @@ Như vậy, mỗi node sẽ lặp lại cùng một công việc.
 Kết quả là hiệu suất của toàn bộ mạng lưới sẽ bị chậm lại. 
 Hiệu suất của một máy tính không có gì khác biệt so với hàng chục ngàn mạng lưới hoặc máy tính khác. 
 Do đó, các mạng blockchain như Bitcoin hay Ethereum không thể xử lý một block lượng giao dịch lớn và chính bản thân mạng lưới chậm đi.
- 
- 
+
+
 ## 2.2 Thiếu tính hữu hạn
- 
+
 
 Tính hữu hạn đề cập đến trạng thái cuối cùng không thể thay đổi. 
 Tính hữu hạn của một block trong blockchain đảm bảo các giao dịch trong block không bị thay đổi. 
