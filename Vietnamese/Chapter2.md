@@ -98,6 +98,7 @@ Giai đoạn cuối của quy trình này, các node sẽ giải quyết các v�
 Các node phải trải qua một quá trình tính toán về độ khó, các node A và B phải giải quyết quy trình tính toán độ khó. 
 Sau đó, các node này sẽ lan truyền vấn đề này đến các node khác.
 
+
 Khi sự lan truyền này xảy ra, một số node nhận được block màu tím từ node A và các node khác nhận được block màu đen từ nút B. 
 Đây là nơi nhánh được tạo ra như trong block thứ ba. 
 Trong quá trình lan truyền, các node sau khi nhận được một block màu tím, sẽ nhận một block màu đen sau đó. 
