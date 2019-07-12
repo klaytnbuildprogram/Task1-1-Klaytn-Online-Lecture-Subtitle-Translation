@@ -5,28 +5,34 @@
 Trong những chương trước, vấn đề Blockchain hiện nay đang gặp phải được trình bày một cách cụ thể. Ở chương này, chúng ta hãy đi tìm hiểu về Blockchain - Klaytn đã giải quyết bằng thuật toán đồng thuận như thế nào. Hiện nay có nhiều loại thuật toán đồng thuận khác nhau, chẳng hạn như PoW hoặc PoS, thường được sử dụng trong Blockchain Public, và PBFT hoặc RAFT trong Blockchain Private. Nhìn chung, Blockchain Private sẽ đạt hiệu quả cao hơn so với Blockchain Public bởi vì thuật toán BFT của nó mang lại hiệu quả cao bằng cách giới hạn số lượng node tham gia. Tuy nhiên, cơ chế này lại giới hạn số lượng node đồng thuận, dẫn đến làm giảm đi sự phân quyền, và kết quả đồng thuận chỉ tiết lộ cho các nhóm nhỏ. Khiến chúng giảm đi tính minh bạch và lợi ích của Blockchain mang lại.
 
 Mặt khác, Klaytn chọn Istanbul BFT làm thuật toán đồng thuận bởi chúng có thể tận dụng điểm mạnh cả Blockchain Private and Public. Mục tiêu nhắm tới Blockchain Public mang lại hiệu suất và tính ổn định cho các doanh nghiệp lớn nhưng vẫn duy trình tính bảo mật cao và minh bạch. Để đạt được tham vọng này, Klaytn áp dụng mô hình về cơ chế đồng thuận trong Blockchain Private nhưng lại công bố công khai. Nó gồm có số lượng ít các node Private để đạt được sự đồng thuận và các node còn lại có thể truy cập công khai và xác thực kết quả của việc tạo block. Chúng ta sẽ đi tìm rõ hơn về thuật toán Istanbul BFT mà Klaytn đang sử dụng.
-
+ 
 Qúa trình đồng thuận của thuật toán BFT Istanbul gồm 3 bước: pre-prepare( khởi động), prepare( sẵn sàng), commit steps( bước cam kết). Klaytn sử dụng phương pháp round-robin, mỗi vòng các node đồng thuận sẽ được chọn. Các node đồng thuận còn lại (validator) sẽ được xác thực.
 
 Nếu bạn nhìn bức tranh tổng thể, sẽ có những node xác thực (verifier) 1, 2, 3, v.v. Trong số đó, node được đánh dấu X ở trạng thái bị lỗi, điều đó có nghĩa là nó không hoạt động đúng theo quy trình xác thực. Một khi máy tính bị hỏng, mạng lưới sẽ bị ngắt, sẽ gây hại đến dữ liệu...
 
 Bước đầu tiên là “đề xuất” những node đồng thuận được chọn (proposer). Bước kế tiếp “khởi động” - những node proposer đó sẽ tạo ra block và đưa ra đề xuất cho các node khác (validator).
 
-Tiếp tục, gửi đề xuất đến node validator1, và nó sẽ gửi đến node validator2 , cứ như vậy đến node validator3. Đây chính là thông điệp mà cơ chế muốn truyền tải.
+Tiếp tục, gửi đề xuất đến node validator1, và nó sẽ gửi đến node validator2 , cứ như vậy đến node validator3. 
+Đây chính là thông điệp mà cơ chế muốn truyền tải.
 
-Đến bước thứ 3, khi các node verifier 1, 2 hoặc 3 nhận được thông báo từ node proposer, chúng sẽ thông báo nhận được đề xuất thành công. Ví dụ: Node validator1 gửi thông báo đến cả 3 node và node validator2 cũng gửi đến cả 3 node. Tuy nhiên, node validator3 không thể gửi gì và chỉ nhận được tin nhắn do nó bị lỗi.
 
-Ở cuối giai đoạn prepare (chuẩn bị) này, bạn sẽ thấy toàn bộ node trong hệ thống. Hình ảnh dưới đây, node proposer, node validator 1 và node validator 2 còn tồn tại. Qúa trình này sẽ đảm bảo rằng tất cả các node verifier ở trong cùng một vòng.
+Đến bước thứ 3, khi các node verifier 1, 2 hoặc 3 nhận được thông báo từ node proposer, chúng sẽ thông báo nhận được đề xuất thành công. Ví dụ: Node validator1 gửi thông báo đến cả 3 node và node validator2 cũng gửi đến cả 3 node. 
+Tuy nhiên, node validator3 không thể gửi gì và chỉ nhận được tin nhắn do nó bị lỗi.
+
+Ở cuối giai đoạn prepare (chuẩn bị) này, bạn sẽ thấy toàn bộ node trong hệ thống. Hình ảnh dưới đây, node proposer, node validator 1 và node validator 2 còn tồn tại. 
+Qúa trình này sẽ đảm bảo rằng tất cả các node verifier ở trong cùng một vòng.
 
 Bước cuối cùng (commit step), quy trình này sẽ tương tác các node khác, xem có chấp nhận Block mà nó nhận từ node proposer hay không. Ví dụ, nó sẽ phản hồi tới các node, nếu được hơn 2/3 đồng ý, sẽ phê duyệt Block ngay lập tức. Không tồn tại vô hạn và trạng thái không thay đổi không xuất hiện trong giai đoạn này. Hơn thế nữa, nó không ở trạng thái mơ hồ so với PoW.
 
-Kết luận, điểm mạnh của cơ chế này là sự tương tác giữa các node sẽ dẫn đến tính đồng thuận. Tuy nhiên, vẫn có điểm bất lợi là lưu lượng tăng theo cấp số nhân một khi số lượng node đồng thuận tăng. Cơ chế này sẽ chọn ra node đồng thuận và duy trì cơ chế đồng thuận BFT. Chúng ta tiếp tục khám phá các Block được tạo ra và lan truyền đến các giai đoạn khác như thế nào.
+Kết luận, điểm mạnh của cơ chế này là sự tương tác giữa các node sẽ dẫn đến tính đồng thuận. Tuy nhiên, vẫn có điểm bất lợi là lưu lượng tăng theo cấp số nhân một khi số lượng node đồng thuận tăng. Cơ chế này sẽ chọn ra node đồng thuận và duy trì cơ chế đồng thuận BFT. 
+
+Chúng ta tiếp tục khám phá các Block được tạo ra và lan truyền đến các giai đoạn khác như thế nào.
 ## 3.2 Tạo Block và tính phổ biến
  
 
 Hãy xem cách Klaytn tạo ra Block và cung cấp trải nghiệm thú vị cho người dùng.
  
-LChúng ta hãy nhìn vào chu trình tạo Block của Klaytn được gọi là một vòng. Mỗi round tạo ra Block mới, mặt khác sẽ tiến hành round mới khi nó kết thúc. Khoảng thời gian tạo Block mất khoảng 1 giây.
+Chúng ta hãy nhìn vào chu trình tạo Block của Klaytn được gọi là một vòng. Mỗi round tạo ra Block mới, mặt khác sẽ tiến hành round mới khi nó kết thúc. Khoảng thời gian tạo Block mất khoảng 1 giây.
 
 
 
@@ -65,7 +71,6 @@ Và một lần nữa, node CN, PN và EN boot là những node loại đặc bi
  
  
 Chúng tôi sẽ đưa ra cái nhìn về các tế bào lõi. Khi mainet được đưa ra, tế bào lõi sẽ quản lý hàng loạt node đồng thuận. Một khi các dịch vụ trở nên tốt hơn, chúng ta nên làm gì về tính mở rộng nếu có nhiều node liên kết với mạng lưới tế bào lõi?
-
 Nhìn chung, không phải riêng Blockchain, chúng tôi sẽ phát triển server và chia nhỏ theo yêu cầu. Tuy nhiên, trong trường hợp của Blockchain, việc tăng số lượng node có thể làm giảm tốc độ xử lý vì cần thêm thông tin cho mỗi node khi phát triển. Tăng số lượng node sẽ làm giảm hiệu suất. Vì vậy, thay vì tăng số lượng node, tăng hiệu suất node hợp lý hơn. Ví dụ: bạn có thể tăng hiệu suất RAM hoặc CPU. Sau đây là điều kiện để liên kết các node
  
  

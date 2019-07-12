@@ -1,4 +1,3 @@
-
 # 1. 1 phút giới thiệu
 
 Xin chào tất cả mọi người. Rất vui khi được gặp các bạn ở đây. Tôi đã tạo ra một khóa học để giới thiệu cho các bạn về một nền tảng blockchain đáng chú ý trong Klaytn. 
@@ -16,3 +15,4 @@ Tôi sẽ chỉ ra vấn đề của những nền tảng blockchain hiện tạ
 Cuối cùng, hãy dành thời gian để hiểu những lợi ích của Klaytn bằng cách tạo một trò chơi bổ sung đơn giản thông qua caver.js.
 
 Sử dụng Klaytn đi đầu về nền tảng blockchain và tạo ra một ứng dụng blockchain (BApp), những thứ sẽ trở nên phổ biến trong tương lai.
+
