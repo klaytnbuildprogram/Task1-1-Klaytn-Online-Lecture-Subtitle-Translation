@@ -1,21 +1,21 @@
 # 1. 1-minute introduction
 
-Hello everyone. Nice to meet you. I have created a course to introduce you to a blockchain platform that is noteworthy in Klaytn. 
-Existing blockchain platforms have limitations in terms of speed, performance, and completeness. 
-Kakao's Klaytn blockchain has successfully improved performance and completeness by keeping block creation times within one second and by handling more than 3000 transactions per second. 
-Transaction costs are also very cheap. 
-You can build a service chain to achieve scalability and privacy.
+大家好。很高兴见到你。我已经创建了一个课程，向您介绍一个在Klaytn值得注意的区块链平台。
+现有的区块链平台在速度，性能和完整性方面存在局限性。
+Kakao的Klaytn区块链通过将块创建时间保持在一秒钟内并且每秒处理超过3000个事务，成功地提高了性能和完整性。
+交易成本也很便宜。
+您可以构建服务链以实现可伸缩性和隐私。
 
-Entry barriers have also been drastically lowered so that legacy DApp developers can immediately use the Klaytn blockchain. 
-Klaytn is now easier to use because it supports the solidity as smart contract language, 
-and supports the Truffle framework, which is a DApp development framework. 
-Even those who are new to the course can make it easy to follow them while watching the lecture.
+进入壁垒也大幅降低，因此传统的DApp开发人员可以立即使用Klaytn区块链。
+Klaytn现在更容易使用，因为它支持作为智能合约语言的可靠性，
+并支持Truffle框架，这是一个DApp开发框架。
+即使是那些不熟悉课程的人也可以在观看讲座时轻松跟随他们。
 
 
-I will point out the problems of existing blockchain platforms 
-and see how Klaytn has solved them and created a better alternative. 
-(Click) Next, I'll show you how to use the Klaytn tools such as wallet, IDE, scope. 
-Finally, let's take time to understand the benefits of Klaytn by creating a simple addition game through caver.js.
+我将指出现有区块链平台的问题
+看看Klaytn如何解决它们并创造了一个更好的选择。
+（单击）接下来，我将向您展示如何使用Klaytn工具，如钱包，IDE，范围。
+最后，让我们花点时间通过caver.js创建一个简单的加法游戏来了解Klaytn的好处。
 
-Use Klaytn which is to lead the blockchain platform 
-and create a blockchain application (BApp) that will become popular in the future.
+使用Klaytn来领导区块链平台
+并创建一个将在未来流行的区块链应用程序。

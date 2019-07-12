@@ -3,168 +3,177 @@
 ## 5.1 Settings
 
 
-Now that you have created a contract that will be used for BApp's in the previous classes, let's do a front-end development. 
-First, let's proceed with basic configuration. 
-In this tutorial I will download the node.js, npm, truffle framework and visual studio code. 
-Node.js is a server-side JavaScript platform, which we really need for our BApp. 
-Npm is installed together with node.js, which is necessary to download tools and libraries while developing. 
-The Truffle framework that we will install also needs to be downloaded via npm. 
-If you already have node.js and npm installed, check the version and skip this section if node.js is version 8 or higher and npm is version 5 or higher.
+现在您已经创建了一个将在之前的类中用于BApp的合同，让我们进行前端开发。
+首先，让我们继续进行基本配置。
+在本教程中，我将下载node.js，npm，truffle框架和visual studio代码。
+Node.js是一个服务器端JavaScript平台，我们真正需要我们的BApp。
+Npm与node.js一起安装，这是在开发时下载工具和库所必需的。
+我们将安装的Truffle框架也需要通过npm下载。
+如果已经安装了node.js和npm，请检查版本并跳过此部分，如果node.js是版本8或更高版本且npm是版本5或更高版本。
 
 
-Please come to https://nodejs.org and download 10.15.3 LTS. Please install it. 
-I already installed it and so I’m skipping. 
-After installation, we will check if the node.js are installed properly in PowerShell. 
-Type Node-v and check the version. and also check the npm. Npm -v, Yes it's installed properly.
+请访问 https://nodejs.org 并下载10.15.3 LTS。请安装它。 我已经安装了它，所以我正在跳过。 安装完成后，我们将检查PowerShell中是否正确安装了node.js. 键入Node-v并检查版本。并检查npm。 Npm -v，是的，它已正确安装。
 
 
-Finally, I will install Truffle. 
-Truffle is a framework that helps you easily develop BApp. 
-It allows you to compile, test, and deploy smart contracts. 
-It is a very popular framework. 
-The Truffle version has been updated to 5 recently. 
-However, since Klaytn has been developed for version 4, I will use truffle version 4. 
-If you have version 4 or less or 5 already installed, you need to delete it first. 
-Uninstall it by typing `npm uninstall -g truffle` in the PowerShell. 
-Now insert ‘npm install -g truffle@4.1.15’ and I will get version 4 by installing it.
+最后，我将安装松露。
+松露是一个框架，可以帮助您轻松开发BApp。
+它允许您编译，测试和部署智能合约。
+这是一个非常流行的框架。
+Truffle版本最近已更新至5。
+但是，由于Klaytn已经开发用于版本4，我将使用松露版本4。
+如果已安装版本4或更低版本或5，则需要先将其删除。
+通过在PowerShell中键入`npm uninstall -g truffle`来卸载它。
+现在插入'npm install -g truffle@4.1.15'，我将通过安装它获得版本4。
 
 
-If you downloaded everything, check the version through the truffle version command. 
-It is version 4.1.15 and the solidity compiler is called 0.4.25 version. 
-Solidity is a programming language through which you can write smart contracts. Finally, let's download the best code editor, Visual Studio code.  Come  ‘https://code.visualstudio.com/’ to download for windows. 
-I downloaded it in advance. So, I’ll skip this part too. 
-If you download it, please install and run it. 
-Visual Studio code supports cross-platform, so runs on a Linux, Windows, Mac and includes a number of handy features such as debugging support, git control, syntax highlighting, and more.
+如果您下载了所有内容，请通过truffle version命令检查版本。
+它是4.1.15版本，而solidity编译器称为0.4.25版本。
+Solidity是一种编程语言，您可以通过它编写智能合约。最后，让我们下载最好的代码编辑器，Visual Studio代码。来 'https://code.visualstudio.com/' 下载Windows。 我提前下载了它。所以，我也会跳过这一部分。
+如果您下载它，请安装并运行它。
+Visual Studio代码支持跨平台，因此可在Linux，Windows，Mac上运行，并包含许多便捷功能，如调试支持，git控制，语法突出显示等。
 
 
 
 
-Now click on the extension tab below to install the extension to support the solidity language. Please type ‘solidity’ and choose the one at the top. 
-Click Install. This extension provides the color highlighting for each solidity grammar and allows you to compile. 
-Installation is completed. I will end the configuration session which is necessary for Frontend development.
+现在单击下面的扩展选项卡以安装扩展以支持可靠性语言。请输入'solidity'并选择顶部的那个。
+单击安装。此扩展为每个solidity语法提供颜色突出显示，并允许您编译。
+安装完成。我将结束前端开发所必需的配置会话。
  
  
 ## 5.2 Download boilerplate
  
+让我们下载锅炉板，开发的基本模板。
+Klaytn说，BApp可以在Truffle框架中开发。
+ 在Truffle中有一些地方允许您下载BApp开发的标准模板。
  
-Let's download the boiler plate, the basic template for development. 
-Klaytn said that BApp can be developed in the Truffle framework.
- There are some places in Truffle that allow you to download standard templates for your BApp development.
- It's called Truffle Box. 
+它被称为 Truffle Box. 
 ‘https://truffleframework.com/boxes’ 
-If you come here you can see the templates.
- For example, if you want to develop BApp using Angular or React, you can download a template that fits to you. 
-However, the templates downloaded here are specialized in the Ethereum App, so you have to download them and erase the internal parts.
- And you have to set it up for Klaytn. 
-It's not a hard part, but I downloaded the template called webpack in advance 
-and changed it in a `Klaytn way` to fit into our lecture. 
- I put it on the Github so that you can download it.
- For your reference, we will proceed with JavaScript native and JQuery for fairness.
- Even if you are new to it, you can easily follow it
+如果你来这里，你可以看到模板。
+ 例如，如果您想使用Angular或React开发BApp，可以下载适合您的模板。
+但是，此处下载的模板专门用于以太坊应用程序，因此您必须下载并删除内部部件。
+ 你必须为Klaytn设置它。
+这不是一个难点，但我提前下载了名为webpack的模板
+并以“Klaytn方式”改变它以适应我们的演讲。
+ 我把它放在Github上，以便你可以下载它。
+ 供您参考，我们将继续使用JavaScript native和JQuery以实现公平性。
+ 即使你是新手，也可以轻松地遵循它
  
-Open the PowerShell and run the git clone command in ‘https://github.com/kkagill/addition-game-starter.git’ at the spot where you want to download it. 
-I got this all downloaded. 
-Do ‘Cd addition-game-starter’ to enter that path. Now Code. Let's look at the structure by inserting ‘code.’ 
-Let me start from the top first. 
-The Contracts folder is where you keep the solidity contract files. 
-We have the `Addition Game` contract file that we’ve created, and we have a contract called ‘migrations’ below that will allow you to run the script files in the migrations folder below when you deploy your smart contract. 
-It is a necessary file to deploy the contract, so you should never delete it.
+使用PowerShell并在要下载它的位置的 'https://github.com/kkagill/addition-game-starter.git' 中运行git clone命令。 
+我把这全部下载了。
+做'加入 - 游戏 - 初学者'进入那条道路。现在代码。让我们通过插入'代码'来看结构。
+让我先从头顶开始。
+Contracts文件夹是保存solidity合同文件的位置。
+我们已经创建了“Addition Game”合同文件，我们在下面有一个名为“迁移”的合同，允许您在部署智能合约时在下面的迁移文件夹中运行脚本文件。
+这是部署合同的必要文件，因此您永远不应删除它。
  
-Next, the script files in the `migrations` folder contain the logic used in the deployment process. 
-If you see this file, it imports the migrations contract file and deploy its contents to the Klaytn node. 
-Inside the src folder, I have set up a structure that consists  the front-end of the BApp. The index.html file will be responsible of the ‘view’ shown in the front. 
-I loaded the jquery or bootstrap to be used in BApp with the cdn and I added the css part below in advance.
+接下来，`migrations`文件夹中的脚本文件包含部署过程中使用的逻辑。
+如果您看到此文件，它将导入迁移合同文件并将其内容部署到Klaytn节点。
+在src文件夹中，我已经建立了一个包含BApp前端的结构。 index.html文件将负责前面显示的“视图”。
+我用cdn加载了用于BApp的jquery或bootstrap，我提前在下面添加了css部分。
  
-The Index.js file is like an engine—it executes functions. 
-We have already defined the names of the functions we will write in the future. 
-The variable at the bottom is a configuration variable that shows the spinner when loading. It's not an important part, so I added it in advance. 
-Package.json is where you add the necessary dependencies via npm. 
-The important thing is that you will download a library file that will allow you to communicate with caver-js, the Klaytn blockchain. 
-It is similar to the web3 js of Ethereum. 
-Truffle.js is responsible for setting up the environment. 
-Through truffle, you’ll define which networks to deploy smart contracts. 
-I’m covering this in the next lecture. 
-Webpack optimizes the files and detects whenever there is a change in the code and reflects the changes to the browser without having to refresh pages. 
-Until now, I’ve downloaded and explained the starter template to make a Klaytn addition game BApp.
+Index.js文件就像一个引擎 - 它执行函数。
+我们已经定义了将来要编写的函数的名称。
+底部的变量是一个配置变量，它在加载时显示微调器。它不是一个重要的部分，所以我提前添加了它。
+Package.json是通过npm添加必要依赖项的地方。
+重要的是你将下载一个库文件，允许你与caver-js，Klaytn区块链进行通信。
+它类似于以太坊的web3 js。
+Truffle.js负责建立环境。
+通过松露，您将定义部署智能合约的网络。
+我将在下一讲中介绍这一点。
+Webpack优化文件并在代码发生变化时进行检测，并在不必刷新页面的情况下将更改反映到浏览器。
+到目前为止，我已经下载并解释了入门模板，以制作Klaytn加法游戏BApp。
  
 
 
 
 ## 5.3 Deploying smart contract to Baobab 1
  
-From now on, let's deploy the AdditionGame smart contract that we made to the baobab test net. Before we start, we will run the npm install command in the terminal and install the necessary dependencies for the BApp. 
-If you do not see the terminal below, select the new terminal on the Terminal tab. 
-Now run the npm install command. 
-It will take some time. When finished, a folder named ‘node_modules’ is created and the dependency installation is completed.
+
+从现在开始，让我们将我们制作的AdditionGame智能合约部署到猴面包树测试网。在开始之前，我们将在终端中运行npm install命令并为BApp安装必要的依赖项。
+如果您没有看到下面的终端，请在“终端”选项卡上选择新终端。
+现在运行npm install命令。
+这需要一些时间。完成后，将创建名为“node_modules”的文件夹，并完成依赖项安装。
  
  
  
-First, let's create a new file in the migrations folder.
- Right-click on the ‘migrations’ folder and select New File. Set the name as ‘2_deploy_contracts.js’ and we'll add logic to deploy the AdditionGame contract to the node.
+首先，让我们在迁移文件夹中创建一个新文件。
+ 右键单击“迁移”文件夹，然后选择“新建文件”。将名称设置为“2_deploy_contracts.js”，我们将添加逻辑以将AdditionGame合同部署到节点。
  
-Go to the `Initial migrations` file and, copy and paste all the codes. 
-Please change it to ‘importing the AdditionGame contract’. 
-Replace the part to be deployed with `AdditionGame.` So far, the basic logic to deploy is over. 
-However, I will write some code into some files within BApp to store information I get from the process of deployment. Later, it can be very useful for creating contract instances with this information.
-deployer.deploy(AdditionGame)
+转到“Initial migration”文件，然后复制并粘贴所有代码。
+请将其更改为“导入AdditionGame合同”。
+用`AdditionGame替换要部署的部件。到目前为止，部署的基本逻辑已经结束。
+但是，我会在BApp中的一些文件中编写一些代码来存储我从部署过程中获得的信息。稍后，使用此信息创建合同实例非常有用。
+deployer.deploy（AdditionGame）
  
-The deployer deploys the AdditionGame contract and, through `then` we receive the json data to promise.
-And in this,
+部署者部署AdditionGame合同，然后通过`then`我们收到要承诺的json数据。
+在这，
  
 if (AdditionGame._json) {
  
-If you have received json data of Additions game, you will save it to a file via the file system module. 
-To do that, you have to import it first. 
-Add `const fs = require ('fs')` at the top. 
-Well then, I will create two files. Those files are where we can save Abi and the contract address. Right-click anywhere in the background and name the new file ‘deployedABI’. 
-Create another one and name it ‘deployedAddress’. 
-Now we will use the file system to store them to each file. 
-First, let's create a code that stores abi information. 
-Abi is the content that can interact between the blockchain and the contract.
+
+如果您已收到Additions游戏的json数据，您将通过文件系统模块将其保存到文件中。
+要做到这一点，你必须先导入它。
+在顶部添加`const fs = require（'fs'）`。
+那么，我将创建两个文件。这些文件是我们可以保存Abi和合同地址的地方。右键单击后台中的任意位置，并将新文件命名为“deployedABI”。
+创建另一个并将其命名为“deployedAddress”。
+现在我们将使用文件系统将它们存储到每个文件中。
+首先，让我们创建一个存储abi信息的代码。
+Abi是区块链和合同之间可以互动的内容。
+
   	fs.writeFile(
     	'deployedABI',
     	JSON.stringify(AdditionGame._json.abi),
  
-There is a writeFile function in the file system. Define which file to write, and string the abi information we’ve received from json and pass it to an argument. Finally, we will handle the error.
+文件系统中有一个writeFile函数。定义要写入的文件，并将我们从json收到的abi信息串起来并将其传递给参数。最后，我们将处理错误。
  
     	(err) => {
       	if (err) throw err
-      	console.log("파일에 ABI 입력 성공");
+      	console.log("ABI在文件中输入成功");
     	})
-If there is an error, throw it. If none, write log at the console. This saves the abi information of the deployed contract in the deployedABI file as a literal. To continue, I will save the address of the deployed contract to the file.
+	
+
+如果有错误，请抛出它。如果不是，请在控制台写入日志。这会将已部署的合同的abi信息作为文字保存在已部署的ABI文件中。要继续，我将已部署的合同的地址保存到文件中。
+
 fs.writeFile(
   	'deployedAddress',
   	AdditionGame.address,
   	(err) => {
     	if (err) throw err
-    	console.log("파일에 주소 입력 성공");
+    	console.log("
+地址在文件中成功输入");
 	})
-If you’ve followed all stages so far, now We can store the information we want in each file immediately after we deploy it every time. I will continue to set up the environment in truffle.js and deploy it in the next lecture.
+
+如果您已经跟踪了所有阶段，现在我们可以在每次部署后立即将所需信息存储在每个文件中。我将继续在truffle.js中设置环境并在下一讲中进行部署。
  
  
  
 ## 5.4 Deploying smart contract to Baobab 2
  
  
-Lastly, you need to set up the setting. You have to decide which network you are going to deploy. 
-Go to the Truffle.js file. Here, I will define it from now on. First, I’ll import the library called `connect-privkey-to-provider.`
+
+最后，您需要设置设置。您必须决定要部署哪个网络。
+转到Truffle.js文件。在这里，我将从现在开始定义它。首先，我将导入名为的库
+`connect-privkey-to-provider.`
 const PrivateKeyConnector = require('connect-privkey-to-provider')
  
-also create a constant called a network ID.
+
+还创建一个称为网络ID的常量。
  
 const NETWORK_ID = '1001'
  
-1001 means Baobab's unique network ID.
+1001表示Baobab唯一的网络ID。
 const GASLIMIT = '20000000'
  
 This is the gas limit for deployment. There are seven zeros.
 const URL = `https://api.baobab.klaytn.net:8651`
  
-For the UR, I have assigned the address where Klaytn's full node is currently running, which is the baobab test net. Finally, we need a constant to hold the secret key, so we'll get the secret key of the account we created earlier through Klaytn Wallet. I told you guys to save your secret key somewhere else. I am copying and pasting mine that I saved in Notepad.
+
+对于UR，我已经分配了Klaytn的整个节点当前运行的地址，即猴面包树测试网。最后，我们需要一个常量来保存密钥，因此我们将通过Klaytn Wallet获取我们之前创建的帐户的密钥。我告诉过你们要把密钥保存在其他地方。我正在复制并粘贴我在记事本中保存的内容。
+
 const PRIVATE_KEY = ''
  
  
-Now let's use these settings in module.exports.
+现在让我们在module.exports中使用这些设置。
 module.exports = {
   networks: { 
 	klaytn: {
@@ -176,39 +185,38 @@ module.exports = {
   },
 }
  
- Let me explain first. I said that we’ll use ‘Klaytn’ for the networks. 
-Now, specify four options here. First, you specify a provider that provides Klaytn node. Create a PrivateKeyConnector instance and pass two arguments. 
-The first is to pass my account secret key and the second to pass the network address where the full node is running. 
-This will allow me to connect to the baobab testnet using my secret key. 
-Assign the network ID and gas, and finally the gas price is set to a null value. This is because the baobab network will automatically set the gas price, so we pass the null value. 
-Yes, by now I've set up my environment to deploy smart contracts. It’s quitesimple. Now let's deploy it. In the terminal, run `truffle deploy -network klaytn`. Yes, just deployed successfully. You can see the confirmation phrase printed on the console.
+我先解释一下。我说我们会用'Klaytn'作为网络。
+现在，在此处指定四个选项。首先，指定提供Klaytn节点的提供程序。创建一个PrivateKeyConnector实例并传递两个参数。
+第一种是传递我的帐户密钥，第二种是传递运行完整节点的网络地址。
+这将允许我使用我的密钥连接到猴面包树testnet。
+分配网络ID和气体，最后将天然气价格设置为空值。这是因为猴面包树网络会自动设定汽油价格，所以我们传递空值。
+是的，到现在为止我已经设置了我的环境来部署智能合约。这很简单。现在让我们来部署它。在终端中，运行`truffle deploy -network klaytn`。是的，刚刚成功部署。您可以在控制台上看到确认短语。
  
  
  
-Now, if you look at the deployedABI file, the abi information is stored. Go to the deployed address and note that the address of the deployed contract is stored. It’s working well. Finally, when you deploy it, a folder called build is created. It has `contracts` folder inside it and two json files are in contracts folder. They are called artifacts. Each artifact file contains the ABI information of the corresponding contract as well as all the information related to the contract. ABI is an abbreviation of the application binary interface; we have previously stored a deployedABI file in it. In abi, we see the functions and variables written in json format we use for the AdditionGame contract.
+现在，如果查看已部署的ABI文件，则会存储abi信息。转到已部署的地址，并注意已存储已部署合同的地址。它运作良好。最后，在部署它时，会创建一个名为build的文件夹。它里面有`contract`文件夹，两个json文件在contract文件夹中。它们被称为工件。每个工件文件包含相应合同的ABI信息以及与合同相关的所有信息。 ABI是应用程序二进制接口的缩写;我们以前在其中存储了一个已部署的ABI文件。在abi中，我们看到以json格式编写的函数和变量，我们将其用于AdditionGame契约。
  
-Simply put, when you deploy this contract to blockchain, this abi guarantees calling the functions in the contract and ensure that the data is returned in the format I expect. It is where you define how you can interact with the contract. If you go down to the bottom, there is a network section. 1001 is Klaytn 's unique network ID. The address is that this contract is currently deployed to this address on the Baobab testnet.
+简单地说，当您将此合同部署到区块链时，此abi保证调用合同中的函数并确保以我期望的格式返回数据。您可以在此定义如何与合同进行交互。如果你到底部，有一个网络部分。 1001是Klaytn独特的网络ID。地址是此合同当前部署在Baobab testnet上的此地址。
  
  
 truffle deploy –compile-all –reset –network klaytn
  
  
-Finally, if you want to re-deploy the contract to the Klaytn node, you can use this command. For example, when we need to modify the contract, we need to re-deploy it to the node. `truffle deploy -compile-all -reset -network – Klaytn`
-compile all recompiles all contracts. The reset forces the script files in the Migrations folder to be rerun. Run it to re-deploy the contract to the node again. Yes. Successfully completed. Open the deployedAddress file and you'll see that the address has changed. So far, I have deployed Contract to the Klaytn Baobab network using truffles.
- 
+实际上，如果要将合同重新部署到Klaytn节点，可以使用此命令。例如，当我们需要修改合同时，我们需要将其重新部署到节点。 `truffle deploy -compile-all -reset -network-Klaytn`
+编译所有重新编译所有合同。重置会强制重新运行Migrations文件夹中的脚本文件。运行它以再次将合同重新部署到节点。是。成功完成。打开deployAddress文件，您将看到地址已更改。到目前为止，我已经使用松露将合同部署到Klaytn Baobab网络。
  
  
  
  
 ## 5.5 Account verification UI
  
- 
-Let's start by logging in with your account created through your baobab wallet. 
-There were two ways for us to verify our accounts.
- First, You can use a combination of keystore files and passwords, and second, verify with a private key. 
-The way we implement it is to verify through a combination of keystore files and passwords. 
-First, I will write html code. 
-Go to Index.html and add the contents inside the body tag.
+
+让我们首先登录您的baobab钱包创建的帐户。
+我们有两种方式来验证我们的帐户。
+ 首先，您可以使用密钥库文件和密码的组合，其次，使用私钥进行验证。
+我们实现它的方式是通过密钥库文件和密码的组合进行验证。
+首先，我将编写HTML代码。
+转到Index.html并在body标记内添加内容。
 
 ```
   <div class="container">
@@ -239,47 +247,53 @@ Go to Index.html and add the contents inside the body tag.
   </div> 
  ```
  
- 
-Please stop this video now and write this code. 
-Very simple setting. 
-The classes in the div use bootstrapping to make the UI look nice.
- I will skip the bootstrap description. 
-First of all, I put the explanatory phrases in the upper part. 
-Below we've added the login and logout buttons. 
-When I click on the login button, it will launch a modal window. 
-When I click the logout button The handleLogout function will be executed. 
-Note that I set the logout button does not appear in the css. 
-Let’s run the app and we'll check if the code we wrote is working. 
-Run the npm run dev command on the terminal. 
-Run Chrome and go to localhost: 8081 address. 
-Yes, it is not so beautiful, but the view looks good. 
-Now, let's create a modal that will pop up when we click the login button. ‘https://bootstrapdocs.com/v3.3.6/docs/javascript/#modals’ If you come to this bootstrap site, you can get modal code. 
-Copy this part and come back to html file. 
-I'll paste it outside of the container div. 
-Now let's change the contents of this modal. 
-First, set the div id to loginModal.
-section.
+
+
+请立即停止此视频并编写此代码。
+设置非常简单。
+div中的类使用bootstrapping使UI看起来不错。
+ 我将跳过引导程序描述。
+首先，我将解释性短语放在上半部分。
+下面我们添加了登录和注销按钮。
+当我点击登录按钮时，它将启动一个模态窗口。
+单击注销按钮时将执行handleLogout功能。
+请注意，我设置的注销按钮没有出现在css中。
+让我们运行应用程序，我们将检查我们编写的代码是否正常工作。
+在终端上运行npm run dev命令。
+运行Chrome并转到localhost：8081地址。
+是的，它不是那么美丽，但看起来很好看。
+现在，让我们创建一个模式，当我们单击登录按钮时会弹出该模态。
+‘https://bootstrapdocs.com/v3.3.6/docs/javascript/#modals’ 
+
+如果你来到这个引导站点，你可以获得模态代码。
+复制此部分并返回到html文件。
+我将它粘贴到容器div之外。
+现在让我们改变这个模态的内容。
+首先，将div id设置为loginModal。
+部分。
   <div class="modal fade" tabindex="-1" role="dialog" id="loginModal">
  
-You should like this, so that this allows the modal to open when you click the login button. 
-It matches the modal with the value of the data-target attribute of the top login button. 
-Next, we will change the size of modal to a smaller one.
+你应该这样，这样你就可以在点击登录按钮时打开模态。
+它将模态与顶部登录按钮的data-target属性的值匹配。
+接下来，我们将模态的大小更改为更小的模型。
  
   <div class="modal-dialog modal-sm">
  
  
-Delete all the modal header section. 
-Also, delete the contents inside the modal body. 
-Now add the part where keystore file can be loaded and the part where password is input.
+删除所有模态标题部分。
+此外，删除模态体内的内容。
+现在添加可以加载密钥库文件的部分和输入密码的部分。
 <div class="form-group">
    <label for="keystore">Keystore</label>
    <input type="file" id="keystore" onchange="App.handleImport()">
 </div>
  
-Me the input type as file and make the handleimport function to be called on the onchange event.
- And below that, add a part for password (비밀번호). 
+
+我将输入类型作为文件，并在onchange事件上调用handleimport函数。
+ 在此之下，添加密码部分
  
-Copy and paste on the top.
+
+复制并粘贴在顶部。
 <div class="form-group">
   <label for="input-password">비밀번호</label>
   <input type="password" class="form-control" id="input-password" onchange="App.handlePassword()">
@@ -287,56 +301,59 @@ Copy and paste on the top.
 </div>
  
  
-If the value is written in the password input window, call the handlePassword function.
- And I added the part to be displayed as a message when the verification is successful  or error occurred. 
-Finally, change `close` to `닫기(close)` and change `safe changes` into `submission.`
+如果该值写入密码输入窗口，请调用handlePassword函数。
+ 当验证成功或发生错误时，我添加了要显示为消息的部分。
+最后，将“close”更改为“닫기（close）”并将“safe changes”更改为“submission”
 <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
         	<button type="button" class="btn btn-primary" id="submit" onclick="App.handleLogin()">제출</button>
  
-Add the id attribute and allow the handleLogin function to be called when clicked. 
-Yes, I will now check that the completed code works fine in the view. 
-Click the login button. 
-Well then, modal is up and you have the option to choose a file and enter a password. 
-So far, I've created a UI that verify accounts.
+
+添加id属性并允许在单击时调用handleLogin函数。
+是的，我现在将检查已完成的代码在视图中是否正常工作。
+单击登录按钮。
+那么，模态已启动，您可以选择文件并输入密码。
+到目前为止，我已经创建了一个验证帐户的UI。
  
  
 ## 5.6 Account verification logic (keystore validation)
  
  
  
-Now that we have created the UI shown above, let's implement the logic to make it work.
- In Index.js, there are various functions in constant called App. 
-And finally, when you go down, you'll see that the first thing you can know isis that when you load the page, it starts start function that exists within App constant. 
-So we will implement the start function, but before that, we need to load the caver.js library to communicate with the Klaytn blockchain and instantiate it so that it can be used for BApp.
-import Caver from "caver-js";
+
+现在我们已经创建了上面显示的UI，让我们实现逻辑以使其工作。
+ 在Index.js中，常量中有各种函数叫做App。
+最后，当你下来时，你会发现你可以知道的第一件事就是当你加载页面时，它会启动App常量中存在的启动功能。
+所以我们将实现start函数，但在此之前，我们需要加载caver.js库以与Klaytn区块链进行通信并实例化它以便它可以用于BApp。
+从“caver-js”导入Caver;
  
-At the top, import caver.js. 
-And creates one constant for the environment setting.
+在顶部，导入caver.js。
+并为环境设置创建一个常量。
  
 const config = {
   rpcURL: 'https://api.baobab.klaytn.net:8651'
 }
  
  
-There’s a rpcURL in config. 
-We have defined which Klaytn node to connect to and use. 
-I said it is baobab test net. 
-Finally, we will create a constant that instantiates the rpcURL by passing it to the Caver constructor.
-const cav = new Caver(config.rpcURL);
+
+配置中有一个rpcURL。
+我们已经定义了要连接和使用的Klaytn节点。
+我说这是猴面包树测试网。
+最后，我们将创建一个常量，通过将其传递给Caver构造函数来实例化rpcURL。
+const cav = new Caver（config.rpcURL）;
  
  
-The work of instantiation is over and this cav constant is now available in the app.
- Now you have to start the function, but before that , in the start function, you have to first check whether the account has been verified through the session. 
-However, I will leave this part to later because s we will use session in the later lecture, so just leave start function blank for now. 
-Let’s implement the handleImport function first.
- We should be able to click on the login button and select the keystore file after modal pops up. 
-However, this file must be validated whether it is actually a valid keystore file, or not. 
-Let's do that in the handleimport function. 
-First, we create a FileReader object and place it into a constant.
-const fileReader = new FileReader();
+实例化的工作结束了，这个cav常量现在可以在应用程序中找到。
+ 现在您必须启动该功能，但在此之前，在启动功能中，您必须首先检查该帐户是否已通过会话进行验证。
+但是，我将稍后将这部分留待，因为我们将在后面的讲座中使用会话，所以暂时将启动功能留空。
+让我们首先实现handleImport函数。
+ 我们应该能够点击登录按钮并在模态弹出后选择密钥库文件。
+但是，必须验证此文件是否实际上是有效的密钥库文件。
+我们在handleimport函数中这样做。
+首先，我们创建一个FileReader对象并将其放入常量中。
+const fileReader = new FileReader（）;
  
  
-And use readAsText function to read the selected file.
+并使用readAsText函数读取所选文件。
 fileReader.readAsText(event.target.files[0]);
  
  
@@ -346,10 +363,10 @@ fileReader.onload = (event) => {
   
 }
  
-The event received by the callback, in other words, the contents of the file, can now be used within this block of code. 
-The contents of this file will be checked whether it is a valid keystore file. 
-First, add a try catch block inside.
- 
+现在可以在此代码块中使用回调接收的事件，换句话说，文件的内容。
+将检查此文件的内容是否是有效的密钥库文件。
+首先，在里面添加一个try catch块。
+
   try {
    	
   } catch (event) {
@@ -357,44 +374,51 @@ First, add a try catch block inside.
   }
  
  
-Now we’ll check through if-sentence if the contents of the file are valid or not, in other words,  if this is an actual keystore file.
+
+现在，如果文件的内容有效，我们将检查if-sentence，换句话说，如果这是一个实际的密钥库文件。
+
 if (!this.checkValidKeystore(event.target.result)) {
  
 }
  
  
-I passed the contents of the file we read to the function checkValidKeystore as an argument.
- Now let's decorate the checkValidKeystore function. 
-This function takes the keystore as an argument and receives the file. 
-And the keystore file I received is a json file. 
-I will change it to Javascript object to use the properties in this json file as variables.
+我将我们读取的文件的内容作为参数传递给函数checkValidKeystore。
+ 现在让我们来装饰checkValidKeystore函数。
+此函数将密钥库作为参数并接收文件。
+我收到的密钥库文件是一个json文件。
+我将其更改为Javascript对象，以将此json文件中的属性用作变量。
+
 	const parsedKeystore = JSON.parse(keystore);
  
  
-I used the json parse function to analyze the contents of the keystore file, convert it to an object, and store it in a constant. 
-What should we do next? 
-Make sure that the properties required for your keystore configuration are well entered. 
-Let's look at the keystore file and see what we need. 
-The essential elements of keystore configuration are version, id, address, and crypto. 
-Without these four fields, a keystore file can’t be a keystore file. 
-So, I will check it through the code.
+我使用json parse函数来分析keystore文件的内容，将其转换为对象，并将其存储在常量中。
+接下来我们该怎么办？
+确保已正确输入密钥库配置所需的属性。
+让我们看看密钥库文件，看看我们需要什么。
+密钥库配置的基本要素是版本，标识，地址和加密。
+如果没有这四个字段，密钥库文件就不能是密钥库文件。
+所以，我会通过代码检查它。
+
 const isValidKeystore = parsedKeystore.version &&
   	parsedKeystore.id &&
   	parsedKeystore.address &&
   	parsedKeystore.crypto;
  
  
-Finally, return this constant.
+
+最后，返回此常量。
+
 return isValidKeystore;
  
  
-I went up again and verified if the file I just imported is a valid keystore file. 
-If not, through message, shows that it is not valid and ends the function.
-$('#message').text('유효하지 않은 keystore 파일입니다.');
+我再次上​​去验证我刚刚导入的文件是否是有效的密钥库文件。
+如果没有，通过消息显示它无效并结束该功能。
+$('#message').text('keystore 文件无效. ');
 return;
  
-If it passed the verification, them we’ll save the contents of the keystore file to a global variable.
-First we need to create a global variable. Create it on the start function
+
+如果它通过了验证，我们将把密钥库文件的内容保存到全局变量中。
+首先，我们需要创建一个全局变量。在启动功能上创建它
  
 auth: {
 	accessType: 'keystore',
@@ -403,217 +427,234 @@ auth: {
   },
  
  
-There are three fields in the Auth object.
- The accessType is an verification method, which has a keystore type and a privatekey type. 
-We are proceeding with keystore type. 
-The Keystore field stores the entire contents of the keystore file.
- Lastly, password is the field containing the password that will be combined with the keystore file. 
-If we go back to the function and pass the validation,
+Auth对象中有三个字段。
+ accessType是一种验证方法，具有密钥库类型和私钥类型。
+我们正在进行密钥库类型。
+Keystore字段存储密钥库文件的全部内容。
+ 最后，password是包含将与密钥库文件组合的密码的字段。
+如果我们回到函数并通过验证，
 this.auth.keystore = event.target.result;
  
  
-send the entire contents of the loaded file to the keystore field of the auth variable we created. 
-After that, send a message saying that I was successful.
-$('#message').text('keystore 통과. 비밀번호를 입력하세요.');
+将加载文件的全部内容发送到我们创建的auth变量的keystore字段。
+之后，发送一条消息说我成功了。
+
+$('#message').text('keystore 通过. 请输入您的密码.');
  
-Make it possible to type password in the password field immediately.
+可以立即在密码字段中输入密码。
  
 document.querySelector('#input-password').focus();
  
-Finally, when reading the file, if there is an error, send an error message in the catch block and terminate the function.
-$('#message').text('유효하지 않은 keystore 파일입니다.');
+最后，在读取文件时，如果有错误，请在catch块中发送错误消息并终止该函数。
+
+$('#message').text('keystore 文件无效. ');
 return;
  
  
-Yes, so far Handleimport function has been implemented well. 
-Let's test it now. Select the keystore file. 
-The pass message will be displayed and the focus will be moved to the part where the password can be entered. 
-To test the opposite case, let’s choose any random file. 
-Ok, error message is generated. 
-It’s working well. 
-Now, let’s make a function that stores the password in a global variable when we enter the password. 
-It will be very simple. 
-If you go to html, the handlepassword function is called when you enter the password. 
-Then, at the handlepassword function,
+是的，到目前为止Handleimport功能已经很好地实现了。
+我们现在试试吧。选择密钥库文件。
+将显示通过消息，焦点将移动到可输入密码的部分。
+为了测试相反的情况，让我们选择任何随机文件。
+好的，生成错误消息。
+它运作良好。
+现在，让我们创建一个函数，在输入密码时将密码存储在全局变量中。
+这将非常简单。
+如果转到html，则在输入密码时会调用handlepassword函数。
+然后，在handlepassword函数，
 this.auth.password = event.target.value;
  
-Retrieve the password value via the html onchange event and then, assign it to the password field of the global variable auth.
- It was very simple. 
-So far, I have done the validation file of the keystore file.
- In the next lecture, I'll create a secret key and add my account information to Wallet.
+通过html onchange事件检索密码值，然后将其分配给全局变量auth的密码字段。
+ 这很简单。
+到目前为止，我已经完成了密钥库文件的验证文件。
+ 在下一讲课中，我将创建一个密钥并将我的帐户信息添加到电子钱包中。
  
 ## 5.7 Account verification (integrate wallet)
  
 
-We have completed parts for retrieving the keystore file and the typing password, 
-now we will check to see if the account is successfully verified when we send this information to the baobab node. 
-Before that, I will replace http in rpcURL to https. 
-Take a look at the Index.html. 
-When I click submit button, it calls handlelogin function. 
-So let’s implement the function. 
-First, make sure that the accesstype is a keystore.
+我们已经完成了检索密钥库文件和输入密码的部件，
+现在，当我们将此信息发送到baobab节点时，我们将检查帐户是否已成功验证。
+在此之前，我将rpcURL中的http替换为https。
+看看Index.html。
+当我点击提交按钮时，它会调用handlelogin函数。
+所以让我们实现这个功能。
+首先，确保访问类型是密钥库。
+
 if (this.auth.accessType === 'keystore') { 
 }
 
-The reason we write this ‘if’ statement is that when verifying an account, we use a keystore or a private key.
-We use only keystore for now. 
-However, I added these if statements so that when you want to use a private key to verify, 
-you can use it. and please add `try catch` statement right below. 
- 
+
+我们写这个'if'语句的原因是，在验证帐户时，我们使用密钥库或私钥。
+我们现在只使用密钥库。
+但是，我添加了这些if语句，以便在您想使用私钥进行验证时，
+你可以用它。请在下面添加`try catch`声明。
  
 try {       
 } catch (e) 
 }
 
-It is time to finally use the caver instance. 
-I'll give you a quiz here. 
-What can we earn from the combination of the keystore file and password? 
-If you remember well, you can know right away. 
-Yes, you can get your private key. 
-This secret key allows you to create a Wallet instance. 
-So the first thing you need to do is to get your secret key through your keystore file and password.
+是时候最终使用caver实例了。
+我会在这里给你一个测验。
+我们可以通过密钥库文件和密码的组合获得什么？
+如果你记得很清楚，你马上就能知道。
+是的，您可以获得私钥。
+此密钥允许您创建Wallet实例。
+因此，您需要做的第一件事就是通过密钥库文件和密码获取密钥。
+
 const privateKey = cav.klay.accounts.decrypt(this.auth.keystore, this.auth.password).privateKey;
 
-You can use the decrypt function through the accounts member of the caver instance. 
-It means to decrypt. 
-If you decrypt it, you can return the decrypted account object by passing the contents of the keystore file and the password as arguments. 
-There are various members in the object, and among them, we get the private key and store it in the constant. 
-If there is an error in decrypting, a message will be sent.
-$('#message').text('비밀번호가 일치하지 않습니다.');
+
+您可以通过caver实例的accounts成员使用decrypt函数。
+这意味着要解密。
+如果解密它，则可以通过将密钥库文件的内容和密码作为参数传递来返回解密的帐户对象。
+对象中有各种成员，其中，我们获取私钥并将其存储在常量中。
+如果解密时出错，将发送一条消息。
+
+$('#message').text('密码不匹配.');
 $(‘#message’).text(‘password is not matched.’);
  
  
 
-If there is no error, it will create a Wallet instance through your secret key.
+如果没有错误，它将通过您的密钥创建一个Wallet实例。
+
  
 this.integrateWallet(privateKey);
 
 
 
-Pass the private key to the integratewallet function. 
-Now, go to the integratewallet function. 
-Here we add the code that gets the Wallet instance by using privatekey.
+将私钥传递给integratewallet函数。
+现在，转到integrationwallet函数。
+在这里，我们使用privatekey添加获取Wallet实例的代码。
  
 const walletInstance = cav.klay.accounts.privateKeyToAccount(privateKey);
  
 
-This walletinstance has my account information. 
-Then add this instance to my Wallet.
+这个walletinstance有我的帐户信息。
+然后将此实例添加到我的电子钱包中。
+
 cav.klay.accounts.wallet.add(walletInstance)
  
 
-If you add my account to caver wallet, 
-you can easily recall your account information through caver instance when you create a transaction in the future. 
-The next step is to store the Wallet instance in the session storage. 
-SessionStorage will store the Wallet instance in storage space within the web browser until the tab is closed or the web browser is turned off.
+
+如果您将我的帐户添加到caver钱包，
+在将来创建交易时，您可以通过caver实例轻松调用您的帐户信息。
+下一步是将Wallet实例存储在会话存储中。
+SessionStorage会将Wallet实例存储在Web浏览器的存储空间中，直到选项卡关闭或Web浏览器关闭。
+
 sessionStorage.setItem('walletInstance', JSON.stringify(walletInstance))
  
  
 
-SetItem receives the key value as a pair. 
-The first parameter is key and the second parameter is value. 
-So, I'll have to load my account information into the session later. 
-When you call walletInstance with a key value, the value stored in the pair is automatically loaded.
-The reason for using sessionStorage is to keep the account logged in. 
-Because my account information stored in my caver wallet disappear when I visit another site or the page refreshes that information. 
-However, if you save to session storage, 
-your account information will still be maintained even if you visit another site for a while and then return to it or refresh the page. 
-So I will implement a Wallet instance session in the start function later and keep it logged in. 
-Right now I need to update the UI. 
-Now that we have completed account verification via integrateWallet, we need to change the UI appropriately.
+
+SetItem将键值作为一对接收。
+第一个参数是键，第二个参数是值。
+所以，我必须稍后将我的帐户信息加载到会话中。
+当您使用键值调用walletInstance时，将自动加载存储在该对中的值。
+使用sessionStorage的原因是保持帐户登录。
+因为当我访问其他网站或页面刷新该信息时，存储在我的caver钱包中的帐户信息会消失。
+但是，如果您保存到会话存储，
+即使您暂时访问其他网站，然后返回该网站或刷新该网页，您的帐户信息仍会保留。
+所以我稍后会在start函数中实现一个Wallet实例会话并保持登录状态。
+现在我需要更新UI。
+现在我们已经通过integrateWallet完成了帐户验证，我们需要适当地更改UI。
+
 this.changeUI(walletInstance);  
 
-I'm sending a Wallet instance to the changeUI function. 
-So what do we do with the changeUI function? 
-Close your modal.
+
+我正在向changeUI函数发送一个Wallet实例。
+那么我们如何处理changeUI功能呢？
+关闭你的模态。
 $('#loginModal').modal('hide');
  
 
-Hide the login button either.
+
+隐藏登录按钮
 $("#login").hide();
  
-Also, change the Logout button that you hid before.
+
+此外，更改之前隐藏的“注销”按钮。
  
 $('#logout').show();
 
-And since you are logged in, I want my account address to be visible.
+由于您已登录，因此我希望我的帐户地址可见。
 $('#address').append('<br>' + '<p>' + '내 계정 주소: ' + walletInstance.address + '</p>');   
  
 
-This code tells me that it shows the account address in html where the id attribute is address. 
-I will go to index.html and add one div.
+此代码告诉我它在html中显示id属性为address的帐户地址。
+我将转到index.html并添加一个div。
   <div class="text-center" id="address"></div>    
 
-Yes, you can see my account address at this location. 
-I will do it here. 
-Now let's test it. 
-Click Login button and open the keystore file. 
-If you enter your password and press the submit button, your account is verified and the logout button appears. 
-Below you can see my account address. 
-Finally, let's implement the function to log out. 
-Go to Index.html. 
-Note that when I click the logout button, I call the handlelogout function. 
-I'll go there. 
-Here we will call a function called removeWallet.
+是的，您可以在此位置查看我的帐户地址。
+我会在这里做的。
+现在让我们来测试吧。
+单击“登录”按钮，然后打开密钥库文件。
+如果您输入密码并按提交按钮，则会验证您的帐户并显示退出按钮。
+您可以在下面看到我的帐户地址。
+最后，让我们实现注销功能。
+转到Index.html。
+请注意，当我单击注销按钮时，我会调用handlelogout函数。
+我会去那里
+这里我们将调用一个名为removeWallet的函数。
 this.removeWallet();
  
 
-We will clear the wallet and clear the sessionstorage with this function. 
-Go to the removeWallet function and add this code.
+
+我们将清除钱包并使用此功能清除会话存储。
+转到removeWallet函数并添加此代码。
 cav.klay.accounts.wallet.clear();
  
-This is the process of erasing my Wallet instance: account information that was added to wallet. 
-Then clear the session.
+
+这是删除我的电子钱包实例的过程：添加到钱包的帐户信息。
+然后清除会话。
  
 sessionStorage.removeItem('walletInstance');
 
-When you’re erasing it, just enter the key value. 
-Finally, it calls the reset function and ends.
+当您删除它时，只需输入键值即可。
+最后，它调用reset函数并结束。
 this.reset();
  
 
-This reset function simply initializes the global variable auth. 
-Go to the reset function and initialize auth.
+此重置功能只是初始化全局变量auth。
+转到重置功能并初始化auth。
 this.auth = {
       keystore: '',
       password: ''
     };
  
 
-There is also an accesstype in Auth. 
-But, you don’t have to erase accesstype because it will be a keystore anyway. 
-Instead, when we logged in, a value will be entered to the keystore and password fields. 
-I want to log out and safely erase it. 
-Go back to the handleLogout function and put the code that refreshes the page and finish it. 
-The reason for the refresh is to return to the initial state UI.
-location.reload();
+Auth中还有一个访问类型。
+但是，您不必擦除accesstype，因为它无论如何都将是一个密钥库。
+相反，当我们登录时，将输入一个值到密钥库和密码字段。
+我想退出并安全地删除它。
+返回handleLogout函数并放置刷新页面的代码并完成它。
+刷新的原因是返回初始状态UI。
+location.reload（）;
  
 
-Now let's do the test and finish. 
-Clicking the Logout button, the account information will disappear and you are returned to the initialization screen by refreshing. 
-Now that you've completed your account verification logic, 
-let's complete the section that maintains account verification through session storage in the next class.
+现在让我们进行测试并完成。
+单击“注销”按钮，帐户信息将消失，您将通过刷新返回初始化屏幕。
+现在您已经完成了帐户验证逻辑，
+让我们完成在下一课程中通过会话存储维护帐户验证的部分。
  
  
 ## 5.8 Account Session 
 
-Let's see what happens when we log in and refresh the page. 
-Click the login button and select the keystore file. 
-In this state, press F5 to refresh. 
-Then it’ll be reset. 
-It would be good if I kept logged in. 
-How do I do it? 
-If we succeeded in logging in, we saved the account storage information to the session storage. 
-I will use this now. 
-The first function that is been loaded when BApp runs is the start function. 
-Here I retrieve my account information stored in session storage. 
-So, let's go to the start function,
+让我们看看当我们登录并刷新页面时会发生什么。
+单击登录按钮，然后选择密钥库文件。
+在此状态下，按F5刷新。
+然后它将被重置。
+如果我一直登录会很好。
+我该怎么做？
+如果我们成功登录，则会将帐户存储信息保存到会话存储中。
+我现在就用它。
+BApp运行时加载的第一个函数是start函数。
+在这里，我检索存储在会话存储中的帐户信息。
+那么，让我们去启动功能，
 const walletFromSession = sessionStorage.getItem('walletInstance');
  
 
-If you use getItem and pass the value of the key, the value stored in the pair is fetched and stored in the constant. 
-I saved my Wallet instance. 
-Next, make sure the walletFromSession contains a value.
+如果使用getItem并传递键的值，则会获取存储在该对中的值并将其存储在常量中。
+我保存了我的电子钱包实例。
+接下来，确保walletFromSession包含值。
 if (walletFromSession) {
  
 }
@@ -627,34 +668,34 @@ try {
   }
  
 
-Then add your account information back to the caver wallet.
+然后将您的帐户信息添加回caver钱包。
 cav.klay.accounts.wallet.add(JSON.parse(walletFromSession));
 
-When the page is refreshed or re-visited, the existing account information that was added to Wallet is erased, so I add it back through the session. 
-Update the UI to show that you are logged in as next.
+刷新或重新访问页面时，添加到电子钱包的现有帐户信息将被删除，因此我会通过会话将其添加回来。
+更新UI以显示您已登录为下一个。
   this.changeUI(JSON.parse(walletFromSession));
  
 
-This will turn into a logout button and show me your account address.  
-Finally, when the value in sessionStorage is not a valid Wallet instance, it goes to the catch statement. 
-Then delete the walletinstance in the session storage.
-sessionStorage.removeItem('walletInstance');
+这将变为退出按钮并显示您的帐户地址。
+最后，当sessionStorage中的值不是有效的Wallet实例时，它将转到catch语句。
+然后删除会话存储中的walletinstance。
+sessionStorage.removeItem（ 'walletInstance'）;
  
-It’s been done here. 
-Now, let’s test it.
-When you refresh it, it keeps logged in without returning to the initialization state. 
-So far, we have implemented a part of maintaining account verification.
+
+这是在这里完成的。
+现在，让我们来测试一下。
+刷新它时，它会保持登录状态而不会返回初始化状态。
+到目前为止，我们已经实施了维护帐户验证的一部分。
  
  
  
  
 ## 5.9 KLAY transfer via contract (deposit)
  
- 
-I will now send the KLAY to the contract using the operator account. 
-First, let's create a UI. 
-You can create it under the div class row.
- 
+
+我现在将使用运营商帐户将KLAY发送给合同。
+首先，让我们创建一个UI。
+您可以在div类行下创建它。
  
 <br />     
  
@@ -662,7 +703,7 @@ You can create it under the div class row.
       <div class="col-md-2 col-md-offset-5">
         <div id="owner" style="display: none;">
           <hr />
-          <label>컨트랙에 KLAY 보내기</label>
+          <label>将KLAY发送给合同</label>
           <div class="input-group">             
             <input type="number" class="form-control" id="amount" />
             <span class="input-group-btn">
@@ -674,256 +715,263 @@ You can create it under the div class row.
     </div>
  
 
-Please fuzz the video and add this part. 
-I will explain briefly. 
-I have set up the UI part to send money to the contract invisible via css. 
-We’ve set the deposit function to run when we enter the amount and press the transfer button. 
-Now let's go to the deposit function and implement it. 
+请模糊视频并添加此部分。
+我将简要解释一下。
+我已经设置了UI部分，通过css将资金发送给隐形合约。
+我们将存款功能设置为在输入金额时按下并按下转移按钮。
+现在让我们进入存款功能并实施它。
  
-I will explain here how to implement it first. 
-Klay transfer to a contract can only be made with an owner account. 
-This is only possible with the account of the person who deployed the Contract. 
-In other words, only the organizer of this event can send it. 
-If we are using owner account, we will access the deposit function in the contract and transfer the KLAY. 
-Flow is very simple. 
-First, we will create an instance so that we can access the contract we have deployed. 
-When you create a contract instance, you need the abi information and address of the contract you deployed. 
-Under the cav constants at the top, 
-const agContract = new cav.klay.Contract(DEPLOYED_ABI, DEPLOYED_ADDRESS);
+我将在这里解释如何首先实现它。
+Klay转让合同只能通过所有者帐户进行。
+只有部署合同的人员才能进行此操作。
+换句话说，只有此事件的组织者才能发送它。
+如果我们使用所有者帐户，我们将访问合同中的存款功能并转移KLAY。
+流程非常简单。
+首先，我们将创建一个实例，以便我们可以访问我们部署的合同。
+创建合同实例时，您需要部署的合同的abi信息和地址。
+在顶部的腔常数下，
+const agContract = new cav.klay.Contract（DEPLOYED_ABI，DEPLOYED_ADDRESS）;
 
-Here deployed_abi and deployed_address are global constants that can be used in BApp. 
-Once we deploy the contract, we save information to the deployedabi file and the deployedaddreess file. 
-Set it in the webpack so that we can read this information and it use it as a global constant. 
-If you go to the Webpack.config.js file, there will be an annotated section. 
-Solve this now. 
-At compile time in webpacks, run this part to set global constants called deployed address and deployed abi.
+这里的deployed_abi和deployed_address是可以在BApp中使用的全局常量。
+部署合同后，我们会将信息保存到deployedabi文件和deployedaddreess文件中。
+将它设置在webpack中，以便我们可以读取此信息并将其用作全局常量。
+如果您转到Webpack.config.js文件，将会有一个带注释的部分。
+现在解决这个问题。
+在webpacks的编译时，运行此部分以设置称为已部署地址和已部署abi的全局常量。
  
-Simply put, we read the deployedaddress file through the file system and assign the contract address to the global constant. 
-In the same way, we store the abi information in global constants which is in deployedabi file. 
-Let’s return to the Index.js file.
+简而言之，我们通过文件系统读取已部署的地址文件，并将合同地址分配给全局常量。
+以同样的方式，我们将abi信息存储在deployabi文件中的全局常量中。
+让我们回到Index.js文件。
  
  
 
-So remember that these two abi and address information sent to the creator of the contract instance are passed through the global constants generated by the webpack. 
-Now that we've created a four contract instance, we'll continue with the deposit function. 
-There’s something we have to check first before sending money. 
-You should verify that the account you just signed in is an owner account. 
-So I have to bring up two pieces of information. 
-First, I'm retrieving the currently logged in account information. 
-Second, I’ll retrieve the owner state variable stored in the contract. 
-First, I will retrieve my login information.
-const walletInstance = this.getWallet();
+所以请记住，发送给合同实例的创建者的这两个abi和地址信息是通过webpack生成的全局常量传递的。
+现在我们已经创建了一个四个合同实例，我们将继续使用存款功能。
+在寄钱之前我们必须先检查一下。
+您应该验证您刚刚登录的帐户是否为所有者帐户。
+所以我必须提出两条信息。
+首先，我正在检索当前登录的帐户信息。
+其次，我将检索存储在合同中的所有者状态变量。
+首先，我将检索我的登录信息。
+const walletInstance = this.getWallet（）;
 
-Go to the getwallet function and get the account information that exists in the current caver wallet.
-if (cav.klay.accounts.wallet.length) {
-      return cav.klay.accounts.wallet[0];
+转到getwallet函数并获取当前caver钱包中存在的帐户信息。
+if（cav.klay.accounts.wallet.length）{
+      return cav.klay.accounts.wallet [0];
     }
 
-Wallet [0] is the first account added to Wallet, the account I am currently logged into. 
-You’ve finished function implementation so far. 
-Next, let's call the value of the owner's state variable in the contract. 
-Go to the callOwner function
-return await agContract.methods.owner().call();
+
+电子钱包[0]是第一个添加到电子钱包的帐户，我目前登录的帐户。
+到目前为止，您已完成功能实现。
+接下来，让我们在合同中调用所有者状态变量的值。
+转到callOwner函数
+return await agContract.methods.owner（）。call（）;
  
 
-We’ll access the owner function through the additiongame contract instance we created and call the value. 
-Use the await keyword to receive values ​​asynchronously. 
-Since we made the necessary contents before we send you money, we'll continue with the deposit function.
-if (walletInstance) {
+我们将通过我们创建的addgame合约实例访问所有者函数并调用该值。
+使用await关键字异步接收值。
+由于我们在向您发送货款之前已经提供了必要的内容，因此我们将继续使用存款功能。
+if（walletInstance）{
  
     }
  
 
-If a Wallet instance exists through the getwallet function, 
-compare the current logged in account address with the account address of the owner returned from the contract.
-if (await this.callOwner() !== walletInstance.address) return; 
+如果通过getwallet函数存在Wallet实例，
+将当前登录的帐户地址与合同返回的所有者的帐户地址进行比较。
+if（等待this.callOwner（）！== walletInstance.address）return;
  
 
-If we compare them, but the values ​​are different, we do not proceed anymore and we terminate the function.
- If it is the same
-else {
+如果我们比较它们，但值不同，我们不再继续，我们终止该功能。
+ 如果它是相同的
+其他{
 }
  
 
-Gets the value entered for Html input.
-var amount = $('#amount').val();
+获取为Html输入输入的值。
+var amount = $（'＃amount'）。val（）;
 
-If the input value exists
-if (amount) {
+如果输入值存在
+if（amount）{
 }
  
-Send the value to the deposit function using a contract instance.
+使用合同实例将值发送到存款功能。
  
-agContract.methods.deposit().send({
+agContract.methods.deposit（）。发送（{
  
-})
+}）
 
-Here we send a transaction object as a factor of send. 
-We need to specify three things. 
-First we have to tell who is calling this function.
-from: walletInstance.address,
- 
-I said that we’ll call this function with the currently logged in account. 
-Note that Walletinstance's address is the account that has completed account verification and it has the right to sign the transaction. 
-So I can’t put any address in ‘from’. 
-Only addresses that have been verified in the BApp can be used as the value. 
-And set the gas to be consumed within 250,000.
- 
-gas: '250000',
- 
 
-Since the deposit function in the contract is payable, you must pass the value field.
-value:
+这里我们发送一个事务对象作为发送因素。
+我们需要指定三件事。
+首先，我们必须告诉谁正在调用此函数。
+来自：walletInstance.address，
+ 
+我说我们将使用当前登录的帐户调用此函数。
+请注意，Walletinstance的地址是已完成帐户验证的帐户，并且有权签署交易。
+所以我不能在'from'中添加任何地址。
+只有在BApp中验证过的地址才能用作值。
+并将燃气消耗量设定在250,000以内。
+ 
+天然气：'250000'，
  
 
-We have to convert the number received from html input to peb which is the minimum unit of KLAY and pass it. 
-Convert it by using the utility of caver library.
-cav.utils.toPeb(amount, "KLAY")
-
-You can now send money with the contract deposit function. 
-But I can use the information that can be received asynchronously, rather than finishing the transaction like this.
-.once('transactionHash', (txHash) => {
-    console.log(`txHash: ${txHash}`);
-})
+由于合同中的存款功能是应付的，因此您必须传递价值字段。
+值：
  
 
-First, I can get the transaction hash, and I made it visible on the console. 
-Note that the console log wrapper is not a single quotation mark, but a quotation mark on the left of the number 1. 
-Be careful. 
-Next, you can get a receipt.
+我们必须将从html输入接收的数字转换为peb，这是KLAY的最小单位并通过它。
+使用caver库实用程序转换它。
+cav.utils.toPeb（金额，“KLAY”）
+
+您现在可以通过合同存款功能汇款。
+但我可以使用异步接收的信息，而不是像这样完成事务。
+.once（'transactionHash'，（txHash）=> {
+    console.log（`txHash：$ {txHash}`）;
+}）
+ 
+
+首先，我可以获取事务哈希，并使其在控制台上可见。
+请注意，控制台日志包装器不是单引号，而是数字1左侧的引号。
+小心。
+接下来，您可以获得收据。
 .once('receipt', (receipt) => {
    console.log(`(#${receipt.blockNumber})`, receipt);          
 })
 
-Getting a receipt means that the transaction was successfully added to the block. 
-So, you can check the receipt to see the block where the transaction was added. 
-If transaction processing fails, you might get an error.
-.once('error', (error) => {
-   alert(error.message);
-  }); 
+
+获取收据意味着事务已成功添加到块中。
+因此，您可以检查收据以查看添加交易的块。
+如果事务处理失败，您可能会收到错误。
+.once（'error'，（error）=> {
+   警报（返回Error.message）;
+  }）;
  
 
-If there is an error, a message will be display. 
-I've done the logic to check success after sending the transaction. 
-Finally, if there is no amount received in html input, add a return statement that terminates the function.
-return;
+如果出现错误，将显示一条消息。
+我已经完成了在发送事务后检查成功的逻辑。
+最后，如果html输入中没有收到任何金额，请添加一个终止该函数的return语句。
+返回;
  
 
-I have completed the part that sends the KLAY to the deposit function of contract, and I will change the UI and test it in the next class. 
+我已经完成了将KLAY发送到合同存款功能的部分，我将更改UI并在下一课中测试它。
  
  
 ## 5.10 KLAY transfer via contract (UI change and testing)
  
  
 
-I will try changing UI and testing. 
-When we sent a KLAY to the deposit function in the previous course and received a receipt, the transaction was successful. 
-What should I do after I succeed? 
-It would be nice if the system could show me your reminder message.
-   alert(amount + " KLAY를 컨트랙에 송금했습니다.");  
+我会尝试更改UI和测试。
+当我们将KLAY发送到前一课程的存款功能并收到收据时，交易成功。
+我成功后该怎么办？
+如果系统可以向我显示您的提醒消息，那将是很好的。
+   警告（金额+“我已经将KLAY发送给合同。”）;
  
 
-And I will refresh the page to see the balance of the contract.
-   location.reload();     
-.
+我将刷新页面以查看合同的余额。
+   location.reload（）;
+。
 
-I said that I’m going to make the balance of the contract visible. 
-Remember that we created a function that would load the contract's balance when we wrote the smart contract. 
-We will call this getBalance function so we can see the balance of the contract. 
-First, we'll add a div that displays the contract's balance in html. 
-Go to Index.html and add one div under the address that shows my account address.
-  <div class="text-center" id="contractBalance"></div>
+我说我打算让合同的余额可见。
+请记住，我们创建了一个函数，可以在我们编写智能合约时加载合同的余额。
+我们将调用此getBalance函数，以便我们可以看到合同的余额。
+首先，我们将添加一个div，用于显示html中合约的余额。
+转到Index.html并在显示我的帐户地址的地址下添加一个div。
+  <div class =“text-center”id =“contractBalance”> </ div>
 
-And then we'll show you the balance of the contract here. 
-Now that the view is ready, let's create a function that loads the balance from the backend. 
-Go to the callcountractbalance function and add the code.
-return await agContract.methods.getBalance().call();
+然后我们将在这里向您展示合同的余额。
+现在视图已准备就绪，让我们创建一个从后端加载平衡的函数。
+转到callcountractbalance函数并添加代码。
+return await agContract.methods.getBalance（）。call（）;
  
 
-The part that accesses the getbalance function through a contract instance and loads the value. Yes, it was simple. 
-Where do I call this callcountractbalance function from now? 
-Where should I call it? 
-If the transaction succeeds in the deposit function and receives a receipt, it refreshes the page via location.reload (). 
-What is the first function that executes when the page is refreshed? 
-The start function is executed first. 
-Then, we call the changeUI function from the start function. 
-I need to add code to load the contract balance from the changeUI function that changes UI immediately.
-$('#contractBalance').append('<p>' + '이벤트 잔액: ' + cav.utils.fromPeb(await this.callContractBalance(), "KLAY") + ' KLAY' + '</p>');     
+通过契约实例访问getbalance函数并加载值的部分。是的，很简单。
+从现在开始我在哪里调用这个callcountractbalance函数？
+我应该在哪里打电话？
+如果交易在存款功能中成功并收到收据，则会通过location.reload（）刷新页面。
+刷新页面时执行的第一个函数是什么？
+首先执行启动功能。
+然后，我们从start函数调用changeUI函数。
+我需要添加代码来从更改UI的changeUI函数加载合同余额。
+$（'＃contractBalance'）。append（'<p>'+'이벤트잔액：'+ cav.utils.fromPeb（等待this.callContractBalance（），“KLAY”）+'KLAY'+'</ p>' ）;
 
-It's a bit long. 
-I’ll explain. 
-We will add a message to the part that shows the contract balance In html. 
-Call the callContractBalance function to get the balance. 
-However, the balance is then loaded into the KLAY minimum unit, peb. 
-That would make it hard to see how much is left in the user's seat, because the unit is too big. 
-So the caver utility has a function called fromPeb.
-It is a function that can convert from peb to another unit. 
-I have specified in the second parameter to convert to KLAY. 
-As a result, it shows the contract balance converted into KLAY in html.
- 
-
-Lastly, the KLAY transfer to the contract must be set up only for the owner account. 
-You only have to give permission to the event organizer. 
-So I will change it to show the UI that can be transferred only when I log in with the owner account. Go to the changeUI function
-if (await this.callOwner() === walletInstance.address) {
-      $("#owner").show(); 
-    }     
- 
-I have set the owner div to show only when the owner account address and the logged in account address are the same. 
-In html, the owner div is set invisible by default.
-So, when you log in with the owner account, you will see this part.
-Now let's try testing. 
-I will re-deploy it once. 
-First, make sure that your account's secret key is properly entered in truffle.js. 
-I will re-ploy it from the terminal.
-‘truffle deploy -compile-all -reset -network klaytn’ I'm re-deploying it for people who have not deployed it. 
-Your deployment is over. 
-Let's check it by running npm run dev. Press F12 to open the console window. 
-Click Login button ... ... ... ... .. 
-Since you are logged in with your owner account, you can see the part where you can send money. 
-Let's send money now. Send 1 KLAY.
- 
+这有点长。
+我会解释一下。
+我们将在显示合同余额的部分中添加一条消息。
+调用callContractBalance函数以获得平衡。
+但是，天平将加载到KLAY最小单位peb中。
+这会让人很难看到用户座位上剩下多少，因为单位太大了。
+因此，caver实用程序有一个名为fromPeb的函数。
+它是一个可以从peb转换为另一个单元的函数。
+我已在第二个参数中指定转换为KLAY。
+结果，它显示合同余额在html中转换为KLAY。
  
 
-You can see the transaction hash and receipt information through the console log as your transaction succeeds. 
-The notification message works well. 
-It seems that the time required for the transaction was less than 3 seconds. 
-In these 3 seconds, there are four processes from creating the transaction to creating the block and propagating it to the network when the transaction is completed. 
-Compared to other block-chain platforms, the processing speed is very fast. 
-Click the notification message, the page refreshes, and the start function is called first, 
-and the updated contract balance is displayed by the changeUI function in it. 
-The transaction function is working well. 
-I'd like to have a load spinner shows that the transaction works well or not. 
-This is not a requirement, but I recommend you to do it for a good UI. 
-Go to Index.js and import spin.js to the top.
+最后，必须仅为所有者帐户设置KLAY转移到合同。
+您只需要授予活动组织者许可。
+因此，我将更改它以显示仅在我使用所有者帐户登录时才能传输的UI。转到changeUI函数
+if（等待this.callOwner（）=== walletInstance.address）{
+      $（ “＃业主”）显示（）。
+    }
+ 
+我已将所有者div设置为仅在所有者帐户地址和登录帐户地址相同时显示。
+在html中，默认情况下，所有者div设置为不可见。
+因此，当您使用所有者帐户登录时，您将看到此部分。
+现在让我们试试吧。
+我将重新部署一次。
+首先，确保在truffle.js中正确输入了您帐户的密钥。
+我将从终端重新使用它。
+'truffle deploy -compile-all -reset -network klaytn'我正在为没有部署它的人重新部署它。
+您的部署已结束。
+让我们通过运行npm run dev来检查它。按F12打开控制台窗口。
+点击登录按钮...... ......
+由于您使用自己的帐户登录，因此可以看到可以汇款的部分。
+我们现在就汇款。发送1个KLAY。
+ 
+ 
+
+当事务成功时，您可以通过控制台日志查看事务哈希和收据信息。
+通知消息很有效。
+似乎交易所需的时间少于3秒。
+在这3秒内，有四个过程，从创建事务到创建块，并在事务完成时将其传播到网络。
+与其他区块链平台相比，处理速度非常快。
+单击通知消息，刷新页面，首先调用start函数，
+更新的合同余额由其中的changeUI函数显示。
+交易功能运作良好。
+我想让一个加载微调器显示交易运行良好。
+这不是必需的，但我建议您为良好的用户界面做这件事。
+转到Index.js并将spin.js导入到顶部。
 import {Spinner} from 'spin.js';
 
-Go to the showspinner function and make it return the spinner instance.
+转到showspinner函数并使其返回微调器实例。
 var target = document.getElementById('spin');
     return new Spinner(opts).spin(target);
 
-And call this function from the deposit function.
-var spinner = this.showSpinner();
+
+并从存款功能调用此功能。
+var spinner = this.showSpinner（）;
  
-After receiving a receipt, make the spinner stop.
+收到收据后，让微调器停止。
  
   spinner.stop();  
 
-Finally, add a div to show the spinner in html. <br /> Make it under the tag.
-<div id="spin"></div>    
+
+最后，添加一个div以在html中显示微调器。 <br />将它放在标签下面。
+<div id =“spin”> </ div>
  
 
-Now let's try testing. 
-Yes. As the spinner comes out, a more spectacular scene is being produced. 
-The transfer function works well, and the UI is well reflected. 
-So far, I have covered the KLAY transfer from the owner account to the contract.
+现在让我们试试吧。
+是。随着微调器的出现，正在制作一个更加壮观的场景。
+传递函数运行良好，并且UI得到了很好的反映。
+到目前为止，我已经涵盖了从业主账户到合同的KLAY转账。
 
 ## 5.11Generating a random number
 
-Now let 's try to make an interesting part. 
-Let's create two random numbers to be used for addition. 
-I will decorate Html first. 
-Please add this code directly above the spin div.
+
+现在让我们尝试做一个有趣的部分。
+让我们创建两个用于添加的随机数。
+我先装饰Html。
+请在旋转div上方直接添加此代码。
+
 <div class="row text-center">
         <div id="game" style="display: none;">   
           <div class="yellow-box" id="start">       
@@ -943,235 +991,247 @@ Please add this code directly above the spin div.
 <br />
  
 
-I made it invisible with the css. 
-And I’ll make it visible after I log in. 
-Clicking on the start button calls the generateNumbers function. 
-The function will then generate two numbers, one for the num1 and one for num2. 
-To be used for addition. 
-And there is an input field to write the answer. 
-Finally, there is a button to submit your answers. 
-Simple html. Now, 
-I'll set it up so that only users who have been verified will see this part. 
-Go to the changeUI function and add it below logout.show () to show the game div.
+我用css看不见它。
+登录后我会将其显示出来。
+单击开始按钮可调用generateNumbers函数。
+然后该函数将生成两个数字，一个用于num1，另一个用于num2。
+用于添加。
+并且有一个输入字段来写答案。
+最后，还有一个提交答案的按钮。
+简单的HTML。现在，
+我会对其进行设置，以便只有经过验证的用户才能看到此部分。
+转到changeUI函数并将其添加到logout.show（）下面以显示游戏div。
 $('#game').show();
  
 
-Now let's check it out in html. 
-If you are logged in, you can see the nice UI of the yellow box in the middle. 
-Now I’ll set the numbers visible when you click on Start. 
-Let's create random numbers in the generatenumbers function.
-var num1 = Math.random();
+现在让我们用html检查一下。
+如果您已登录，则可以在中间看到黄色框的漂亮UI。
+现在，当您单击“开始”时，我将设置数字。
+让我们在generatenumbers函数中创建随机数。
+var num1 = Math.random（）;
  
 
-First, we call the random function of the Math class. 
-The random function randomly generates a number with a decimal point below 0 and 1. 
-But if you do this, the number is too small, so I'm going to multiply it.
-var num1 = Math.random() * 50;
+首先，我们调用Math类的随机函数。
+随机函数随机生成一个小数点低于0和1的数字。
+但如果你这样做，数字太小，所以我要增加它。
+var num1 = Math.random（）* 50;
  
 
-This will generate a random number from 0 to 49. 
-But the problem should not be too easy, so I will add 10 to the generated value so that you can generate at least two digits.
+这将生成0到49之间的随机数。
+但问题不应该太容易，所以我将为生成的值添加10，以便您可以生成至少两位数。
 var num1 = (Math.random() * 50) + 10;
  
 
-Finally, we use the floor function to discard the decimal point.
+
+最后，我们使用floor函数来丢弃小数点。
 var num1 = Math.floor((Math.random() * 50) + 10);
  
-If you do this, you will have a decimal number between 10 and 59.
-Next, create another one.
+
+如果这样做，您将得到10到59之间的十进制数。
+接下来，创建另一个。
  
 var num2 = Math.floor((Math.random() * 50) + 10);
  
-Now we will store the added values of two numbers ​​in the session storage. 
-I'll save the answer.
+
+现在我们将在会话存储中存储两个数字的附加值。
+我会保存答案。
  
 sessionStorage.setItem('result', num1 + num2);    
 
-This will later bring the correct answer back when the user answers and will try to compare the answers given by the user. 
-Now that we've created the numbers, we'll have to use it. 
-When I click on Start in html, I will hide this beginning and make it show the question div below. And at the same time, I will make the two numbers generated from the function visible in the num1 and num2 fields. 
-Let's go back to the function and implement what we just said.
+这将在用户回答时返回正确答案，并尝试比较用户给出的答案。
+现在我们已经创建了数字，我们将不得不使用它。
+当我点击HTML中的Start时，我会隐藏这个开头并让它显示下面的问题div。同时，我将在num1和num2字段中显示从函数生成的两个数字。
+让我们回到功能并实现我们刚才所说的。
 $('#start').hide();
  
 
-Make the beginning invisible.
+
+让开始不可见。
 $('#num1').text(num1);
 $('#num2').text(num2);
 
-Let it show the generated numbers in num1 and num2 fields. 
-And let it show the question div.
+让它显示num1和num2字段中生成的数字。
+让它显示问题div。
 $('#question').show(); 
 	
 
-Finally, move the focus to where I write the answers so that I can answer right away.
+最后，将焦点移到我写答案的位置，以便我可以立即回答。
 document.querySelector('#answer').focus();
 
-I will test it now. 
-When you click Start, your random numbers are generated and rendered in html. 
-Soon, focus moved to where I write the answer. 
-This is the end of today’s class and I will try to create a timer in the next class.
+我现在要测试一下。
+单击“开始”时，将生成随机数并以html格式呈现。
+很快，焦点转移到我写答案的地方。
+这是今天课程的结束，我将尝试在下一堂课中创建一个计时器。
 
 ## 5.12  Generating a timer
 
 
 
-Let's create a timer and set the timeout for the addition problem to 3 seconds.
- Go to Html and make a div that shows the timer. I'll make it right under the spin div.
+让我们创建一个计时器，并将添加问题的超时设置为3秒。
+ 转到Html并创建一个显示计时器的div。我会在旋转div下做正确的。
 <div class="row text-center">
         <p id="timer"></p>
       </div>   
  
-Go to index.js and go to the showtimer function. Here we use the setInterval function to show the number to be counted down. We’ll make the problem disappear after 3 seconds and the screen revert back to the start click.
+转到index.js并转到showtimer函数。这里我们使用setInterval函数来显示要倒计时的数字。我们将在3秒后使问题消失，屏幕恢复到开始点击。
  
 
-Make a variable to save for 3 seconds.
+创建一个变量以保存3秒钟。
 $('#timer').text(seconds);
 
-Show number 3 directly to the html which is showing the timer. 
-I use the setinterval function and set it at 1 second interval.
+直接显示数字3到显示计时器的html。
+我使用setinterval函数并将其设置为1秒间隔。
   var interval = setInterval(function() {  
   }, 1000);
  
 
-Now I can run something in 1 second interval.
+现在我可以在1秒的间隔内运行一些东西。
 $('#timer').text(--seconds);  
  
 
-Decrement the number one by one to make it appear in html. 
-Now, the value of this seconds variable is 0, that is, reset it again when setinterval is 0 after 3 seconds.
+
+逐个减少数字，使其显示在html中。
+现在，这个秒变量的值是0，也就是说，当3秒后setinterval为0时再次重置它。
+
 if (seconds <= 0) {
 }     
  
-When Seconds becomes 0
+
+当秒数变为0时
  
 $('#timer').text('');
  
 
-Initialize the number showing part
-     $('#answer').val('');
-답적었던input도 초기화시키구요	
+初始化显示部分的数字
 
-Also initialize the input that was answered.
+     $('#answer').val('');
+
+它还初始化已回答的输入。
+
+同时初始化已回答的输入。
 $('#question').hide();
  
-Set the div not showing the problem. And,
+
+设置div不显示问题。和,
  
 $('#start').show();          
  
 
-Show the div again that you can click start. Finally,
+再次显示div，您可以单击“开始”。最后，
   clearInterval(interval);
  
 
-Use the clearInterval to stop the time running in setinterval. Yes, I have created the showtimer function. Now let's call this function in the generateNumbers function.
-this.showTimer();
+使用clearInterval停止在setinterval中运行的时间。是的，我创建了showtimer功能。现在让我们在generateNumbers函数中调用这个函数。
+this.showTimer（）;
  
-If you do this, as soon as you click Start, the timer will be created and count down will be started. Let's try testing.
-Click on Start. A timer will be generated below and start the count down for 3 seconds. After 3 seconds, it is reset again.
-So far, I have created a timer.
+如果执行此操作，则单击“开始”后，将立即创建计时器并开始倒计时。我们来试试吧。
+单击“开始”。将在下面生成一个计时器并开始倒计时3秒钟。 3秒后，它会再次重置。
+到目前为止，我已经创建了一个计时器。
  
  
  
 ## 5.13 Submitting answers and receiving KLAY
  
-This is the last class. If the user submits the answer and the answer is correct, let's implement the part that sends the KLAY to the user account from the contract. Go to the submitAnswer function. Load the value of correct answer which is stored in the session storage.
+
+这是最后一堂课。如果用户提交答案并且答案是正确的，那么让我们实现从合同中将KLAY发送到用户帐户的部分。转到submitAnswer函数。加载存储在会话存储中的正确答案的值。
 const result = sessionStorage.getItem('result');
  
 
-And, store the answers that the user has made in the variables.
-var answer = $('#answer').val();  
+并且，存储用户在变量中所做的答案。
+var answer = $（'＃answer'）。val（）;
  
 
-Now, do a comparison.
-if (answer === result) { }
+现在，做一个比较。
+if（回答===结果）{}
  
 
-If the user has answered the correct answer, press the confirm button while opening the confirm message window and send the KLAY to the user.
-if (confirm("대단하네요^^ 0.1 KLAY 받기")) { }
+如果用户已回答正确答案，请在打开确认消息窗口时按确认按钮并将KLAY发送给用户。
+if (confirm("那很好。^^ 0.1 KLAY 下载")) { }
  
 
-If the user clicked the OK button, make sure the balance in the contract is at least 0.1 KLAY before sending it.
+如果用户单击确定按钮，请确保合同中的余额至少为0.1 KLAY，然后再发送。
 if (await this.callContractBalance() >= 0.1) { }
 
-If so, call the receiveKlay function.
+如果是这样，请调用receiveKlay函数。
 this.receiveKlay();
  
 
-If it does not exist, send a notification message.
-else { alert("죄송합니다. 컨트랙의 KLAY가 다 소모되었습니다."); }    
+
+如果它不存在，请发送通知消息。
+else { alert("抱歉。音乐会的KLAY已被消费。"); }    
  
 
-Finally, if the user did not get the correct answer, Send a notification.
-else { alert("땡! 초등학생도 하는데 ㅠㅠ"); }
+
+最后，如果用户没有得到正确答案，请发送通知。
+else { alert("丁！我是一名小学生。"); }
  
  
  
 
-Yes your submitanswer function is up to here. 
-Let's test it once. 
-This message is displayed when the answer is wrong. 
-When this is done, a confirm message window will appear to receive the KLAY. 
-When you click OK, you will call the receiveklay function to transfer the KLAY. 
-I have not implemented it yet. 
-Let's implement the function. 
-It's our last function.
+是的，您的submitanswer功能就在这里。
+我们来测试一次吧。
+答案错误时会显示此消息。
+完成后，将出现确认消息窗口以接收KLAY。
+单击“确定”后，您将调用receiveklay函数来传输KLAY。
+我还没有实现它。
+让我们实现这个功能。
+这是我们的最后一项功能。
  
-When the user answers the correct answer, they pay the transaction fee through their account and get the KLAY. 
-We will convert 0.1 KLAY in our contract transfer function to peb and pass it as an argument. 
-First, let's show you how to load using a spinner during transaction processing.
-var spinner = this.showSpinner();
+当用户回答正确答案时，他们通过他们的帐户支付交易费并获得KLAY。
+我们将合同转移函数中的0.1 KLAY转换为peb并将其作为参数传递。
+首先，让我们向您展示如何在事务处理期间使用微调器加载。
+var spinner = this.showSpinner（）;
 
-In addition, we need the verified account address required for the transaction, so, load the Wallet instance.
+此外，我们需要交易所需的经过验证的帐户地址，因此，请加载电子钱包实例。
 const walletInstance = this.getWallet();
  
 
-If the value of the wallet instance does not exist, exit the function.
+如果钱包实例的值不存在，请退出该功能。
 if (!walletInstance) return;  
  
 
-If so, use the contract instance to access the transfer function in the contract .
+如果是，请使用合同实例访问合同中的转移功能。
 agContract.methods.transfer().send({
 })
  
-The transfer function of the contract receives one argument. 
-You need use the caver utility to convert the KLAY to peb and pass it. 
+合同的转移函数收到一个论点。
+您需要使用caver实用程序将KLAY转换为peb并传递它。
  
 cav.utils.toPeb(“0.1”, "KLAY")
  
-And you said you need to send a transaction object in the send parameter. 
-You need to specify who calls this function and how much the gas limit is set.
+你说你需要在send参数中发送一个事务对象。
+您需要指定谁调用此函数以及设置的气体限制量。
  
-from: walletInstance.address,
-gas: '250000'
+来自：walletInstance.address，
+天然气：'250000'
  
-Pass the Wallet instance, your account-verified address, and let the gas consume within 250,000. 
-Note that the value field is not required. 
-I will not pass the value because the transfer function is not a payable type. 
-If you do this, you have finished all the values which will be passed. 
-Now, after the transaction is processed, you should check whether it succeeded or not. 
-I could check whether it(deposit) succeeded or not through this .once. 
-However, there’s another way. 
-I can get a receipt by using promise.
+通过电子钱包实例，您的帐户验证地址，让天然气消耗在250,000以内。
+请注意，值字段不是必需的。
+我不会传递该值，因为传递函数不是应付款类型。
+如果这样做，您已完成将传递的所有值。
+现在，在处理事务之后，您应该检查它是否成功。
+我可以通过这个.once检查它（存款）是否成功。
+但是，还有另一种方式。
+我可以用诺言来收据。
  
 .then(function (receipt) {
 });     
 
-Wait asynchronously and receive the receipt value.
-if (receipt.status) { }
+异步等待并收到收据值。
+if（receipt.status）{}
 
-There is a field called status in the Receipt object. 
-If this is true, it is successful. 
-So, if you succeed, Stop spinner.
-spinner.stop(); 
+Receipt对象中有一个名为status的字段。
+如果这是真的，那就成功了。
+所以，如果你成功了，停止微调器。
+spinner.stop（）;
  
 
-Also, show notification messages
-alert("0.1 KLAY가 " + walletInstance.address + " 계정으로 지급되었습니다.");      
+另外，显示通知消息
+alert("0.1 KLAY " + walletInstance.address + " 支付到您的帐户。");      
  
-
-Also, let's create a link in html so that the processed transaction can be checked directly from the scope. 
-I'm going to create a new div. 
-I will make it under the timer div.
+另外，让我们在html中创建一个链接，以便可以直接从作用域中检查已处理的事务。
+我打算创建一个新的div。
+我将在计时器div下进行。
 <div class="row text-center">
    <div id="transaction"></div>
 </div>  
@@ -1179,45 +1239,45 @@ I will make it under the timer div.
 <br />
  
 
-You'll see the link in this section. 
-Go back to the function and clear the transaction div first.
+您将在此部分中看到该链接。
+返回该函数并首先清除事务div。
     $('#transaction').html("");
  
 
-I’m clearing the transaction div to show a new link each time a transaction is created. 
-Next, I'll add a link.
+我正在清除事务div以在每次创建事务时显示新链接。
+接下来，我将添加一个链接。
     $('#transaction')
       .append(`<p><a href='https://baobab.klaytnscope.com/tx/${receipt.txHash}' 
-                   target='_blank'>클레이튼 Scope에서 트랜젝션 확인</a></p>`);
+                   target='_blank'> 检查Klaytn Scope中的交易</a></p>`);
+
  
+在承诺退回的收据中，
+将transactionhash字段传递给KlaytnScope站点的url参数，以便您可以看到刚刚处理的事务信息。
+最后，向您展示html中最后更新的合同余额。
  
-In the receipt returned by the promise, 
-pass the transactionhash field to the url parameter of the KlaytnScope site so that you can see the transaction information just processed. 
-Lastly, show you the last updated contract balance in html.
+return agContract.methods.getBalance（）。call（）
+  .then（function（balance）{
+}）;
  
-return agContract.methods.getBalance().call()
-  .then(function (balance) {
-});        
- 
-Call the getBalance function of the contract to recall the remaining balance in the contract.
+调用合约的getBalance函数以调用合约中的剩余余额。
  
  $('#contractBalance').html("");          
  
 
-Clears the existing show balance display and shows the updated balance immediately.
-$('#contractBalance').append('<p>' + '이벤트 잔액: ' + cav.utils.fromPeb(balance, "KLAY") + ' KLAY' + '</p>');           
+清除现有的节目余额显示并立即显示更新的余额。
+$('#contractBalance').append('<p>' + '事件平衡: ' + cav.utils.fromPeb(balance, "KLAY") + ' KLAY' + '</p>');           
  
-The whole process is complete so far. 
-Now, let's try testing. 
-This time, I try to log in with a different account, not the owner account. 
-You can continue with the owner account. 
-If you have created another account, you can try it out as well.
+到目前为止整个过程已经完成。
+现在，让我们试试吧。
+这次，我尝试使用其他帐户登录，而不是使用所有者帐户登录。
+您可以继续使用所有者帐户。
+如果您已经创建了另一个帐户，也可以尝试一下。
  
-If you solve the problem and press the OK button, the receiveKlay function is called. 
-The notification message is displayed and the transaction has been successfully completed. 
-You can close the notification message and see that your event balance is reduced. 
-The balance in the contract has been reduced as it moves to your account. 
-And the link was created at the bottom. 
-If you click the link, you can see the information about the track we just created on the scope. 
-Click on your account address and you'll see that the balance is growing. 
-So far, I have tried to solve the problem and transfer the KLAY in the contract to my account.
+如果您解决了问题并按下OK按钮，则会调用receiveKlay函数。
+将显示通知消息，并且已成功完成事务。
+您可以关闭通知消息，并查看您的事件余额是否已减少。
+合同中的余额在移至您的帐户时已减少。
+并且链接是在底部创建的。
+如果单击该链接，则可以看到有关我们刚在作用域上创建的轨道的信息。
+点击您的帐户地址，您会发现余额正在增长。
+到目前为止，我已尝试解决问题并将合同中的KLAY转移到我的帐户。
