@@ -99,39 +99,39 @@ Nó sẽ tốn chút thời gian. Khi kết thúc, thư mục có tên 'node_mod
  
  
  
-First, let's create a new file in the migrations folder.
- Right-click on the ‘migrations’ folder and select New File. Set the name as ‘2_deploy_contracts.js’ and we'll add logic to deploy the AdditionGame contract to the node.
+Đầu tiên, hãy tạo một tệp mới trong thư mục migrations..
+ Nhấp chuột phải vào thư mục 'migrations”' và chọn New File. Đặt tên là '2_deploy_contuces.js' và chúng tôi sẽ thêm logic để triển khai hợp đồng AdditionGame đến node.
  
-Go to the `Initial migrations` file and, copy and paste all the codes. 
-Please change it to ‘importing the AdditionGame contract’. 
-Replace the part to be deployed with `AdditionGame.` So far, the basic logic to deploy is over. 
-However, I will write some code into some files within BApp to store information I get from the process of deployment. Later, it can be very useful for creating contract instances with this information.
-deployer.deploy(AdditionGame)
+Truy cập ‘Initial migrations’ tập tin và, sao chép và dán tới tất cả các code. 
+Vui lòng thay đổi nó thành 'importing the AdditionGame contract'. 
+Thay thế nó để triển khai với 'AdditionGame'. Cho đến nay, logic cơ bản triển khai đã kết thúc.. 
+Tuy nhiên, tôi sẽ viết  vào một số tệp trong BApp để lưu trữ thông tin tôi nhận được từ quá trình triển khai. Sau đó, nó sẽ giúp ích để tạo hợp đồng với thông tin này.
+deployer.deploy (AdditionGame)
  
-The deployer deploys the AdditionGame contract and, through `then` we receive the json data to promise.
-And in this,
+Deployer triển khai hợp đồng AdditionGame và nhấp  then chúng tôi nhận dữ liệu json.
+Và trong này,
  
 if (AdditionGame._json) {
  
-If you have received json data of Additions game, you will save it to a file via the file system module. 
-To do that, you have to import it first. 
-Add `const fs = require ('fs')` at the top. 
-Well then, I will create two files. Those files are where we can save Abi and the contract address. Right-click anywhere in the background and name the new file ‘deployedABI’. 
-Create another one and name it ‘deployedAddress’. 
-Now we will use the file system to store them to each file. 
-First, let's create a code that stores abi information. 
-Abi is the content that can interact between the blockchain and the contract.
+Nếu bạn đã nhận được dữ liệu json Additions game, bạn sẽ lưu nó vào tệp thông qua hệ thống module. 
+Để làm điều đó, bạn phải nhập nó trước. 
+Thêm ‘const fs = Yêu cầu ('fs') ở đầu.. 
+Vậy thì tôi sẽ tạo hai tập tin. Những tập tin đó là nơi chúng ta có thể lưu Abi và địa chỉ hợp đồng. Nhấp chuột phải vào bất cứ nơi nào trên màn hình và đặt tên cho tệp mới là ‘deployedABI’. 
+Tạo ra một tệp mới với tên là ‘deployedAddress’. 
+Bây giờ chúng tôi sẽ sử dụng hệ thống tệp để lưu trữ chúng vào từng tệp. 
+Đầu tiên, hãy tạo một đoạn code để lưu trữ thông tin abi.. 
+ Abi là nội dung có thể tương tác giữa blockchain và hợp đồng.
   	fs.writeFile(
     	'deployedABI',
     	JSON.stringify(AdditionGame._json.abi),
  
-There is a writeFile function in the file system. Define which file to write, and string the abi information we’ve received from json and pass it to an argument. Finally, we will handle the error.
+Hàm writefile trong hệ thống file. Define tập tin nào cần viết và xâu chuỗi thông tin abi mà chúng tôi đã nhận được từ json và chuyển nó đến một đối số. Cuối cùng, chúng tôi sẽ xử lý lỗi.
  
     	(err) => {
       	if (err) throw err
       	console.log("파일에 ABI 입력 성공");
     	})
-If there is an error, throw it. If none, write log at the console. This saves the abi information of the deployed contract in the deployedABI file as a literal. To continue, I will save the address of the deployed contract to the file.
+Nếu có lỗi xảy ra thì hãy bỏ qua nó.  Nếu none, viết log ở console. Điều này lưu thông tin abi của hợp đồng được triển khai trong tệp deployABI. Để tiếp tục, tôi sẽ lưu địa chỉ của hợp đồng đã triển khai vào tệp..
 fs.writeFile(
   	'deployedAddress',
   	AdditionGame.address,
@@ -139,32 +139,32 @@ fs.writeFile(
     	if (err) throw err
     	console.log("파일에 주소 입력 성공");
 	})
-If you’ve followed all stages so far, now We can store the information we want in each file immediately after we deploy it every time. I will continue to set up the environment in truffle.js and deploy it in the next lecture.
+Bạn đã theo dõi tất cả các bước cho đến thời điểm này, bây giờ chúng tôi lưu trữ thông tin trong mỗi tệp ngay sau khi chúng tôi triển khai nó mỗi lần. Tôi sẽ tiếp tục thiết lập môi trường truffle.js và triển khai nó trong bài giảng tiếp theo.
  
  
  
-## 5.4 Deploying smart contract to Baobab 2
+## 5.4 Triển khai hợp đồng thông minh cho Baobab 2
  
  
-Lastly, you need to set up the setting. You have to decide which network you are going to deploy. 
-Go to the Truffle.js file. Here, I will define it from now on. First, I’ll import the library called `connect-privkey-to-provider.`
+Cuối cùng, bạn cần thiết lập cài đặt. Bạn phải quyết định mạng nào bạn sẽ triển khai. 
+Truy cập Truffle.js. Đây, tôi sẽ làm ngay . Đầu tiên, tôi sẽ nhập tệp có tên là  `connect-privkey-to-provider.`
 const PrivateKeyConnector = require('connect-privkey-to-provider')
  
-also create a constant called a network ID.
+cũng tạo một hằng số được gọi là ID của network.
  
 const NETWORK_ID = '1001'
  
-1001 means Baobab's unique network ID.
+1001 có nghĩa là ID của mạng lưới duy nhất trên Baobab.
 const GASLIMIT = '20000000'
  
-This is the gas limit for deployment. There are seven zeros.
+Đây là gas limit để triển khai. Có bảy số không.
 const URL = `https://api.baobab.klaytn.net:8651`
  
-For the UR, I have assigned the address where Klaytn's full node is currently running, which is the baobab testnet. Finally, we need a constant to hold the secret key, so we'll get the secret key of the account we created earlier through Klaytn Wallet. I told you guys to save your secret key somewhere else. I am copying and pasting mine that I saved in Notepad.
+Đối với UR, tôi đã chỉ định địa chỉ nơi các node của Klaytn hiện đang chạy, đó là testnet baobab. Cuối cùng, chúng tôi cần một hằng số để giữ khóa bí mật, vì vậy chúng tôi sẽ nhận được khóa bí mật của tài khoản chúng tôi đã tạo trước đó thông qua Ví Klaytn. Các bạn hãy lưu chìa khóa bí mật của bạn ở một nơi khác. Tôi đang sao chép và dán cái mà tôi đã lưu trong Notepad.
 const PRIVATE_KEY = ''
  
  
-Now let's use these settings in module.exports.
+Bây giờ hãy sử dụng các cài đặt này trong module.exports.
 module.exports = {
   networks: { 
 	klaytn: {
@@ -176,39 +176,38 @@ module.exports = {
   },
 }
  
- Let me explain first. I said that we’ll use ‘Klaytn’ for the networks. 
-Now, we will specify four options here. First, you specify a provider that provides Klaytn node. Create a PrivateKeyConnector instance and pass two arguments. 
-The first is to pass my account secret key and the second to pass the network address where the full node is running. 
-This will allow me to connect to the baobab testnet using my secret key. 
-Assign the network ID and gas, and finally the gas price is set to a null value. This is because the baobab network will automatically set the gas price, so we pass the null value. 
-Yes, by now I've set up my environment to deploy smart contracts. It’s quite simple. Now let's deploy it. In the terminal, run `truffle deploy -network klaytn`. Yes, just deployed successfully. You can see the confirmation phrase printed on the console.
+Tôi sẽ giải thích. chúng tôi sẽ sử dụng ‘Klaytn’ cho các mạng lưới. 
+Cụ thể, có 4 option ở đây. Đầu tiên, bạn chỉ định nhà cung cấp cung cấp node Klaytn. Tạo PrivateKeyConnector và truyền tới hai đối số. 
+Đầu tiên là pass khóa bí mật tài khoản của tôi và thứ hai pass địa chỉ mạng nơi các fullnode đang chạy. 
+Điều này giúp tôi kết nối với testnet baobab bằng khóa bí mật của mình. 
+Chỉ định ID mạng lưới và gas, và cuối cùng giá gas đặt thành giá trị null. Điều này là do mạng lưới baobab sẽ tự động đặt giá gas, vì vậy chúng tôi pass giá trị null. 
+Vâng, đến bây giờ tôi đã thiết lập môi trường của mình để triển khai các hợp đồng thông minh. Nó khá đơn giản. Bây giờ hãy triển khai nó. Ở terminal, chạy 'truffle deploy-network klaytn'. Vâng, chỉ cần triển khai thành công. Bạn có thể thấy cụm từ xác nhận được hiển thị trong console..
  
  
  
-Now, if you look at the deployedABI file, the abi information is stored. Go to the deployed address and note that the address of the deployed contract is stored. It’s working well. Finally, when you deploy it, a folder called build is created. It has `contracts` folder inside it and two json files are in contracts folder. They are called artifacts. Each artifact file contains the ABI information of the corresponding contract as well as all the information related to the contract. ABI is an abbreviation of the application binary interface; we have previously stored a deployed ABI file in it. In abi, we see the functions and variables written in json format we use for the AdditionGame contract.
+Bây giờ, nếu bạn xem tệp deployedABI, thông tin abi được lưu trữ. Truy cập địa chỉ hợp đồng được triển khai và lưu ý rằng địa chỉ của hợp đồng đã được lưu trữ. Chúng hoạt động tốt. Cuối cùng, khi bạn triển khai nó, thư mục sẽ được tạo. Nó có thư mục hợp đồng bên trong và hai tập tin json nằm trong thư mục hợp đồng. Chúng được gọi là artifact. Mỗi tệp chứa thông tin ABI của hợp đồng tương ứng cũng như tất cả các thông tin liên quan đến hợp đồng. ABI là tên viết tắt của giao diện nhị phân ứng dụng; trước đây chúng tôi đã lưu trữ một tệp đã triển khai trong đó. Trong abi, chúng ta thấy các hàm và biến được viết ở định dạng json mà  sử dụng cho hợp đồng AdditionGame.
  
-Simply put, when you deploy this contract to blockchain, this abi guarantees calling the functions in the contract and ensure that the data is returned in the format I expect. It is where you define how you can interact with the contract. If you go down to the bottom, there is a network section. 1001 is Klaytn 's unique network ID. The address is that this contract is currently deployed to this address on the Baobab testnet.
+Nói một cách đơn giản, khi bạn triển khai hợp đồng này lên blockchain, abi này đảm bảo chức năng trong hợp đồng và dữ liệu được trả về. Đó là nơi bạn xác định cách bạn có thể tương tác với hợp đồng. Nếu bạn đi xuống dưới cùng, có một phần mạng lưới. 1001 là ID mạng duy nhất của Klaytn. Địa chỉ là hợp đồng này hiện đang được triển khai đến địa chỉ này trên testnet Baobab.
  
  
 truffle deploy –compile-all –reset –network klaytn
  
  
-Finally, if you want to re-deploy the contract to the Klaytn node, you can use this command. For example, when we need to modify the contract, we need to re-deploy it to the node. `truffle deploy -compile-all -reset -network – Klaytn`
-compile all recompiles all contracts. The reset forces the script files in the Migrations folder to be rerun. Run it to re-deploy the contract to the node again. Yes. Successfully completed. Open the deployedAddress file and you'll see that the address has changed. So far, I have deployed Contract to the Klaytn Baobab network using truffles.
+Cuối cùng, nếu bạn muốn triển khai lại hợp đồng cho node Klaytn, bạn có thể sử dụng lệnh này. Ví dụ, khi chúng ta cần sửa đổi hợp đồng, và cần triển khai lại node. “truffle deploy-compile-all -reset -network - Klaytn” biên soạn tất cả các hợp đồng. Reset sẽ giúp script file trong tệp  Migration trả về. Re-deploy cho hợp đồng node. Vâng. Hoàn tất. Mở tệp deployedAddress và bạn sẽ thấy rằng địa chỉ đã thay đổi. Từ nãy giờ, tôi đã triển khai Hợp đồng với mạng lưới Klaytn Baobab mà dùng truffles.
  
  
  
  
  
-## 5.5 Account verification UI
+## 5.5 Xác minh tài khoản UI
  
  
-Let's start by logging in with your account created through your baobab wallet. 
+Hãy bắt đầu bằng cách đăng nhập bằng tài khoản của bạn được tạo bằng ví baobab. 
 There were two ways for us to verify our accounts.
- First, You can use a combination of keystore files and passwords, and second, verify with a private key. 
-The way we implement it is to verify through a combination of keystore files and passwords. 
-First, I will write html code. 
-Go to Index.html and add the contents inside the body tag.
+ Đầu tiên, Bạn có thể sử dụng kết hợp keystore file và mật khẩu; thứ hai, xác minh bằng private key. 
+Cách chúng tôi thực hiện là xác minh thông qua keystore file và mật khẩu. 
+Đầu tiên, tôi sẽ viết mã html. 
+Truy cập Index.html và thêm nội dung bên trong body tag.
   <div class="container">
     <div class="row">
   	<div class="col-md-8 col-md-offset-2">
@@ -238,12 +237,12 @@ Go to Index.html and add the contents inside the body tag.
  
  
  
-Please stop this video now and write this code. 
-Very simple setting. 
-The classes in the div use bootstrapping to make the UI look nice.
- I will skip the bootstrap description. 
-First of all, I put the explanatory phrases in the upper part. 
-Below we've added the login and logout buttons. 
+Hãy tạm dừng video này ngay bây giờ và viết code này. 
+Thiết lập rất đơn giản. 
+Các lớp trong div bootstrapping để làm UI trông đẹp.
+ Tôi sẽ bỏ qua phần mô tả bootstrapn. 
+Trước hết, tôi sẽ giải thích ở phần trên. 
+Dưới đây tôi đã thêm các nút đăng nhập và đăng xuất. 
 When I click on the login button, it will launch a modal window. 
 When I click the logout button The handleLogout function will be executed. 
 Note that I set the logout button does not appear in the css. 
