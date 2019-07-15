@@ -413,33 +413,33 @@ Gửi toàn bộ nội dung của tệp được tải đến keystore của bi�
 Sau đó, gửi tin nhắn nói rằng tôi đã thành công.
 $('#message').text('keystore 통과. 비밀번호를 입력하세요.');
  
-Make it possible to type password in the password field immediately.
+Nếu có thể hãy nhập mật khẩu trong trường password.
  
 document.querySelector('#input-password').focus();
  
-Finally, when reading the file, if there is an error, send an error message in the catch block and terminate the function.
+Cuối cùng, trong khi đọc tệp, nếu phát hiện lỗi, hãy gửi thông báo lỗi trong Block và ngừng chức năng này.
 $('#message').text('유효하지 않은 keystore 파일입니다.');
 return;
  
  
-Yes, so far Handleimport function has been implemented well. 
-Let's test it now. Select the keystore file. 
-The pass message will be displayed and the focus will be moved to the part where the password can be entered. 
-To test the opposite case, let’s choose any random file. 
-Ok, error message is generated. 
-It’s working well. 
-Now, let’s make a function that stores the password in a global variable when we enter the password. 
-It will be very simple. 
-If you go to html, the handlepassword function is called when you enter the password. 
-Then, at the handlepassword function,
+Vâng, chức năng Handleimport xử lý tốt. 
+Hãy kiểm tra ngay bây giờ. Chọn tệp keystore. 
+Thông báo sẽ được hiển thị và phần trọng tâm sẽ được chuyển đến phần có thể nhập mật khẩu. 
+Để kiểm tra trường hợp ngược lại, hãy để chọn một tập tin ngẫu nhiên. 
+Ok, thông báo lỗi đã xuất hiện. 
+Nhưng nó vẫn hoạt động tốt. 
+Bây giờ, hãy tạo chức năng lưu trữ mật khẩu trong hàm biến toàn cầu khi chúng ta nhập mật khẩu. 
+Nó rất đơn giản. 
+Nếu bạn truy cập html, handlepassword sẽ thông báo khi bạn nhập mật khẩu. 
+TSau đó, tại hàm handlepassword,
 this.auth.password = event.target.value;
  
-Retrieve the password value via the html onchange event and then, assign it to the password field of the global variable auth.
- It was very simple. 
-So far, I have done the validation file of the keystore file.
- In the next lecture, I'll create a secret key and add my account information to Wallet.
+Lấy mật khẩu thông qua html và sau đó, dán nó vào trường mật khẩu của hàm biến toàn cầu auth.
+ Nó rất đơn giản. 
+Nãy giờ, tôi đã thực hiện tệp xác thực tệp keystore.
+Trong bài giảng tiếp theo, tôi sẽ tạo một khóa bí mật và thêm thông tin tài khoản của tôi vào Ví.
  
-## 5.7 Account verification (integrate wallet)
+## 5.7 Xác minh tài khoản (tích hợp ví)
  
 
 We have completed parts for retrieving the keystore file and the typing password, 
