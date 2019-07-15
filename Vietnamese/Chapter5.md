@@ -243,40 +243,40 @@ Các lớp trong div bootstrapping để làm UI trông đẹp.
  Tôi sẽ bỏ qua phần mô tả bootstrapn. 
 Trước hết, tôi sẽ giải thích ở phần trên. 
 Dưới đây tôi đã thêm các nút đăng nhập và đăng xuất. 
-When I click on the login button, it will launch a modal window. 
-When I click the logout button The handleLogout function will be executed. 
-Note that I set the logout button does not appear in the css. 
-Let’s run the app and we'll check if the code we wrote is working. 
-Run the npm run dev command on the terminal. 
-Run Chrome and go to localhost: 8081 address. 
-Yes, it is not so beautiful, but the view looks good. 
-Now, let's create a modal that will pop up when we click the login button. ‘https://bootstrapdocs.com/v3.3.6/docs/javascript/#modals’ If you come to this bootstrap site, you can get modal code. 
-Copy this part and come back to html file. 
-I'll paste it outside of the container div. 
-Now let's change the contents of this modal. 
-First, set the div id to loginModal.
+Khi tôi nhấp vào nút đăng nhập, nó sẽ khởi động cửa sổ phương thức. 
+Khi tôi nhấp vào nút đăng xuất chức năng handleLogout sẽ được thực hiện. 
+Lưu ý rằng tôi đặt nút đăng xuất không xuất hiện trong css. 
+Chúng ta chạy app và kiểm tra code chúng tôi đã viết có hoạt động không. 
+Chạy lệnh npm run dev trên terminal. 
+Chạy Chrome và truy cập localhost: địa chỉ 8081. 
+Vâng, nó không đẹp lắm, nhưng view có vẻ tốt. 
+Bây giờ, hãy tạo một phương thức sẽ hiện lên khi chúng ta nhấp vào nút đăng nhập. ‘https://bootstrapdocs.com/v3.3.6/docs/javascript/#modals” Nếu bạn truy cập trang web bootstrap này, bạn có thể nhận được code phương thức.. 
+Sao chép phần này và quay lại tệp html. 
+ Tôi sẽ dán nó bên ngoài container div. 
+Bây giờ hãy thay đổi nội dung của phương thức này. 
+Đầu tiên, đặt id div thành loginModal.
 section.
   <div class="modal fade" tabindex="-1" role="dialog" id="loginModal">
  
-You should like this, so that this allows the modal to open when you click the login button. 
-It matches the modal with the value of the data-target attribute of the top login button. 
-Next, we will change the size of modal to a smaller one.
+Bạn sẽ thích nó, phương thức này sẽ mở khi bạn nhấn vào nút đăng nhập. 
+Nó phù hợp với phương thức cùng với giá trị của thuộc tính dữ liệu của nút đăng nhập ở trên. 
+Tiếp theo, chúng tôi sẽ thay đổi kích thước của phương thức trở nên nhỏ hơn.
  
   <div class="modal-dialog modal-sm">
  
  
-Delete all the modal header section. 
-Also, delete the contents inside the modal body. 
-Now add the part where keystore file can be loaded and the part where password could be typed.
+Xóa tất cả các phần tiêu đề ở section. 
+Ngoài ra, xóa nội dung bên trong phương thức. 
+ Bây giờ thêm phần tệp keystore và mật khẩu.
 <div class="form-group">
    <label for="keystore">Keystore</label>
    <input type="file" id="keystore" onchange="App.handleImport()">
 </div>
  
-Set the input type as file and make the handleimport function to be called on the onchange event.
- And below that, add a part for password (비밀번호). 
+input vào dưới dạng tệp và làm cho hàm xử lý được gọi là onchange event..
+ Và phần dưới , thêm mật khẩu (비밀번호). 
  
-Copy and paste on the top.
+Copy và dán trên cùng.
 <div class="form-group">
   <label for="input-password">비밀번호</label>
   <input type="password" class="form-control" id="input-password" onchange="App.handlePassword()">
@@ -284,68 +284,68 @@ Copy and paste on the top.
 </div>
  
  
-If the value is written in the password input window, call the handlePassword function.
- And I added the part to be displayed as a message when the verification is successful or error occurred. 
-Finally, change `close` to `닫기(close)` and change `safe changes` into `submission.`
+Nếu giá trị được ghi trong cửa sổ nhập mật khẩu, hàm đó được gọi là handlePassword..
+ Và tôi đã thêm phần được hiển thị dưới dạng tin nhắn khi xác minh thành công hoặc xảy ra lỗi. 
+Cuối cùng, close thành 닫기(close) và thay đổi 'safe changes' thành 'submission`.
 <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
         	<button type="button" class="btn btn-primary" id="submit" onclick="App.handleLogin()">제출</button>
  
-Add the id attribute and allow the handleLogin function to be called when clicked. 
-Yes, I will now check that the completed code works fine in the view. 
-Click the login button. 
-Well then, modal is up and you have the option to choose a file and enter a password. 
-So far, I've created a UI that verify accounts.
+Thêm thuộc tính id và cho phép hàm handleLogin hiển thị khi nhấp vào. 
+Vâng, bây giờ tôi sẽ kiểm tra xem code vừa hoàn thành có hoạt động tốt trong chế độ xem hay không. 
+Nhấp vào nút đăng nhập. 
+Vậy thì, modal đã hoạt động và bạn có tùy chọn để chọn tập tin và nhập mật khẩu. 
+Cho đến nay, tôi đã tạo UI xác minh tài khoản. 
  
  
-## 5.6 Account verification logic (keystore validation)
+## 5.6 Logic xác minh tài khoản (keystore validation)
  
  
  
-Now that we have created the UI shown above, let's implement the logic to make it work.
- In Index.js, there are various functions in constant called App. 
-And finally, when you go down, you'll see that the first thing you can know is that when you load the page, it starts start function that exists within App constant. 
-So we will implement the start function, but before that, we need to load the caver.js library to communicate with the Klaytn blockchain and instantiate it so that it can be used for BApp.
+Bởi vì chúng ta đã tạo UI được hiển thị ở trên, bây giờ thực hiện logic cho nó hoạt động.
+ Trong Index.js, có nhiều hàm khác nhau trong constant gọi là App. 
+Và cuối cùng, khi bạn kéo xuống, bạn sẽ thấy rằng điều đầu tiên khi bạn tải trang, bắt đầu start function trong constant app. 
+Vì vậy, chúng ta sẽ triển khai chức năng start, nhưng trước đó, chúng tôi cần tải caver.js tương tác với blockchain Klaytn và khởi tạo nó để có thể sử dụng cho BApp.
 import Caver from "caver-js";
  
-At the top, import caver.js. 
-And creates one constant for the environment setting.
+Ở đầu, nhập caver.js. 
+Và tạo một hằng số cho việc thiết lập môi trường làm việc.
  
 const config = {
   rpcURL: 'https://api.baobab.klaytn.net:8651'
 }
  
  
-There’s a rpcURL in config. 
-We have defined which Klaytn node to connect to and use. 
-I said it is baobab testnet. 
-Finally, we will create a constant that instantiates the rpcURL by passing it to the Caver constructor.
+rpcURL trong cấu hình. 
+Chúng tôi đã xác định node Klaytn nào kết nối và sử dụng. 
+Tôi đã nói đó là baobab testnet. 
+Cuối cùng, chúng ta sẽ tạo hằng số khởi tạo rpcURL bằng cách pass nó đến cấu trúc Caver.
 const cav = new Caver(config.rpcURL);
  
  
-The work of instantiation is over and this cav constant is now available in the app.
- Now you have to start the function, but before that, in the start function, you have to first check whether the account has been verified through the session. 
-However, I will leave this part to later because s we will use session in the later lecture, so just leave start function blank for now. 
-Let’s implement the handleImport function first.
- We should be able to click on the login button and select the keystore file after modal pops up. 
-However, this file must be validated whether it is actually a valid keystore file, or not. 
-Let's do that in the handleimport function. 
-First, we create a FileReader object and place it into a constant.
+Công việc khởi tạo đã kết thúc và hằng số cav này hiện có sẵn trong ứng dụng.
+ Bây giờ bạn phải bắt đầu chức năng, nhưng trước đó, trước tiên bạn phải kiểm tra xem tài khoản đã được xác minh qua hay chưa thông qua cession. 
+Tuy nhiên, tôi sẽ nói phần này  trong bài giảng sau, vì vậy bây giờ hãy để trống start function bây giờ. 
+Trước tiên, hãy thực hiện chức năng handleImport.
+ Chúng ta có thể nhấp vào nút đăng nhập và chọn tệp keystore sau khi pop-up modal. 
+Tuy nhiên, tệp này phải được xác thực cho dù có thực sự là tệp keystore hợp lệ hay không. 
+Chúng ta hãy làm điều đó trong chức năng handleimport. 
+Đầu tiên, chúng ta tạo FileReader và đặt nó trong một constant.
 const fileReader = new FileReader();
  
  
-And use readAsText function to read the selected file.
+Và sử dụng chức năng readAsText để đọc tệp đã chọn.
 fileReader.readAsText(event.target.files[0]);
  
  
-event.target.files, this part means the file we selected. 
-When readAsText execution is completed, the FileReader's onload event occurs.
+event.target.files, phần này có nghĩa là tệp chúng tôi đã chọn. 
+Khi quá trình thực thi readAsText hoàn tất, việc tải FileReader đang xảy ra.
 fileReader.onload = (event) => {  	
   
 }
  
-The event received by the callback, in other words, the contents of the file, can now be used within this block of code. 
-The contents of this file will be checked whether it is a valid keystore file. 
-First, add a try catch block inside.
+Sự kiện nhận được sẽ gọi lại, hay một nghĩa khác, Nội dung của tệp, giờ đây có thể được sử dụng trong mã của Block này. 
+Nội dung của tệp này sẽ được kiểm tra xem đó có phải là keystore hợp lệ hay không. 
+Đầu tiên, thử lấy Block bên trong.
  
   try {
    	
@@ -354,44 +354,44 @@ First, add a try catch block inside.
   }
  
  
-Now we’ll check through if-sentence if the contents of the file are valid or not, in other words,  if this is an actual keystore file.
+Bây giờ chúng tôi sẽ kiểm tra liệu nội dung câu có hợp lệ hay không, nói cách khác, nếu đây là tệp keystore thực.
 if (!this.checkValidKeystore(event.target.result)) {
  
 }
  
  
-I passed the contents of the file we read to the function checkValidKeystore as an argument.
- Now let's decorate the checkValidKeystore function. 
-This function takes the keystore as an argument and receives the file. 
-And the keystore file I received is a json file. 
-I will change it to Javascript object to use the properties in this json file as variables.
+Tôi đã chuyển nội dung của tệp mà chúng ta đã đọc cho hàm checkValidKeystore nhưu là đối số.
+ Bây giờ hãy xem lại hàm checkValidKeystore. 
+Hàm này lấy keystore làm đối số và nhận tệp. 
+Và tệp keystore tôi nhận được là tệp json. 
+Tôi sẽ thay đổi nó thành Javascript để sử dụng các thuộc tính trong tệp json này làm biến.
 	const parsedKeystore = JSON.parse(keystore);
  
  
-I used the json parse function to analyze the contents of the keystore file, convert it to an object, and store it in a constant. 
-What should we do next? 
-Make sure that the properties required for your keystore configuration are well entered. 
-Let's look at the keystore file and see what we need. 
-The essential elements of keystore configuration are version, id, address, and crypto. 
-Without these four fields, a keystore file can’t be a keystore file. 
-So, I will check it through the code.
+Tôi đã sử dụng hàm json để phân tích nội dung của tệp keystore, chuyển nó thành object và lưu trữ nó trong hằng số. 
+Chúng ta nên làm gì tiếp theo? 
+Đảm bảo rằng các thuộc tính cần thiết cho cấu hình keystore, nhập chính xác. 
+Hãy xem tập tin keystore và xem những gì chúng ta cần. 
+Các yếu tố thiết yếu của cấu hình keystore là phiên bản, id, địa chỉ và tiền điện tử. 
+Nếu không có bốn trường này, nó không thể trở thành tệp keystore. 
+Vì vậy, tôi sẽ kiểm tra nó thông qua code.
 const isValidKeystore = parsedKeystore.version &&
   	parsedKeystore.id &&
   	parsedKeystore.address &&
   	parsedKeystore.crypto;
  
  
-Finally, return this constant.
+Cuối cùng, quay lại hằng số này.
 return isValidKeystore;
  
  
-I went up again and verified if the file I just imported is a valid keystore file. 
-If not, through message, shows that it is not valid and ends the function.
+Tôi kéo lên lại và xác minh nếu tệp tôi vừa nhập là tệp keystore hợp lệ.. 
+Nếu không, tin nhắn thông báo không hợp lệ và kết thúc chức năng.
 $('#message').text('유효하지 않은 keystore 파일입니다.');
 return;
  
-If it passed the verification, then we’ll save the contents of the keystore file to a global variable.
-First, we need to create a global variable. Create it on the start function
+Nếu nó vượt qua bước xác minh, chúng tôi sẽ lưu nội dung của tệp keystore vào hàm biến toàn cầu.
+Đầu tiên chúng ta cần tạo một biến toàn cầu. Tạo nó trước khi bắt đầu function
  
 auth: {
 	accessType: 'keystore',
@@ -400,17 +400,17 @@ auth: {
   },
  
  
-There are three fields in the Auth object.
- The accessType is an verification method, which has a keystore type and a privatekey type. 
-We are proceeding with keystore type. 
-The Keystore field stores the entire contents of the keystore file.
- Lastly, password is the field containing the password that will be combined with the keystore file. 
-If we go back to the function and pass the validation,
+Có ba trường trong trong Auth object.
+ AccessType là một phương thức xác minh, gồm loại keystore và private key.. 
+Chúng ta đang tiến hành với loại keystore. 
+Keystore lưu trữ toàn bộ nội dung của tệp.
+ Cuối cùng, password là chứa mật khẩu sẽ kết hợp với tệp keystore. 
+Nếu chúng ta quay trở lại chức năng và vượt qua bước xác nhận, sẽ hiển thị,
 this.auth.keystore = event.target.result;
  
  
-send the entire contents of the loaded file to the keystore field of the auth variable we created. 
-After that, send a message saying that I was successful.
+Gửi toàn bộ nội dung của tệp được tải đến keystore của biến auth mà chúng ta đã tạo. 
+Sau đó, gửi tin nhắn nói rằng tôi đã thành công.
 $('#message').text('keystore 통과. 비밀번호를 입력하세요.');
  
 Make it possible to type password in the password field immediately.
