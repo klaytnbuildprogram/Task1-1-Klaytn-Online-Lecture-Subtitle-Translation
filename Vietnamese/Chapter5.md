@@ -1,4 +1,4 @@
-# 5. Sử dụng Front-end cho việc phát triển trò chơi Addition Klaytn
+# 5. Sử dụng Front-end cho việc phát triển trò chơi phép tinh cộng trên Klaytn
  
 ## 5.1 Settings
 
@@ -1010,39 +1010,39 @@ Ngay sau đó, tập trung di chuyển đến nơi tôi viết câu trả lời.
 
 
 
-Let's create a timer and set the timeout for the addition problem to 3 seconds.
- Go to Html and make a div that shows the timer. I'll make it right under the spin div.
+Tạo một bộ timer và thiết lập timeout cho vấn đề phép cộng trong 3 giây.
+ Truy cập Html và tạo một div hiển thị bộ đếm thời gian. Tôi sẽ làm cho nó ngay dưới div spin.
 <div class="row text-center">
         <p id="timer"></p>
       </div>   
  
-Go to index.js and go to the showtimer function. Here we use the setInterval function to show the number to be counted down. We’ll make the problem disappear after 3 seconds and the screen revert back to the start click.
+Truy cập index.js và chuyển đến hàm showtimer. Ở đây chúng ta sử dụng hàm setInterval để hiển thị số cần đếm ngược. chúng ta sẽ làm cho vấn đề biến mất sau 3 giây và màn hình trở lại click Start.
  
 
-Make a variable to save for 3 seconds.
+Tạo một biến để lưu trong 3 giây.
 $('#timer').text(seconds);
 
-Show number 3 directly to the html which is showing the timer. 
-I use the setinterval function and set it at 1 second interval.
+Hiển thị số 3 trực tiếp vào html đang hiển thị bộ Timer. 
+Tôi sử dụng hàm setinterval và đặt nó ở khoảng thời gian 1 giây.
   var interval = setInterval(function() {  
   }, 1000);
  
 
-Now I can run something in 1 second interval.
+Bây giờ, tôi có thể chạy một cái gì đó trong khoảng thời gian 1 giây.
 $('#timer').text(--seconds);  
  
 
-Decrement the number one by one to make it appear in html. 
-Now, the value of this seconds variable is 0, that is, reset it again when setinterval is 0 after 3 seconds.
+Giảm số từng số một và nó hiện thị trong html. 
+Bây giờ, giá trị của biến giây này là 0, nghĩa là reset lại nó khi setinterval bằng 0 sau 3 giây.
 if (seconds <= 0) {
 }     
  
-When Seconds becomes 0
+Khi Seconds là 0
  
 $('#timer').text('');
  
 
-Initialize the number showing part
+Khởi tạo phần hiển thị số
      $('#answer').val('');
 답적었던input도 초기화시키구요	
 
