@@ -1,4 +1,4 @@
-# 5. Sử dụng Front-end cho thực hiện phép tính cộng trên Klaytn
+# 5. Sử dụng Front-end trong thực hiện phép tính cộng trên Klaytn
  
 ## 5.1 Settings
 
