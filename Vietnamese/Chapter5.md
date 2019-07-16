@@ -753,172 +753,172 @@ agContract.methods.deposit().send({
  
 })
 
-Here we send a transaction object as a factor of send. 
-We need to specify three things. 
-First we have to tell who is calling this function.
+Ở đây chúng tôi gửi một đối tượng giao dịch như là một hệ số gửi.
+Chúng ta cần xác định ba điều. 
+Đầu tiên chúng ta phải nói ai đang gọi hàm này.
 from: walletInstance.address,
  
-I said that we’ll call this function with the currently logged in account. 
-Note that Walletinstance's address is the account that has completed account verification and it has the right to sign the transaction. 
-So I can’t put any address in ‘from’. 
-Only addresses that have been verified in the BApp can be used as the value. 
-And set the gas to be consumed within 250,000.
+Tôi đã nói rằng chúng ta sẽ gọi hàm này bằng tài khoản hiện đang đăng nhập.
+Lưu ý rằng địa chỉ của Walletinstance là tài khoản đã hoàn tất xác minh tài khoản và nó có quyền tạo chữ ký trong giao dịch.
+Vì vậy, tôi có thể đặt bất kỳ địa chỉ nào trong ‘from'. 
+Chỉ các địa chỉ đã được xác minh trong BApp có thể được sử dụng làm giá trị. 
+Và đặt gas sẽ được tiêu thụ là 250.000.
  
 gas: '250000',
  
 
-Since the deposit function in the contract is payable, you must pass the value field.
+Vì hàm deposit trong hợp đồng có thể thanh khoản, bạn phải thông qua trường giá trị.
 value:
  
 
-We have to convert the number received from html input to peb which is the minimum unit of KLAY and pass it. 
-Convert it by using the utility of caver library.
+Chúng ta phải chuyển đổi số nhận được từ đầu vào html sang peb là đơn vị tối thiểu của KLAY. 
+Chuyển đổi nó bằng cách sử dụng utility của thư viện caver.
 cav.utils.toPeb(amount, "KLAY")
 
-You can now send money with the contract deposit function. 
-But I can use the information that can be received asynchronously, rather than finishing the transaction like this.
+Bây giờ bạn có thể gửi tiền với hàm deposit trong hợp đồng. 
+Nhưng tôi có thể sử dụng thông tin có thể được nhận không đồng bộ, thay vì kết thúc giao dịch như thế này.
 .once('transactionHash', (txHash) => {
     console.log(`txHash: ${txHash}`);
 })
  
 
-First, I can get the transaction hash, and I made it visible on the console. 
-Note that the console log wrapper is not a single quotation mark, but a quotation mark on the left of the number 1. 
-Be careful. 
-Next, you can get a receipt.
+Đầu tiên, tôi có thể có được hàm băm giao dịch và tôi đã hiển thị ở console. 
+Lưu ý rằng log wrapper trong console không phải là dấu ngoặc kép đơn, mà là dấu ngoặc kép ở bên trái của số 1. 
+Hãy cẩn thận. 
+Tiếp theo, bạn có thể nhận được một biên lai.
 .once('receipt', (receipt) => {
    console.log(`(#${receipt.blockNumber})`, receipt);          
 })
 
-Getting a receipt means that the transaction was successfully added to the block. 
-So, you can check the receipt to see the block where the transaction was added. 
-If transaction processing fails, you might get an error.
+Nhận biên lai này có nghĩa rằng giao dịch thành công đã được thêm vào block.
+Vì vậy, bạn có thể kiểm tra biên lai để xem Block, nơi mà giao dịch được thêm vào.
+Nếu giao dịch có lỗi, bạn sẽ nhìn thấy lỗi
 .once('error', (error) => {
    alert(error.message);
   }); 
  
 
-If there is an error, a message will be display. 
-I've done the logic to check success after sending the transaction. 
-Finally, if there is no amount received in html input, add a return statement that terminates the function.
+Nếu có lỗi, thông báo sẽ được hiển thị. 
+Tôi đã thực hiện logic để kiểm tra thành công sau khi gửi giao dịch. 
+Cuối cùng, nếu không có số tiền nhận được ở đầu vào html, hãy thêm câu lệnh return kết thúc hàm.
 return;
  
 
-I have completed the part that sends the KLAY to the deposit function of contract, and I will change the UI and test it in the next class. 
+Tôi đã hoàn thành phần gửi KLAY cho hàm deposit của hợp đồng và tôi sẽ thay đổi UI và kiểm tra nó trong phần tiếp theo. 
  
  
-## 5.10 KLAY transfer via contract (UI change and testing)
+## 5.10 Chuyển  KLAY thông qua hợp đồng (thay đổi và kiểm tra UI)
  
  
 
-I will try changing UI and testing. 
-When we sent a KLAY to the deposit function in the previous course and received a receipt, the transaction was successful. 
-What should I do after I succeeded? 
-It would be nice if the system could show me the reminder message.
+Tôi sẽ thử thay đổi UI và thử nghiệm. 
+Khi chúng ta gửi KLAY đến hàm deposit ở bài trước và nhận được biên lai, giao dịch đã thành công. 
+Tôi nên làm gì sau khi thành công? 
+Sẽ thật tuyệt nếu hệ thống có thể hiển thị cho tôi tin nhắn nhắc nhở.
    alert(amount + " KLAY를 컨트랙에 송금했습니다.");  
  
 
-And I will refresh the page to see the balance of the contract.
+Và tôi sẽ làm mới trang để xem số dư của hợp đồng.
    location.reload();     
 .
 
-I said that I’m going to make the balance of the contract visible. 
-Remember that we created a function that would load the contract's balance when we wrote the smart contract. 
-We will call this getBalance function so we can see the balance of the contract. 
-First, we'll add a div that displays the contract's balance in html. 
-Go to Index.html and add one div under the address that shows my account address.
+Tôi đã nói rằng tôi sẽ làm cho số dư của hợp đồng được hiển thị. 
+Hãy nhớ rằng chúng ta đã tạo một hàm sẽ tải số dư của hợp đồng khi chúng ta viết hợp đồng thông minh. 
+Chúng ta sẽ gọi hàm getBalance này để có thể thấy số dư của hợp đồng. 
+Trước tiên, chúng ta sẽ thêm div hiển thị số dư của hợp đồng trong html. 
+Truy cập Index.html và thêm div dưới địa chỉ hiển thị địa chỉ tài khoản của tôi.
   <div class="text-center" id="contractBalance"></div>
 
-And then we'll show you the balance of the contract here. 
-Now that the view is ready, let's create a function that loads the balance from the backend. 
-Go to the callcountractbalance function and add the code.
+Và sau đó chúng ta sẽ cho bạn thấy số dư của hợp đồng ở đây. 
+Bây giờ, chế độ xem đã sẵn sàng, hãy tạo một hàm mà có thể tải số dư từ backend. 
+Truy cập hàm callcountractbalance và thêm code.
 return await agContract.methods.getBalance().call();
  
 
-The part that accesses the getbalance function through a contract instance and loads the value. Yes, it was simple. 
-Where do I call this callcountractbalance function from now? 
-Where should I call it? 
-If the transaction succeeds in the deposit function and receives a receipt, it refreshes the page via location.reload (). 
-What is the first function that executes when the page is refreshed? 
-The start function is executed first. 
-Then, we call the changeUI function from the start function. 
-I need to add code to load the contract balance from the changeUI function that changes UI immediately.
+Phần truy cập hàm getbalance thông qua instance hợp đồng và tải giá trị. Vâng, nó thật đơn giản. 
+Từ đâu tôi gọi hàm callcountractbalance? 
+Tôi nên gọi nó ở đâu? 
+Nếu giao dịch thành công trong hàm deposit và nhận được biên nhận, nó sẽ làm mới trang thông qua location.reload (). 
+Hàm đầu tiên nào thực thi khi trang được làm mới? 
+Hàm start được thực thi trước. 
+Sau đó, chúng ta gọi hàm changeUI từ hàm start. 
+Tôi cần thêm code để tải số dư hợp đồng từ hàm ChangeUI thay đổi UI ngay lập tức.
 $('#contractBalance').append('<p>' + '이벤트 잔액: ' + cav.utils.fromPeb(await this.callContractBalance(), "KLAY") + ' KLAY' + '</p>');     
 
-It's a bit long. 
-I’ll explain. 
-We will add a message to the part that shows the contract balance In html. 
-Call the callContractBalance function to get the balance. 
-However, the balance is then loaded into the KLAY minimum unit, peb. 
-That would make it hard to see how much is left in the user's seat, because the unit is too big. 
-So the caver utility has a function called fromPeb.
-It is a function that can convert from peb to another unit. 
-I have specified in the second parameter to convert to KLAY. 
-As a result, it shows the contract balance converted into KLAY in html.
+Nó khá dài. 
+Tôi sẽ giải thích.
+chúng ta sẽ thêm thông báo vào phần hiển thị số dư hợp đồng Trong html. 
+Gọi hàm callContractBalance để lấy số dư. 
+Tuy nhiên, số dư sau đó được tải vào đơn vị tối thiểu của KLAY, peb. 
+Điều đó sẽ khiến bạn khó thấy được còn lại bao nhiêu, vì đơn vị này quá lớn. 
+Vì vậy, utility caver có hàm gọi là fromPeb.
+Nó là một hàm có thể chuyển đổi từ peb sang đơn vị khác. 
+Tôi đã chỉ định trong tham số thứ hai để chuyển đổi sang KLAY. 
+Kết quả là, nó cho thấy số dư hợp đồng được chuyển đổi thành KLAY trong html.
  
 
-Lastly, the KLAY transfer to the contract must be set up only for the owner account. 
-You only have to give permission to the event organizer. 
-So I will change it to show the UI that can be transferred only when I log in with the owner account. Go to the changeUI function
+Cuối cùng, việc chuyển KLAY vào hợp đồng phải được thiết lập chỉ cho tài khoản chủ sở hữu. 
+Bạn chỉ phải cấp phép cho việc tạo ra các sự kiện. 
+Vì vậy, tôi sẽ thay đổi nó để hiển thị UI chỉ có thể được chuyển khi tôi đăng nhập bằng tài khoản chủ sở hữu. Chuyển đến hàm changeUI
 if (await this.callOwner() === walletInstance.address) {
       $("#owner").show(); 
     }     
  
-I have set the owner div to show only when the owner account address and the logged in account address are the same. 
-In html, the owner div is set invisible by default.
-So, when you log in with the owner account, you will see this part.
-Now let's try testing. 
-I will re-deploy it once. 
-First, make sure that your account's secret key is properly entered in truffle.js. 
-I will re-ploy it from the terminal.
-‘truffle deploy -compile-all -reset -network klaytn’ I'm re-deploying it for people who have not deployed it. 
-Your deployment is over. 
-Let's check it by running npm run dev. Press F12 to open the console window. 
-Click Login button
-Since you are logged in with your owner account, you can see the part where you can send money. 
-Let's send money now. Send 1 KLAY.
+Tôi đã đặt div chủ sở hữu hiển thị khi địa chỉ tài khoản chủ sở hữu và địa chỉ tài khoản đã đăng nhập giống nhau. 
+Trong html, div chủ sở hữu được đặt ẩn theo mặc định.
+Vì vậy, khi bạn đăng nhập bằng tài khoản chủ sở hữu, bạn sẽ thấy phần này.
+Bây giờ hãy thử kiểm tra. 
+Tôi sẽ tạo lại nó một lần. 
+Trước tiên, hãy đảm bảo rằng khóa bí mật của tài khoản của bạn được nhập chính xác vào truffle.js. 
+Tôi sẽ triển khai lại nó từ terminal.
+‘truffle deploy -compile-all -reset -network klaytn’ Tôi đang triển khai lại nó cho những người chưa làm. 
+Việc triển khai của bạn đã kết thúc. 
+Hãy kiểm tra nó bằng cách chạy npm run dev. Nhấn F12 để mở cửa sổ giao diện console. 
+Nhấp vào nút Đăng nhập
+Vì bạn đã đăng nhập bằng tài khoản chủ sở hữu của mình, bạn có thể thấy phần bạn có thể gửi tiền. 
+Hãy gửi tiền ngay bây giờ. Gửi 1 KLAY.
  
  
 
-You can see the transaction hash and receipt information through the console log as your transaction succeeds. 
-The notification message works well. 
-It seems that the time required for the transaction was less than 3 seconds. 
-In these 3 seconds, there are four processes from creating the transaction to creating the block and propagating it to the network when the transaction is completed. 
-Compared to other block-chain platforms, the processing speed is very fast. 
-Click the notification message, the page refreshes, and the start function is called first, 
-and the updated contract balance is displayed by the changeUI function in it. 
-The transaction function is working well. 
-I'd like to have a load spinner shows that the transaction works well or not. 
+Bạn có thể thấy thông tin hàm băm và nhận thông tin thông qua log trên console khi giao dịch của bạn thành công. 
+Tin nhắn thông báo hoạt động tốt. 
+Có vẻ như thời gian cần thiết cho giao dịch là ít hơn 3 giây. 
+Trong 3 giây này, có bốn quy trình từ tạo giao dịch đến tạo block và truyền nó tới mạng lưới khi giao dịch hoàn tất. 
+So với các nền tảng blockchain khác, tốc độ xử lý rất nhanh. 
+Nhấp vào tin nhắn thông báo, làm mới trang và hàm start được gọi đầu tiên, 
+à số dư hợp đồng cập nhật được hiển thị bởi hàm ChangeUI trong đó. 
+hàm transaction đang hoạt động tốt.. 
+Tôi muốn có một công cụ tải spinner cho thấy giao dịch có hoạt động tốt hay không.Tôi muốn có một công cụ tải spinner cho thấy giao dịch có hoạt động tốt hay không.
 This is not a requirement, but I recommend you to do it for a good UI. 
-Go to Index.js and import spin.js to the top.
+Truy cập Index.js and truy xuất spin.js trên cùng.
 import {Spinner} from 'spin.js';
 
-Go to the showspinner function and make it return the spinner instance.
+Đi đến hàm showspinner và trả về instance spinner.
 var target = document.getElementById('spin');
     return new Spinner(opts).spin(target);
 
-And call this function from the deposit function.
+Gọi hàm này từ hàm deposit
 var spinner = this.showSpinner();
  
-After receiving a receipt, make the spinner stop.
+Sau khi nhận nhận biên lai, dừng spinner.
  
   spinner.stop();  
 
-Finally, add a div to show the spinner in html. <br /> Make it under the tag.
+Cuối cùng thêm một div để hiển thị spinner trong html.<br /> dưới tag.
 <div id="spin"></div>    
  
 
-Now let's try testing. 
-Yes. As the spinner comes out, a more spectacular scene is being produced. 
-The transfer function works well, and the UI is well reflected. 
-So far, I have covered the KLAY transfer from the owner account to the contract.
+Bây giờ hãy thử kiểm tra. 
+Vâng. Khi spinner xuất hiện, một cảnh ngoạn mục hơn đang được tạo ra.
+hàm chuyển hoạt động tốt và giao diện người dùng được phản ánh tốt. 
+Cho đến nay, tôi đã chi trả cho việc chuyển KLAY từ tài khoản chủ sở hữu tới hợp đồng.
 
-## 5.11Generating a random number
+## 5.11 Tạo 1 số ngẫu nhiên
 
-Now let 's try to make an interesting part. 
-Let's create two random numbers to be used for addition. 
-I will decorate Html first. 
-Please add this code directly above the spin div.
+Bây giờ hãy thử làm một phần thú vị. 
+Hãy tạo hai số ngẫu nhiên được sử dụng để cộng vào. 
+Tôi sẽ làm Html đầu tiên 
+Vui lòng thêm code này trực tiếp trên div spin.
 <div class="row text-center">
         <div id="game" style="display: none;">   
           <div class="yellow-box" id="start">       
@@ -938,75 +938,75 @@ Please add this code directly above the spin div.
 <br />
  
 
-I made it invisible with the css. 
-And I’ll make it visible after I log in. 
-Clicking on the start button calls the generateNumbers function. 
-The function will then generate two numbers, one for the num1 and one for num2. 
-To be used for addition. 
-And there is an input field to write the answer. 
-Finally, there is a button to submit your answers. 
-Simple html. Now, 
-I'll set it up so that only users who have been verified will see this part. 
-Go to the changeUI function and add it below logout.show () to show the game div.
+Tôi làm cho nó không nhìn thấy với css. 
+Và tôi sẽ làm cho nó hiển thị sau khi tôi đăng nhập. 
+Nhấp vào nút bắt đầu gọi hàm generateNumbers. 
+Sau đó, hàm sẽ tạo hai số, một cho num1 và một cho num2. 
+Được sử dụng cho phép tính cộng. 
+Và có một trường input để viết câu trả lời.
+Cuối cùng, có một nút để gửi câu trả lời của bạn. 
+Html đơn giản. Bây giờ, 
+Tôi sẽ thiết lập nó để chỉ những người dùng đã được xác minh mới thấy phần này. 
+Đi đến hàm changeUI và thêm nó bên dưới logout.show () để hiển thị div game.
 $('#game').show();
  
 
-Now let's check it out in html. 
-If you are logged in, you can see the nice UI of the yellow box in the middle. 
-Now I’ll set the numbers visible when you click on Start. 
-Let's create random numbers in the generatenumbers function.
+Bây giờ hãy kiểm tra nó trong html. 
+Nếu bạn đã đăng nhập, bạn có thể thấy giao diện người dùng hộp màu vàng ở giữa. 
+Bây giờ tôi sẽ đặt các số sẽ hiển thị khi bạn nhấp vào Start. 
+Chúng ta hãy tạo các số ngẫu nhiên trong hàm generatenumbers.
 var num1 = Math.random();
  
 
-First, we call the random function of the Math class. 
-The random function randomly generates a number with a decimal point below 0 and 1. 
-But if you do this, the number is too small, so I'm going to multiply it.
+Đầu tiên, chúng ta gọi hàm random của class Math. 
+Hàm random được tạo ngẫu nhiên một số có dấu thập phân với 0 và 1. 
+Nhưng nếu bạn làm điều này, con số quá nhỏ, vì vậy tôi sẽ nhân nó lên.
 var num1 = Math.random() * 50;
  
 
-This will generate a random number from 0 to 49. 
-But the problem should not be too easy, so I will add 10 to the generated value so that you can generate at least two digits.
+Điều này sẽ tạo ra một số ngẫu nhiên từ 0 đến 49. 
+Nhưng vấn đề không nên quá dễ dàng, vì vậy tôi sẽ cộng thêm 10 vào giá trị được tạo để bạn có thể tạo ít nhất hai chữ số.
 var num1 = (Math.random() * 50) + 10;
  
 
-Finally, we use the floor function to discard the decimal point.
+Cuối cùng, chúng ta sử dụng hàm floor để loại bỏ dấu thập phân.
 var num1 = Math.floor((Math.random() * 50) + 10);
  
-If you do this, you will have a decimal number between 10 and 59.
-Next, create another one.
+Nếu bạn làm điều này, bạn sẽ có một số thập phân trong khoảng từ 10 đến 59.
+Tiếp theo, tạo một cái khác.
  
 var num2 = Math.floor((Math.random() * 50) + 10);
  
-Now we will store the added values of two numbers ​​in the session storage. 
-I'll save the answer.
+Bây giờ chúng ta sẽ lưu giá trị đã cộng tăng từ hai số trong session lưu trữ. 
+Tôi sẽ lưu câu trả lời.
  
 sessionStorage.setItem('result', num1 + num2);    
 
-This will later bring the correct answer back when the user answers and will try to compare the answers given by the user. 
-Now that we've created the numbers, we'll have to use it. 
-When I click on Start in html, I will hide this beginning and make it show the question div below. And at the same time, I will make the two numbers generated from the function visible in the num1 and num2 fields. 
-Let's go back to the function and implement what we just said.
+Điều này sau đó sẽ đưa câu trả lời chính xác trở lại khi người dùng trả lời và sẽ cố gắng so sánh các câu trả lời được cung cấp bởi người dùng. 
+Bây giờ chúng ta đã tạo ra các số, chúng ta sẽ phải sử dụng nó. 
+Khi tôi nhấp vào Start trong html, tôi sẽ ẩn phần bắt đầu này và làm cho nó hiển thị câu hỏi div below. Và đồng thời, tôi sẽ làm cho hai số được tạo từ hàm hiển thị trong các trường num1 và num2. 
+Chúng ta hãy quay trở lại hàm và thực hiện những gì chúng ta vừa nói.
 $('#start').hide();
  
 
-Make the beginning invisible.
+làm nó không thể nhìn thấy.
 $('#num1').text(num1);
 $('#num2').text(num2);
 
-Let it show the generated numbers in num1 and num2 fields. 
-And let it show the question div.
+Hãy để nó hiển thị các số được tạo ra trong các trường num1 và num2. 
+Nó hiển thị câu hỏi div
 $('#question').show(); 
 	
 
-Finally, move the focus to where I write the answers so that I can answer right away.
+Cuối cùng, di chuyển trọng tâm đến nơi tôi viết câu trả lời để tôi có thể trả lời ngay.
 document.querySelector('#answer').focus();
 
-I will test it now. 
-When you click Start, your random numbers are generated and rendered in html. 
-Soon, focus moved to where I write the answer. 
-This is the end of today’s class and I will try to create a timer in the next class.
+Tôi sẽ kiểm tra nó ngay bây giờ. 
+Khi bạn bấm Start, các số ngẫu nhiên của bạn được tạo và hiển thị bằng html. 
+Ngay sau đó, tập trung di chuyển đến nơi tôi viết câu trả lời. 
+Đây là sự kết thúc bài hôm nay và tôi sẽ cố gắng tạo một bộ Timer trong bài giảng tiếp theo.
 
-## 5.12  Generating a timer
+## 5.12  Tạo bộ Timer
 
 
 
