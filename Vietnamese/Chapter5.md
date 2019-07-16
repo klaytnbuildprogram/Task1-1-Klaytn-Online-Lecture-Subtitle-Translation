@@ -1,4 +1,4 @@
-# 5. Sử dụng Front-end cho việc phát triển trò chơi phép tinh cộng trên Klaytn
+# 5. Sử dụng Front-end cho thực hiện phép tính cộng trên Klaytn
  
 ## 5.1 Settings
 
@@ -1154,19 +1154,19 @@ Tôi có thể nhận được một biên nhận bằng cách sử dụng promi
 Chờ không đồng bộ và nhân giá trị biên nhận.
 if (receipt.status) { }
 
-There is a field called status in the Receipt object. 
-If this is true, it is successful. 
-So, if you succeed, Stop spinner.
+Có một trường được gọi là trạng thái trong đối tượng Receipt. 
+Nếu điều này là đúng, nó thành công 
+Vì vậy, nếu bạn thành công, Dừng spinner.
 spinner.stop(); 
  
 
-Also, show notification messages
+Ngoài ra, hiển thị tin nhắn thông báo
 alert("0.1 KLAY가 " + walletInstance.address + " 계정으로 지급되었습니다.");      
  
 
-Also, let's create a link in html so that the processed transaction can be checked directly from the scope. 
-I'm going to create a new div. 
-I will make it under the timer div.
+Ngoài ra, hãy tạo một liên kết trong html để có thể kiểm tra giao dịch được xử lý trực tiếp từ scope. 
+Tôi sẽ tạo ra một div mới. 
+Tôi sẽ làm cho nó theo div Timer.
 <div class="row text-center">
    <div id="transaction"></div>
 </div>  
@@ -1174,46 +1174,48 @@ I will make it under the timer div.
 <br />
  
 
-You'll see the link in this section. 
-Go back to the function and clear the transaction div first.
+Bạn sẽ thấy liên kết trong phần này. 
+Quay trở lại hàm và xóa div giao dịch đầu tiên.
     $('#transaction').html("");
  
 
-I’m clearing the transaction div to show a new link each time a transaction is created. 
-Next, I'll add a link.
+Tôi xóa dữ liệu div giao dịch để hiển thị một liên kết mới mỗi khi giao dịch được tạo. 
+Tiếp theo, tôi sẽ thêm một liên kết.
     $('#transaction')
       .append(`<p><a href='https://baobab.klaytnscope.com/tx/${receipt.txHash}' 
                    target='_blank'>클레이튼 Scope에서 트랜젝션 확인</a></p>`);
  
  
-In the receipt returned by the promise, 
-pass the transactionhash field to the url parameter of the KlaytnScope site so that you can see the transaction information just processed. 
-Lastly, show you the last updated contract balance in html.
+Trong biên nhận được trả lại bởi promise, 
+Thông qua trường transactionhash đến tham số url của site KlaytnScope để bạn có thể thấy thông tin giao dịch vừa được xử lý. 
+Cuối cùng, hiển thị cho bạn số dư hợp đồng được cập nhật mới nhất trong html.
  
 return agContract.methods.getBalance().call()
   .then(function (balance) {
 });        
  
-Call the getBalance function of the contract to recall the remaining balance in the contract.
+Gọi hàm getBalance của hợp đồng để gọi lại số dư còn lại trong hợp đồng.
  
  $('#contractBalance').html("");          
  
 
-Clears the existing show balance display and shows the updated balance immediately.
+Xóa hiện thị số dư hiện có và hiển thị số dư cập nhật ngay lập tức.
 $('#contractBalance').append('<p>' + '이벤트 잔액: ' + cav.utils.fromPeb(balance, "KLAY") + ' KLAY' + '</p>');           
  
-The whole process is complete so far. 
-Now, let's try testing. 
-This time, I try to log in with a different account, not the owner account. 
-You can continue with the owner account. 
-If you have created another account, you can try it out as well.
+Toàn bộ quá trình hoàn thành cho đến nay. 
+Bây giờ, hãy thử kiểm tra.
+Lần này, tôi cố gắng đăng nhập bằng một tài khoản khác, không phải tài khoản chủ sở hữu.
+Bạn có thể tiếp tục với tài khoản chủ sở hữu.
+Nếu bạn đã tạo một tài khoản khác, bạn cũng có thể dùng thử.
+
  
-If you solve the problem and press the OK button, the receiveKlay function is called. 
-The notification message is displayed and the transaction has been successfully completed. 
-You can close the notification message and see that your event balance is reduced. 
-The balance in the contract has been reduced as it moves to your account. 
-And the link was created at the bottom. 
-If you click the link, you can see the information about the track we just created on the scope. 
-Click on your account address and you'll see that the balance is growing. 
-So far, I have tried to solve the problem and transfer the KLAY in the contract to my account.
+Nếu bạn giải quyết vấn đề và nhấn nút OK, hàm receiveKlay sẽ được gọi.
+Thông báo thông báo được hiển thị và giao dịch đã được hoàn thành.
+Bạn có thể đóng tin nhắn thông báo và thấy rằng số dư của bạn đã giảm.
+Số dư trong hợp đồng đã bị giảm khi nó chuyển đến tài khoản của bạn.
+Và liên kết đã được tạo ra ở phía dưới.
+Nếu bạn nhấp vào liên kết, bạn có thể thấy thông tin về chúng ta vừa tạo trên scope.
+Nhấp vào địa chỉ tài khoản của bạn và bạn sẽ thấy số dư đang tăng lên.
+Cho đến nay, tôi đã cố gắng giải quyết vấn đề và chuyển KLAY trong hợp đồng vào tài khoản của mình.
+
 
