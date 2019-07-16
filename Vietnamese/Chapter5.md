@@ -590,31 +590,31 @@ Bây giờ bạn hoàn thành logic xác minh tài khoản của mình,
 hãy hoàn thành phần phần này mà xác minh tài khoản thông qua session lưu trữ trong bài giảng tiếp theo.
  
  
-## 5.8 Session Tài khoản 
+## 5.8 Session tài khoản 
 
-Let's see what happens when we log in and refresh the page. 
-Click the login button and select the keystore file. 
-In this state, press F5 to refresh. 
-Then it’ll be reset. 
-It would be good if I kept logged in. 
-How do I do it? 
-If we succeeded in logging in, we saved the account storage information to the session storage. 
-I will use this now. 
-The first function that is been loaded when BApp runs is the start function. 
-Here I retrieve my account information stored in session storage. 
-So, let's go to the start function,
+Hãy xem điều gì xảy ra khi chúng ta đăng nhập và làm mới trang. 
+Nhấp vào nút đăng nhập và chọn tệp keystore. 
+Trong trạng thái này, Nhấn F5 để làm mới. 
+ Sau đó, nó sẽ được thiết lập lại. 
+Sẽ tốt hơn nếu tôi tiếp tục đăng nhập. 
+Làm thế nào để tôi làm điều đó? 
+Nếu chúng ta đăng nhập thành công, chúng ta đã lưu thông tin lưu trữ tài khoản vào session lưu trữ. 
+Tôi sẽ sử dụng nó bây giờ. 
+Hàm đầu tiên được tải khi BApp chạy là hàm start. 
+Ở đây tôi lấy thông tin tài khoản của tôi được lưu trữ trong session lưu trữ. 
+Vì thế, chúng ta hãy truy cập hàm start,
 const walletFromSession = sessionStorage.getItem('walletInstance');
  
 
-If you use getItem and pass the value of the key, the value stored in the pair is fetched and stored in the constant. 
-I saved my Wallet instance. 
-Next, make sure the walletFromSession contains a value.
+Nếu bạn sử dụng getItem và chuyển giá trị của key, giá trị đó sẽ được tìm nạp và lưu trữ trong constant. 
+ Tôi đã lưu instance Wallet của tôi. 
+Tiếp theo, hãy đảm bảo hằng số WalletFromSession chứa giá trị.
 if (walletFromSession) {
  
 }
  
 
-If there is a value, create a try catch.
+Nếu có một giá trị, tạo ra một try catch
 try { 
      
 } catch (e) {
@@ -622,23 +622,23 @@ try {
   }
  
 
-Then add your account information back to the caver wallet.
+Sau đó thêm thông tin tài khoản của bạn trở lại ví caver.
 cav.klay.accounts.wallet.add(JSON.parse(walletFromSession));
 
-When the page is refreshed or re-visited, the existing account information that was added to Wallet is erased, so I add it back through the session. 
-Update the UI to show that you are logged in as next.
+Khi trang được làm mới hoặc truy cập lại, thông tin tài khoản hiện được thêm vào Ví sẽ bị xóa, vì vậy tôi thêm nó trở lại qua session này. 
+Cập nhật giao diện người dùng (UI) để hiển thị rằng bạn đã đăng nhập như tiếp theo.
   this.changeUI(JSON.parse(walletFromSession));
  
 
-This will turn into a logout button and show me your account address.  
-Finally, when the value in sessionStorage is not a valid Wallet instance, it goes to the catch statement. 
-Then delete the walletinstance in the session storage.
+Nó sẽ chuyển thành nút đăng xuất và cho tôi xem địa chỉ tài khoản của bạn.  
+Cuối cùng, khi giá trị trong sessionStorage không phải là instance Wallet hợp lệ, nó sẽ chuyển đến câu lệnh catch. 
+ Sau đó xóa walletinstance trong session lưu trữ.
 sessionStorage.removeItem('walletInstance');
  
-It’s been done here. 
-Now, let’s test it.
-When you refresh it, it keeps logged in without returning to the initialization state. 
-So far, we have implemented a part of maintaining account verification.
+Đã thực hiện xong ở đây. 
+Bây giờ, hãy để thử nghiệm nó.
+Khi bạn làm mới, nó sẽ tiếp tục đăng nhập mà không trở về trạng thái khởi tạo. 
+ Nãy giờ, chúng ta đã thực hiện một phần của việc duy trì xác minh tài khoản.
  
  
  
