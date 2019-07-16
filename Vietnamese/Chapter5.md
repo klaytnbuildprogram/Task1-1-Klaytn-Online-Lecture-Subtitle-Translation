@@ -1046,34 +1046,34 @@ Khởi tạo phần hiển thị số
      $('#answer').val('');
 답적었던input도 초기화시키구요	
 
-Also initialize the input that was answered.
+Cũng khởi tạo đầu vào là câu trả lời.
 $('#question').hide();
  
-Set the div not showing the problem. And,
+Cài đặt div không hiển thị ra vấn đề. Và,
  
 $('#start').show();          
  
 
-Show the div again that you can click start. Finally,
+Hiển thị div một lần nữa mà bạn có thể nhấp vào start. Cuối cùng,
   clearInterval(interval);
  
 
-Use the clearInterval to stop the time running in setinterval. Yes, I have created the showtimer function. Now let's call this function in the generateNumbers function.
+Sử dụng ClearInterval để dừng thời gian chạy trong setinterval. Vâng, tôi đã tạo ra hàm showtimer. Bây giờ hãy gọi hàm này trong hàm generateNumbers.
 this.showTimer();
  
-If you do this, as soon as you click Start, the timer will be created and count down will be started. Let's try testing.
-Click on Start. A timer will be generated below and start the count down for 3 seconds. After 3 seconds, it is reset again.
-So far, I have created a timer.
+Nếu bạn làm điều này, ngay khi bạn nhấp vào Start, bộ Timer sẽ được tạo và đếm ngược sẽ được bắt đầu. Hãy thử kiểm tra.
+Bấm vào Start. Một bộ Timer sẽ được tạo ra bên dưới và bắt đầu đếm ngược trong 3 giây. Sau 3 giây, nó được thiết lặp lại.
+Cho đến nay, tôi đã tạo ra một bộ đếm thời gian.
  
  
  
-## 5.13 Submitting answers and receiving KLAY
+## 5.13 Gửi câu trả lời và nhận KLAY
  
-This is the last class. If the user submits the answer and the answer is correct, let's implement the part that sends the KLAY to the user account from the contract. Go to the submitAnswer function. Load the value of correct answer which is stored in the session storage.
+Đây là bài giảng cuối cùng. Nếu người dùng gửi câu trả lời và câu trả lời là chính xác, hãy thực hiện phần gửi KLAY đến tài khoản người dùng từ hợp đồng. Chuyển đến hàm submitAnswer. Tải giá trị của câu trả lời đúng được lưu trữ trong session lưu trữ.
 const result = sessionStorage.getItem('result');
  
 
-And, store the answers that the user has made in the variables.
+Và, lưu trữ các câu trả lời mà người dùng đã thực hiện trong các biến.
 var answer = $('#answer').val();  
  
 
@@ -1081,77 +1081,77 @@ Now, do a comparison.
 if (answer === result) { }
  
 
-If the user has answered the correct answer, press the confirm button while opening the confirm message window and send the KLAY to the user.
+Nếu người dùng đã trả lời đúng câu trả lời, nhấn nút xác nhận trong khi mở cửa sổ tin nhắn xác nhận và gửi KLAY cho người dùng.
 if (confirm("대단하네요^^ 0.1 KLAY 받기")) { }
  
 
-If the user clicked the OK button, make sure the balance in the contract is at least 0.1 KLAY before sending it.
+Nếu người dùng nhấp vào nút OK, hãy đảm bảo số dư trong hợp đồng ít nhất là 0,1 KLAY trước khi gửi.
 if (await this.callContractBalance() >= 0.1) { }
 
-If so, call the receiveKlay function.
+Nếu vậy, hãy gọi hàm receiveKlay.
 this.receiveKlay();
  
 
-If it does not exist, send a notification message.
+Nếu hàm không tồn tại, gửi tin nhắn thông báo.
 else { alert("죄송합니다. 컨트랙의 KLAY가 다 소모되었습니다."); }    
  
 
-Finally, if the user did not get the correct answer, Send a notification.
+Cuối cùng, nếu người dùng không nhận được câu trả lời chính xác, hãy gửi thông báo.
 else { alert("땡! 초등학생도 하는데 ㅠㅠ"); }
  
  
  
 
-Yes your submitanswer function is up to here. 
-Let's test it once. 
-This message is displayed when the answer is wrong. 
-When this is done, a confirm message window will appear to receive the KLAY. 
-When you click OK, you will call the receiveklay function to transfer the KLAY. 
-I have not implemented it yet. 
-Let's implement the function. 
-It's our last function.
+Có hàm submitanswer ở đây. 
+Hãy thử nó một lần. 
+Tin nhắn này được hiển thị khi câu trả lời sai. 
+Khi điều này được thực hiện, một cửa sổ tin nhắn xác nhận sẽ xuất hiện để nhận được KLAY. 
+Khi bạn bấm OK, bạn sẽ gọi hàm receiveklay để chuyển KLAY. 
+Tôi chưa thực hiện nó xong. 
+Hãy thực hiện hàm này.
+Đây là hàm cuối cùng của chúng ta.
  
-When the user answers the correct answer, they pay the transaction fee through their account and get the KLAY. 
-We will convert 0.1 KLAY in our contract transfer function to peb and pass it as an argument. 
-First, let's show you how to load using a spinner during transaction processing.
+Khi người dùng trả lời đúng câu trả lời, họ trả phí giao dịch thông qua tài khoản của họ và nhận được KLAY. 
+chúng ta sẽ chuyển đổi 0,1 KLAY trong hàm transfer của hợp đồng của chúng ta sang peb và chuyển nó làm một đối số. 
+Trước tiên, hãy chỉ cho bạn cách tải bằng cách sử dụng một spinner vòng trong quá trình xử lý giao dịch.
 var spinner = this.showSpinner();
 
-In addition, we need the verified account address required for the transaction, so, load the Wallet instance.
+Ngoài ra, chúng ta cần địa chỉ tài khoản được xác minh là cần thiết cho giao dịch, vì vậy, hãy tải instance Ví.
 const walletInstance = this.getWallet();
  
 
-If the value of the wallet instance does not exist, exit the function.
+Nếu giá trị của instance ví không tồn tại, hãy thoát khỏi hàm.
 if (!walletInstance) return;  
  
 
-If so, use the contract instance to access the transfer function in the contract .
+Nếu vậy, sử dụng instance hợp đồng để truy cập hàm transfer trong hợp đồng.
 agContract.methods.transfer().send({
 })
  
-The transfer function of the contract receives one argument. 
-You need use the caver utility to convert the KLAY to peb and pass it. 
+Hàm transfer của hợp đồng nhận một đối số. 
+Bạn cần sử dụng utility caver để chuyển đổi KLAY sang peb.
  
 cav.utils.toPeb(“0.1”, "KLAY")
  
-And you said you need to send a transaction object in the send parameter. 
-You need to specify who calls this function and how much the gas limit is set.
+Và bạn nói rằng bạn cần gửi một đối tượng giao dịch vào trong tham số gửi. 
+Bạn cần chỉ định ai gọi hàm này và gas limits cần được đặt.
  
 from: walletInstance.address,
 gas: '250000'
  
-Pass the Wallet instance, your account-verified address, and let the gas consume within 250,000. 
-Note that the value field is not required. 
-I will not pass the value because the transfer function is not a payable type. 
-If you do this, you have finished all the values which will be passed. 
-Now, after the transaction is processed, you should check whether it succeeded or not. 
-I could check whether it(deposit) succeeded or not through this .once. 
-However, there’s another way. 
-I can get a receipt by using promise.
+Thông qua instance wallet, địa chỉ xác minh tài khoản của bạn và đặt gas trong vòng 250.000. 
+Lưu ý rằng trường giá trị là không bắt buộc. 
+Tôi sẽ không chuyển giá trị vì hàm transfer không phải là một khoản phải trả. 
+Nếu bạn làm điều này, bạn đã hoàn thành tất cả thì các giá trị sẽ được thông qua.  
+Bây giờ, sau khi giao dịch được xử lý, bạn nên kiểm tra xem nó có thành công hay không. 
+Tôi có thể kiểm tra xem nó (deposit) có thành công hay không thông qua .once. 
+Tuy nhiên, có một cách khác. 
+Tôi có thể nhận được một biên nhận bằng cách sử dụng promise.
  
 .then(function (receipt) {
 });     
 
-Wait asynchronously and receive the receipt value.
+Chờ không đồng bộ và nhân giá trị biên nhận.
 if (receipt.status) { }
 
 There is a field called status in the Receipt object. 
