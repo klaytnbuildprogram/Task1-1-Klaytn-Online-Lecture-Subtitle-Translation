@@ -442,155 +442,155 @@ Trong bài giảng tiếp theo, tôi sẽ tạo một khóa bí mật và thêm 
 ## 5.7 Xác minh tài khoản (tích hợp ví)
  
 
-We have completed parts for retrieving the keystore file and the typing password, 
-now we will check to see if the account is successfully verified when we send this information to the baobab node. 
-Before that, I will replace http in rpcURL to https. 
-Take a look at the Index.html. 
-When I click submit button, it calls handlelogin function. 
-So let’s implement the function. 
-First, make sure that the accesstype is a keystore.
+Chúng tôi đã hoàn thành phần truy xuất tệp keystore và nhập mật khẩu, 
+ây giờ chúng ta sẽ kiểm tra xem tài khoản có được xác minh thành công hay không khi chúng tôi gửi thông tin này đến node baobab.
+Trước đó, tôi sẽ thay thế http trong rpcURL thành https. 
+Hãy xem Index.html. 
+Khi tôi nhấp vào node gửi, nó gửi đến hàm handlelogin. 
+Vì vậy, hãy thực hiện chức năng. 
+Đầu tiên, hãy chắc chắn rằng accesstype là keystore.
 if (this.auth.accessType === 'keystore') { 
 }
 
-The reason we write this ‘if’ statement is that when verifying an account, we use a keystore or a private key.
-We use only keystore for now. 
-However, I added these if statements so that when you want to use a private key to verify, 
-you can use it. and please add `try catch` statement right below. 
+Lý do chúng ta viết “if” là khi xác minh tài khoản, chúng ta sử dụng keystore hoặc private key.
+Bây giờ chúng ta chỉ sử dụng keystore. 
+Tuy nhiên, tôi đã thêm các câu lệnh if này để khi bạn muốn sử dụng private key để xác minh,
+ bạn có thể sử dụng nó. Hãy thêm “try catch” ngay bên dưới. 
  
  
 try {       
 } catch (e) 
 }
 
-It is time to finally use the caver instance. 
-I'll give you a quiz here. 
-What can we earn from the combination of the keystore file and password? 
-If you remember well, you can know right away. 
-Yes, you can get your private key. 
-This secret key allows you to create a Wallet instance. 
-So the first thing you need to do is to get your secret key through your keystore file and password.
+Đã đến lúc sử dụng instance caver.
+Tôi sẽ đưa ra câu hỏi cho bạn. 
+Chúng ta có thể kiếm được gì từ sự kết hợp của tệp keystore và mật khẩu? 
+Nếu bạn nhớ tốt, bạn có thể biết ngay. 
+Có, bạn có thể nhận khóa cá nhân của bạn. 
+Với khóa cá nhân này sẽ cho phép bạn tạo ta một instance Ví. 
+Vì vậy, điều đầu tiên bạn cần làm là lấy secret key (khóa bí mật) thông qua tập tin keystore và mật khẩu..
 const privateKey = cav.klay.accounts.decrypt(this.auth.keystore, this.auth.password).privateKey;
 
-You can use the decrypt function through the accounts member of the caver instance. 
-It means to decrypt. 
-If you decrypt it, you can return the decrypted account object by passing the contents of the keystore file and the password as arguments. 
-There are various members in the object, and among them, we get the private key and store it in the constant. 
-If there is an error in decrypting, a message will be sent.
+Bạn có thể sử dụng chức năng giải mã thông qua tài khoản của instance caver. 
+ Nó có nghĩa là giải mã. 
+ Nếu bạn giải mã nó, bạn có thể trở về  đối tượng tài khoản được mã háo bằng cách chuyển nội dung của tệp keystore và mật khẩu như đối số. 
+Có nhiều thành viên khác nhau trong đối tượng và trong số đó, chúng ta nhận được private key và lưu trữ nó trong hằng số. 
+Nếu có lỗi sai trong giải mã, tin nhắn sẽ thông báo.
 $('#message').text('비밀번호가 일치하지 않습니다.');
 $(‘#message’).text(‘password is not matched.’);
  
-If there is no error, it will create a Wallet instance through your secret key.
+Nếu không có lỗi, nó sẽ tạo ra instance ví thông qua secret key của bạn.
  
 this.integrateWallet(privateKey);
 
 
 
-Pass the private key to the integratewallet function. 
-Now, go to the integratewallet function. 
-Here we add the code that gets the Wallet instance by using privatekey.
+Đưa private key cho hàm integwallet. 
+Bây giờ, truy cập vào hàm integwallet. 
+Ở dâu,chúng ta thêm code để lấy instance Ví instance bằng cách sử dụng privatekey.
  
 const walletInstance = cav.klay.accounts.privateKeyToAccount(privateKey);
  
 
-This walletinstance has my account information. 
-Then add this instance to my Wallet.
+walletinstance có thông tin tài khoản của tôi. 
+Sau đó thêm instance này vào Ví của tôi.
 cav.klay.accounts.wallet.add(walletInstance)
  
 
-If you add my account to caver wallet, 
-you can easily recall your account information through caver instance when you create a transaction in the future. 
-The next step is to store the Wallet instance in the session storage. 
-SessionStorage will store the Wallet instance in storage space within the web browser until the tab is closed or the web browser is turned off.
+Nếu bạn thêm tài khoản vào ví caver, 
+bạn có thể dễ dàng gọi lại thông tin tài khoản của mình thông qua instance caver khi bạn tạo ra một giao dịch trong tương lai. 
+Bước tiếp theo là lưu trữ instance ví trong session lưu trữ. 
+SessionStorage sẽ lưu trữ instance Wallet trong không gian lưu trữ trong trình duyệt web cho đến khi tab được đóng hoặc trình duyệt web bị đóng.
 sessionStorage.setItem('walletInstance', JSON.stringify(walletInstance))
  
  
 
-SetItem receives the key value as a pair. 
-The first parameter is key and the second parameter is value. 
-So, I'll have to load my account information into the session later. 
-When you call walletInstance with a key value, the value stored in the pair is automatically loaded.
-The reason for using sessionStorage is to keep the account logged in. 
-Because my account information stored in my caver wallet disappear when I visit another site or the page refreshes that information. 
-However, if you save to session storage, 
-your account information will still be maintained even if you visit another site for a while and then return to it or refresh the page. 
-So I will implement a Wallet instance session in the start function later and keep it logged in. 
-Right now I need to update the UI. 
-Now that we have completed account verification via integrateWallet, we need to change the UI appropriately.
+SetItem nhận giá trị key value là một cặp. 
+Tham số đầu tiên là key và tham số thứ hai là value. 
+Vì vậy, tôi sẽ phải tải thông tin tài khoản của mình vào session sau. 
+Khi bạn gọi WalletInstance bằng key value, giá trị được lưu trong cặp sẽ tự động tải.
+Lý do sử dụng sessionStorage là để giữ cho tài khoản được đăng nhập. 
+Bởi vì thông tin tài khoản của tôi được lưu trữ trong ví caver của tôi biến mất khi tôi truy cập trang web khác hoặc trang làm mới thông tin đó. 
+Tuy nhiên, nếu bạn lưu vào bộ nhớ session, 
+thông tin tài khoản của bạn sẽ vẫn được duy trì ngay cả khi bạn truy cập một trang web khác trong một thời gian và sau đó quay lại trang đó hoặc làm mới trang. 
+Vì vậy, tôi sẽ triển khai session instance wallet trong phần sau khi bắt đầu function và tiếp tục đăng nhập. 
+Ngay bây giờ tôi cần cập nhật giao diện (UI) người dùng. 
+Bây giờ chúng ta đã hoàn thành xác minh tài khoản thông qua integWallet, chúng ta cần thay đổi UI một cách thích hợp.
 this.changeUI(walletInstance);  
 
-I'm sending a Wallet instance to the changeUI function. 
-So what do we do with the changeUI function? 
-Close your modal.
+Tôi đang gửi instance Wallet tới hàm ChangeUI . 
+Vậy chúng ta phải làm gì với hàm ChangeUI? 
+ Đóng lại modal.
 $('#loginModal').modal('hide');
  
 
-Hide the login button either.
+Ẩn nút đăng nhập.
 $("#login").hide();
  
-Also, change the Logout button that you hid before.
+Ngoài ra, thay đổi nút Đăng xuất mà bạn đã ẩn trước đó.
  
 $('#logout').show();
 
-And since you are logged in, I want my account address to be visible.
+Và vì bạn đã đăng nhập, tôi muốn địa chỉ tài khoản của tôi hiển thị .
 $('#address').append('<br>' + '<p>' + '내 계정 주소: ' + walletInstance.address + '</p>');   
  
 
-This code tells me that it shows the account address in html where the id attribute is address. 
-I will go to index.html and add one div.
+Mã code này cho tôi biết rằng nó là địa chỉ tài khoản trong html trong đó thuộc tính id là địa chỉ. 
+Tôi sẽ truy cập  index.html và thêm 1 div.
   <div class="text-center" id="address"></div>    
 
-Yes, you can see my account address at this location. 
-I will do it here. 
-Now let's test it. 
-Click Login button and open the keystore file. 
-If you enter your password and press the submit button, your account is verified and the logout button appears. 
-Below you can see my account address. 
-Finally, let's implement the function to log out. 
-Go to Index.html. 
-Note that when I click the logout button, I call the handlelogout function. 
-I'll go there. 
-Here we will call a function called removeWallet.
+Vâng, bạn có thể thấy địa chỉ tài khoản của tôi tại vị trí này. 
+Tôi sẽ thực hiện tại đây. 
+Bây giờ hãy kiểm tra nó. 
+Nhấp vào nút Đăng nhập và mở tệp keystore. 
+Nếu bạn nhập mật khẩu và nhấn nút gửi, tài khoản của bạn sẽ được xác minh và nút đăng xuất xuất hiện. 
+Dưới đây bạn có thể thấy địa chỉ tài khoản của tôi. 
+Cuối cùng, hãy thực hiện hàm để đăng xuất. 
+Truy cập Index.html. 
+Lưu ý rằng khi tôi nhấp vào nút đăng xuất, tôi gọi đến hàm handlelogout. 
+Tôi sẽ truy cập. 
+Ở đây chúng ta sẽ gọi một hàm là removeWallet.
 this.removeWallet();
  
 
-We will clear the wallet and clear the sessionstorage with this function. 
-Go to the removeWallet function and add this code.
+chúng ta sẽ xóa ví và xóa bộ sessionstorage với hàm này. 
+Truy cập hàm removeWallet và thêm mã code này.
 cav.klay.accounts.wallet.clear();
  
-This is the process of erasing my Wallet instance: account information that was added to wallet. 
-Then clear the session.
+Đây là quá trình xóa instance Wallet của tôi: thông tin tài khoản đã được thêm vào ví. 
+Sau đó, xóa session.
  
 sessionStorage.removeItem('walletInstance');
 
-When you’re erasing it, just enter the key value. 
-Finally, it calls the reset function and ends.
+Khi bạn xóa nó, chỉ cần nhập giá trị key value. 
+Cuối cùng, nó sẽ gửi tới hàm reset và ends.
 this.reset();
  
 
-This reset function simply initializes the global variable auth. 
-Go to the reset function and initialize auth.
+hàm reset này chỉ đơn giản là khởi tạo biến toàn cầu auth. 
+Truy cập hàm reset và khởi tạo auth.
 this.auth = {
       keystore: '',
       password: ''
     };
  
 
-There is also an accesstype in Auth. 
-But, you don’t have to erase accesstype because it will be a keystore anyway. 
-Instead, when we logged in, a value will be entered to the keystore and password fields. 
-I want to log out and safely erase it. 
-Go back to the handleLogout function and put the code that refreshes the page and finish it. 
-The reason for the refresh is to return to the initial state UI.
+Ngoài ra còn có một accesstype trong Auth. 
+Nhưng, bạn không phải xóa accesstype vì dù sao nó cũng là một keystore. 
+Thay vào đó, khi chúng ta đăng nhập, một giá trị sẽ được nhập vào keystore và mật khẩu. 
+Tôi muốn đăng xuất và xóa nó một cách an toàn. 
+Quay trở lại hàm handleLogout và đặt code làm mới trang và hoàn thành nó. 
+Lý do cho việc làm mới là để trở về giao diện người dùng trạng thái ban đầu.
 location.reload();
  
 
-Now let's do the test and finish. 
-Clicking the Logout button, the account information will disappear and you are returned to the initialization screen by refreshing. 
-Now that you've completed your account verification logic, 
-let's complete the section that maintains account verification through session storage in the next class.
+Bây giờ hãy thử nghiệm và hoàn thành nó. 
+Nhấp vào nút Đăng xuất, thông tin tài khoản sẽ biến mất và bạn được đưa trở lại màn hình khởi tạo bằng cách làm mới nó. 
+Bây giờ bạn hoàn thành logic xác minh tài khoản của mình, 
+hãy hoàn thành phần phần này mà xác minh tài khoản thông qua session lưu trữ trong bài giảng tiếp theo.
  
  
-## 5.8 Account Session 
+## 5.8 Session Tài khoản 
 
 Let's see what happens when we log in and refresh the page. 
 Click the login button and select the keystore file. 
