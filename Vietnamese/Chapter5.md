@@ -1217,5 +1217,3 @@ Và liên kết đã được tạo ra ở phía dưới.
 Nếu bạn nhấp vào liên kết, bạn có thể thấy thông tin về chúng ta vừa tạo trên scope.
 Nhấp vào địa chỉ tài khoản của bạn và bạn sẽ thấy số dư đang tăng lên.
 Cho đến nay, tôi đã cố gắng giải quyết vấn đề và chuyển KLAY trong hợp đồng vào tài khoản của mình.
-
-
