@@ -1,212 +1,184 @@
-# 5. Sử dụng Front-end trong thực hiện phép tính cộng trên Klaytn
+# 5. Front-end for Klaytn Addition Game development
  
 ## 5.1 Settings
 
 
-Bây giờ bạn có thể tạo ra hợp đồng sử dụng cho BApp trong những bài hướng trước đó, chúng ta hãy phát triển front-end. 
+Bây giờ bạn có thể tạo ra hợp đồng sử dụng cho BApp trong những bài hướng dẫn trước đó, chúng ta hãy phát triển front-end. 
 Đầu tiên,chúng ta tiến hành với các config đơn giản. 
-Trong bài hướng dẫn này, tôi sẽ tải node.js, npm, framework truffle và code studio trực quan. 
-Node.js là nền tảng server JavaScript, mà cần thiết cho sự phát triển BApp. 
-Npm cài đặt với node.js để tải công cụ, điều đó cần thiết tải công cụ và libraries khi phát triển. 
+Trong bài hướng dẫn này, tôi sẽ tải node.js, npm, framework truffle và visual studio code. 
+Node.js là nền tảng JavaScript phía máy chủ thực sự cần thiết trong phát triển BApp. 
+Npm được cài đặt chung với node.js, có vai trò cần thiết trong việc tải các công cụ và libraries khi lập trình. 
 Framework Truffle mà chúng ta sẽ cài đặt cần được tải thông qua npm. 
-Nếu bạn đã cài đặt node.js và npm, hãy kiểm tra phiên bản đó và bỏ qua phần hướng dẫn này nếu node.js là phiên bản thứ 8 và npm là phiên bản 5 trở lên.
+Nếu bạn đã cài đặt node.js và npm, hãy kiểm tra phiên bản đó và bỏ qua phần hướng dẫn này nếu node.js bạn đang dùng là phiên bản thứ 8 và npm là phiên bản 5 trở lên.
 
 
-Vui lòng truy cập https://nodejs.org và tải 10.15.3 LTS. Hãy cài đặt. 
+Hãy truy cập https://nodejs.org và tải 10.15.3 LTS. Bạn hãy cài đặt nó. 
 Tôi đã thực hiện xong vì vậy tôi bỏ qua bước này.
-Sau đó, chúng ta kiểm tra xem node.js có được cài đặt trong PowerShell hay không.
-Nhập Node-v và kiểm tra phiên bản này với npm. Npm -v,Vâng, chính xác nó được cài đặt.
+Sau đó, chúng ta kiểm tra xem node.js có được cài đặt đúng trong PowerShell hay không.
+Nhập Node-v và kiểm tra phiên bản. Làm tương tự với npm. Npm -v,Vâng, nó đã được cài đặt đúng cách.
 
 
 Cuối cùng, tôi sẽ cài đặt Truffle.
 Truffle là một framework giúp bạn dễ dàng phát triển BApp.  
-Bạn có thể biên soạn trên đó, kiểm tra và mở rộng các hợp đồng thông minh. 
+Nó cho phép bạn biên soạn, kiểm tra và triển khai các hợp đồng thông minh. 
 Framework này rất phổ biến. 
-Gần đây, nó đã cập nhật lên phiên bản tới 5 lần 
-Tuy nhiên, bởi vì Klaytn phát triển phiên bản thứ 4, tôi sẽ sử dụng nó.
-Nếu bạn đang giữ phiên bản 5 trở xuống, bạn cần xóa nó trước. 
-Gỡ cài đặt nó bằng cách gõ ‘npm uninstall -g truffle’ ở PowerShell.  
-Bây giờ hãy chèn 'npm install -g truffle@4.1.15' và tôi sẽ cài đặt phiên bản 4.
+Gần đây, nó đã cập nhật lên phiên bản thứ 5. 
+Tuy nhiên, vì Klaytn đã được phát triển bằng phiên bản thứ 4, nên tôi sẽ sử dụng bản này. 
+Nếu bạn đang có sẵn phiên bản 4, hoặc thấp hơn, hay thậm chí là phiên bản 5, bạn cần xóa nó đi. 
+Gỡ cài đặt nó bằng cách gõ ‘npm uninstall -g truffle’ trong PowerShell.  
+Sau đó, gõ 'npm install -g truffle@4.1.15' và bạn sẽ tải về được phiên bản 4.
 
 
-Nếu bạn đã tai nó, có thể kiểm tra phiên bản thông qua lệnh truffle.
-Nếu nó là phiên bản 4.1.15 và solidity compiler được gọi là 0.4.25. 
-Solidity là ngôn ngữ lập trình mà bạn có thể viết trên các hợp đồng thông minh. Cuối cùng, hãy tải Visual  Studio Code. Truy cập 'https://code.visualstudio.com/' để tải về máy. 
+Nếu bạn đã tải xuống mọi thứ, hãy kiểm tra phiên bản thông qua lệnh phiên bản truffle.
+Đây là phiên bản 4.1.15 và trình biên soạn solidity phiên bản 0.4.25. 
+Solidity là ngôn ngữ lập trình dùng để viết hợp đồng thông minh. Cuối cùng, hãy tải về trình chỉnh code tốt nhất - Visual  Studio Code. Truy cập 'https://code.visualstudio.com/' để tải về máy. 
 Tôi đã tải nó từ trước. Vì vậy, tôi cũng sẽ bỏ qua phần này. 
-Nếu bạn đã tải nó, hãy cài đặt và chạy nó. 
-Visual Studio Code hỗ trợ đa nền tảng chạy trên Linux, Windows, Mac và một số tính năng tiện dụng như hỗ trợ gỡ lỗi, kiểm soát git, syntax highlighting, v.v.
+Khi đã tải về, bạn hãy cài đặt và chạy nó. 
+Visual Studio Code hỗ trợ đa nền tảng, chạy trên Linux, Windows, Mac và gồm một số tính năng tiện dụng như hỗ trợ gỡ lỗi, kiểm soát git, syntax highlighting, v.v.
 
 
-
-
-Bây giờ bấm nút mở rộng tab ở dưới để cài đặt hỗ trợ ngôn ngữ solidity. Vui lòng nhập 'solidity' và chọn cái ở trên cùng. 
+Bây giờ bấm vào tab tiện ích mở rộng ở bên dưới để cài đặt tiện ích mở rộng hỗ trợ ngôn ngữ solidity. Bạn hãy nhập 'solidity' và chọn cái ở trên cùng. 
 Nhấp vào Install. Nó sẽ hiển thị độ sáng cho mỗi solidity và cho phép bạn biên soạn lại. 
-Cài đặt hoàn tất. Tôi kết thúc phiên cấu hình mà cần thiết cho Front-end.
+Cài đặt hoàn tất. Hướng dẫn config cơ bản để phát triển Front-end xin được kết thúc tại đây. 
  
  
-## 5.2 Tải boilerplate
+## 5.2 Download boilerplate
  
  
-Chúng ta hãy tải boilerplate, một template cơ bản để phát triển. 
+Chúng ta hãy tải boilerplate, một template cơ bản trong lập trình. 
 Klaytn chỉ ra rằng BApp có thể phát triển trong framework Truffle.
- Một số vị trí trong Truffle, bạn tải xuống các template chuẩn phát triển BApp..
-  Nó có tên là Truffle Box. 
+ Một số vị trí trong Truffle cho phép bạn tải xuống các template mẫu để phát triển BApp..
+Cái đó được gọi là Truffle Box. 
 ‘https://truffleframework.com/boxes’ 
-Nếu bạn truy cập, bạn có thể xem các template khác nhau..
- Ví dụ: nếu bạn muốn phát triển BApp bằng Angular hoặc React, bạn có thể tải template phù hợp. 
-Tuy nhiên, template tải xuống ở đây chuyên về Ethereum App, vì thế bạn phải tải xuống và xóa các phần bên trong..
- Và bạn phải thiết lập cho Klaytn. 
-Đây không phải là một phần khó, nhưng tôi đã tải template webpack trước  
-và thay đổi nó trong 'Klaytn way' cho phù hợp với bài giảng của chúng tôi.. 
+Truy cập đến địa chỉ này, bạn có thể thấy các template khác nhau..
+ Ví dụ, nếu bạn muốn phát triển BApp bằng Angular hoặc React, bạn có thể tải template phù hợp. 
+Tuy nhiên, các mẫu template tải xuống ở đây chuyên về Ethereum App, vì thế, bạn phải tải xuống và xóa các phần bên trong.
+Và bạn phải thiết lập cho Klaytn. 
+Việc này không khó khăn lắm. Tôi đã tải template webpack trước  
+và thay đổi nó theo 'kiểu Klaytn' cho phù hợp với bài giảng của chúng tôi.
  Tôi đã tải nó lên Github để bạn có thể tải xuống. 
- Để tham khảo thêm, chúng tôi sẽ xử lý với ngôn ngữ JavaScript và JQuery.
-Ngay cả khi bạn chưa biết nó, bạn có thể dễ dàng theo dõi
+Thông tin thêm, chúng ta sẽ thao tác với JavaScript native và JQuery.
+Ngay cả khi bạn chưa biết nó, bạn vẫn có thể dễ dàng theo dõi. 
  
-Mở PowerShell và chạy lệnh clone git ở  'https://github.com/kkagill/addition-game-starter.git' ở spot, nơi mà bạn tải nó. 
+Mở PowerShell và chạy lệnh clone git  'https://github.com/kkagill/addition-game-starter.git' tại vị trí bạn muốn tải xuống. 
 Tôi đã tải tất cả xuống. 
-DThực hiện 'Cd thêm-game-starter' để tru cập vào đường dẫn đó. Bắt đầu Code. Quan sát cơ cấu rồi bắt đầu ‘Code.' 
-Tôi bắt đầu từ trên cùng. 
-Contracts folder nơi bạn cất giữ các tệp hợp đồng solidity.. 
- Chúng tôi có 'Addition Game' tệp hợp đồng mà chúng tôi vừa tạo và bản hợp đồng khác có tên “migrations” ở dưới sẽ cho phép bạn chạy các tệp script trong folder “migration” bên dưới khi bạn triển khai hợp đồng thông minh của mình. 
-Đây là tập tin cần thiết để triển khai hợp đồng, vì vậy bạn không nên xóa nó..
+Gõ 'Cd addition-game-starter' và enter. Hãy nhìn vào cấu trúc này bằng cách gõ ‘Code.' Đây chính là cách bạn mở nó bằng Visual Studio.
+Hãy để tôi bắt đầu từ trên trước. 
+Folder Contracts là nơi bạn cất giữ các file contract solidity.
+Chúng ta đã có file 'Addition Game'tạo trước và một contract “migrations” ở dưới sẽ cho phép bạn chạy các file script trong folder “migration” bên dưới. Đây là một file quan trọng để deploy smart contract, vì vậy bạn đừng xóa nó nhé.
  
-Tiếp theo, các tệp script trong thư mục migrations chứa logic mà sử dụng quá trình triển khai. 
-Nếu bạn thấy tệp này, nó sẽ nhập tệp hợp đồng “migrations” và triển khai nội dung đến node Klaytn. 
-Trong thư mục src, tôi thiết lập cấu trúc gồm front-end của BApp. Tệp index.html sẽ quản lý về “view” hiển thị ở phía trước. 
-Tôi đã tải jquery hoặc bootstrap được sử dụng trong BApp với cdn và tôi thêm phần css bên dưới trước đó.
+Tiếp theo, các file script trong folder migrations chứa logic dùng để lập trình.  
+Nhìn vào file này bạn sẽ thấy, nó sẽ nhập file contract “migrations” và deploy nội dung đến node Klaytn. 
+Trong thư mục src, tôi đã thiết lập cấu trúc gồm front-end của BApp. File index.html sẽ quản lý về “view” hiển thị ở Front. 
+Tôi đã tải jquery hoặc bootstrap được sử dụng trong BApp với cdn và tôi thêm trước phần css bên dưới.
  
-Tệp Index.js giống như một động cơ, nó thực thi các hàm. 
-Chúng ta đưa ra định nghĩa về các hàm mà chúng ta sẽ viết trong tương lai.. 
-Biến ở dưới được là một biến được cài đặt để hiển thị spinner khi tải. Nó không phải là phần quan trọng, vì vậy tôi đã thêm nó trước. 
-Package.json là nơi bạn thêm các phụ lục cần thiết thông qua npm. 
-Điều quan trọng là bạn sẽ tải xuống tệp thư library cho phép bạn tương tác với caver-js, blockchain Klaytn.. 
- Nó tương tự như web3 js của Ethereum. 
-Nhiệm vụ của Truffle.js là thiết lập môi trường làm việc.. 
-Thông qua truffle, bạn sẽ xác định mạng lưới nào sẽ triển khai hợp đồng thông minh. 
-Tôi sẽ trình bày điều này trong bài giảng tiếp theo. 
-Webpack tối ưu hóa các tệp và phát hiện bất cứ khi nào có thay đổi về code và  trình duyệt mà không phải tải lại trang. 
-Đến giờ, tôi đã tải xong và giải thích cho các bạn về mẫu để tạo ra trò chơi Klaytn trên Bapp.
+File Index.js giống như một động cơ, nó thực thi các hàm. 
+Chúng tôi đã đặt tên cho các hàm sẽ được viết trong tương lai.
+Biến ở dưới là các biến cấu hình hiển thị spinner khi tải. Đây không phải là phần quan trọng, vì vậy tôi đã thêm nó trước. 
+Package.json là nơi bạn thêm các dependencies cần thiết thông qua npm. 
+Điều quan trọng là bạn sẽ tải xuống file thư library cho phép bạn tương tác với caver-js, blockchain Klaytn.
+Nó tương tự như web3 js của Ethereum. 
+Nhiệm vụ của Truffle.js là thiết lập môi trường làm việc.
+Thông qua truffle, bạn sẽ xác định mạng lưới nào phù hợp để deploy smart contract.  
+Tôi sẽ trình bày nội dung này trong bài giảng tiếp theo. 
+Webpack tối ưu hóa các file và phát hiện bất cứ khi nào có thay đổi về code và phản ánh các thay đổi cho trình duyệt mà không phải tải lại trang. 
+Đến giờ, tôi đã tải xong và giải thích cho các bạn về template để tạo ra trò chơi Klaytn trên Bapp.
  
 
-
-
-## 5.3 Triển khai hợp đồng thông minh cho Baobab 1
+## 5.3 Deploying smart contract to Baobab 1
  
-Chúng ta hãy triển khai hợp đồng thông minh AdditionGame mà chúng ta tạo trên baobab testnet. Trước khi bắt đầu, chúng ta sẽ chạy lệnh npm install trong terminal và cài đặt các phụ lục cần thiết cho BApp. 
-Nếu bạn không thấy terminal bên dưới, hãy chọn hãy chọn new terminal trên tab Terminal. 
-Bây giờ chạy lệnh cài đặt npm. 
-Nó sẽ tốn chút thời gian. Khi kết thúc, thư mục có tên 'node_modules' được tạo và cài đặt phụ lục hoàn tất.
+Chúng ta hãy deploy hợp đồng thông minh AdditionGame mà chúng ta đã tạo trên testnet baobab. Trước khi bắt đầu, chúng ta sẽ chạy lệnh npm install trong terminal và cài đặt các dependencies cần thiết cho BApp. 
+Nếu bạn không thấy terminal bên dưới, hãy chọn new terminal trên tab Terminal. 
+Bây giờ hãy chạy lệnh npm install. 
+Nó sẽ tốn chút thời gian. Khi kết thúc, thư mục có tên 'node_modules' sẽ được tạo và cài đặt dependency hoàn tất. Tải về sẽ tốn một ít thời gian. 
  
+Đầu tiên, hãy tạo một file mới trong thư mục migrations.
+ Nhấp chuột phải vào thư mục 'migrations' và chọn New File. Đặt tên là '2_deploy_contuces.js' và chúng tôi sẽ thêm logic để deploy hợp đồng AdditionGame đến node.
  
+Truy cập ‘Initial migrations’, copy và paste toàn bộ code. 
+Hãy đổi nó thành 'importing the AdditionGame contract'. 
+Thay thế phần sẽ được deploy với 'AdditionGame'. Cho đến nay, logic cơ bản để triển khai đã kết thúc.
+Tuy nhiên, tôi sẽ viết code vào một số file trong BApp để lưu trữ thông tin tôi nhận được từ quá trình triển khai. Sau này, các thông tin đó sẽ hữu ích để tạo các trường hợp contract.
  
-Đầu tiên, hãy tạo một tệp mới trong thư mục migrations..
- Nhấp chuột phải vào thư mục 'migrations”' và chọn New File. Đặt tên là '2_deploy_contuces.js' và chúng tôi sẽ thêm logic để triển khai hợp đồng AdditionGame đến node.
- 
-Truy cập ‘Initial migrations’ tập tin và, sao chép và dán tới tất cả các code. 
-Vui lòng thay đổi nó thành 'importing the AdditionGame contract'. 
-Thay thế nó để triển khai với 'AdditionGame'. Cho đến nay, logic cơ bản triển khai đã kết thúc.. 
-Tuy nhiên, tôi sẽ viết  vào một số tệp trong BApp để lưu trữ thông tin tôi nhận được từ quá trình triển khai. Sau đó, nó sẽ giúp ích để tạo hợp đồng với thông tin này.
-deployer.deploy (AdditionGame)
- 
-Deployer triển khai hợp đồng AdditionGame và nhấp  then chúng tôi nhận dữ liệu json.
+Deployer deploy contract AdditionGame và qua lệnh 'then' chúng tôi nhận được dữ liệu json.
 Và trong này,
  
 if (AdditionGame._json) {
  
-Nếu bạn đã nhận được dữ liệu json Additions game, bạn sẽ lưu nó vào tệp thông qua hệ thống module. 
-Để làm điều đó, bạn phải nhập nó trước. 
-Thêm ‘const fs = Yêu cầu ('fs') ở đầu.. 
-Vậy thì tôi sẽ tạo hai tập tin. Những tập tin đó là nơi chúng ta có thể lưu Abi và địa chỉ hợp đồng. Nhấp chuột phải vào bất cứ nơi nào trên màn hình và đặt tên cho tệp mới là ‘deployedABI’. 
-Tạo ra một tệp mới với tên là ‘deployedAddress’. 
-Bây giờ chúng tôi sẽ sử dụng hệ thống tệp để lưu trữ chúng vào từng tệp. 
-Đầu tiên, hãy tạo một đoạn code để lưu trữ thông tin abi.. 
- Abi là nội dung có thể tương tác giữa blockchain và hợp đồng.
-  	fs.writeFile(
-    	'deployedABI',
-    	JSON.stringify(AdditionGame._json.abi),
+Nếu bạn đã nhận được dữ liệu json của Additions game, bạn sẽ lưu nó vào một file thông qua hệ thống module. 
+Để làm được điều đó, bạn phải nhập nó trước. 
+Thêm ‘const fs = require ('fs') lên trên cùng.  
+Sau đó, tôi sẽ tạo hai file. Đây là các file dùng để lưu Abi và địa chỉ contract. Nhấp chuột phải vào bất cứ đâu trên màn hình và đặt tên cho file mới là ‘deployedABI’. 
+Tạo ra một file mới với tên là ‘deployedAddress’. 
+Bây giờ, chúng ta sẽ sử dụng hệ thống file để lưu trữ từng file mới này. 
+Đầu tiên, hãy tạo một đoạn code để lưu trữ thông tin abi.
+ Abi là nội dung có thể tương tác giữa blockchain và contract.
+  	fs.writeFile('deployedABI',JSON.stringify(AdditionGame._json.abi),
  
-Hàm writefile trong hệ thống file. Define tập tin nào cần viết và xâu chuỗi thông tin abi mà chúng tôi đã nhận được từ json và chuyển nó đến một đối số. Cuối cùng, chúng tôi sẽ xử lý lỗi.
+Có một hàm writefile trong hệ thống file. Xác định file nào cần viết và xâu chuỗi thông tin abi mà chúng tôi đã nhận được từ json và chuyển nó đến một đối số. Cuối cùng, chúng tôi sẽ xử lý lỗi.
  
     	(err) => {
       	if (err) throw err
       	console.log("파일에 ABI 입력 성공");
     	})
-Nếu có lỗi xảy ra thì hãy bỏ qua nó.  Nếu none, viết log ở console. Điều này lưu thông tin abi của hợp đồng được triển khai trong tệp deployABI. Để tiếp tục, tôi sẽ lưu địa chỉ của hợp đồng đã triển khai vào tệp..
-fs.writeFile(
-  	'deployedAddress',
-  	AdditionGame.address,
-  	(err) => {
-    	if (err) throw err
-    	console.log("파일에 주소 입력 성공");
-	})
-Bạn đã theo dõi tất cả các bước cho đến thời điểm này, bây giờ chúng tôi lưu trữ thông tin trong mỗi tệp ngay sau khi chúng tôi triển khai nó mỗi lần. Tôi sẽ tiếp tục thiết lập môi trường truffle.js và triển khai nó trong bài giảng tiếp theo.
+Nếu có lỗi xảy ra thì hãy "throw" nó. Nếu không có, hãy viết log vào chỗ console. Việc này sẽ lưu thông tin abi của contract đã deploy trong file deployABI. Để tiếp tục, tôi sẽ lưu lại địa chỉ của contract đã deploy vào file.
+fs.writeFile('deployedAddress',AdditionGame.address,(err) => {if (err) throw err console.log("파일에 주소 입력 성공");})
+
+Nếu bạn đã thực hiện theo các bước trên, bây giờ chúng ta có thể lưu các thông tin vào các file sau mỗi lần deploy. Tôi sẽ tiếp tục thiết lập môi trường truffle.js và deploy nó trong bài giảng tiếp theo.
  
  
+## 5.4 Deploying smart contract to Baobab 2
  
-## 5.4 Triển khai hợp đồng thông minh cho Baobab 2
  
+Cuối cùng, bạn cần thiết lập cài đặt. Bạn phải quyết định mạng nào bạn sẽ deploy. 
+Truy cập Truffle.js. Tại đây, tôi sẽ làm ngay . Đầu tiên, tôi sẽ nhập library có tên là  connect-privkey-to-provider.const PrivateKeyConnector = require('connect-privkey-to-provider')
  
-Cuối cùng, bạn cần thiết lập cài đặt. Bạn phải quyết định mạng nào bạn sẽ triển khai. 
-Truy cập Truffle.js. Đây, tôi sẽ làm ngay . Đầu tiên, tôi sẽ nhập tệp có tên là  `connect-privkey-to-provider.`
-const PrivateKeyConnector = require('connect-privkey-to-provider')
- 
-cũng tạo một hằng số được gọi là ID của network.
- 
+và tạo một hằng số là network ID. 
 const NETWORK_ID = '1001'
  
 1001 có nghĩa là ID của mạng lưới duy nhất trên Baobab.
 const GASLIMIT = '20000000'
  
-Đây là gas limit để triển khai. Có bảy số không.
-const URL = `https://api.baobab.klaytn.net:8651`
+Đây là gas limit để triển khai. Có bảy số 0.
+const URL = https://api.baobab.klaytn.net:8651
  
-Đối với UR, tôi đã chỉ định địa chỉ nơi các node của Klaytn hiện đang chạy, đó là testnet baobab. Cuối cùng, chúng tôi cần một hằng số để giữ khóa bí mật, vì vậy chúng tôi sẽ nhận được khóa bí mật của tài khoản chúng tôi đã tạo trước đó thông qua Ví Klaytn. Các bạn hãy lưu chìa khóa bí mật của bạn ở một nơi khác. Tôi đang sao chép và dán cái mà tôi đã lưu trong Notepad.
+Đối với UR, tôi đã chỉ định địa chỉ nơi Klaytn đang khởi chạy full node, đó là testnet baobab. Cuối cùng, chúng tôi cần một hằng số để giữ secret key, vì thế chúng tôi sẽ lất secret key của tài khoản chúng tôi đã tạo trước thông qua ví Klaytn. Tôi đã nhắc các bạn lưu secret key ở đâu đó. Tôi đang copy và paste key của tôi vào Notepad. 
+
 const PRIVATE_KEY = ''
  
+Bây giờ, hãy sử dụng các cài đặt này trong module.exports.
+module.exports = {networks: {klaytn: {provider: new PrivateKeyConnector(PRIVATE_KEY, URL),network_id: NETWORK_ID,gas: GASLIMIT,gasPrice: null,}},}
  
-Bây giờ hãy sử dụng các cài đặt này trong module.exports.
-module.exports = {
-  networks: { 
-	klaytn: {
-  	provider: new PrivateKeyConnector(PRIVATE_KEY, URL),
-  	network_id: NETWORK_ID,
-  	gas: GASLIMIT,
-  	gasPrice: null,
-	}
-  },
-}
- 
-Tôi sẽ giải thích. chúng tôi sẽ sử dụng ‘Klaytn’ cho các mạng lưới. 
-Cụ thể, có 4 option ở đây. Đầu tiên, bạn chỉ định nhà cung cấp cung cấp node Klaytn. Tạo PrivateKeyConnector và truyền tới hai đối số. 
-Đầu tiên là pass khóa bí mật tài khoản của tôi và thứ hai pass địa chỉ mạng nơi các fullnode đang chạy. 
-Điều này giúp tôi kết nối với testnet baobab bằng khóa bí mật của mình. 
-Chỉ định ID mạng lưới và gas, và cuối cùng giá gas đặt thành giá trị null. Điều này là do mạng lưới baobab sẽ tự động đặt giá gas, vì vậy chúng tôi pass giá trị null. 
-Vâng, đến bây giờ tôi đã thiết lập môi trường của mình để triển khai các hợp đồng thông minh. Nó khá đơn giản. Bây giờ hãy triển khai nó. Ở terminal, chạy 'truffle deploy-network klaytn'. Vâng, chỉ cần triển khai thành công. Bạn có thể thấy cụm từ xác nhận được hiển thị trong console..
+Tôi sẽ giải thích cho bạn hiểu trước. Tôi đã đề cập rằng chúng tôi sẽ sử dụng network “Klaytn". Bây giờ, chúng tôi sẽ chỉ định 4 tuỳ chọn ở đây. Đầu tiên, bạn chọn một provider cung cấp node Klaytn. Tạo một PrivateKeyConnector và truyền 2 đối số. Đối số 1 để truyền secret key của tôi và đối số 2 để truyền địa chỉ network nơi full node đang chạy. Điều này cho phép tôi kết nối với mạng thử nghiệm baobab bằng secret key cuả tôi. 
+
+Chỉ định ID network và gas, và cuối cùng phí gas đặt thành giá trị null. Vì mạng baobab sẽ tự động đặt phí gas nên chúng tôi truyền giá trị là null. Bây giờ tôi đã thiết lập môi trường để deploy smart contract. Nó khá đơn giản. Nào, cùng deploy thôi. Trong Terminal, chạy lệnh truffle deploy -network klaytn. Yes, đã deploy thành công. 
+
+Nó khá đơn giản. Bây giờ hãy triển khai nó. Ở terminal, chạy 'truffle deploy-network klaytn'. Vâng, chỉ cần triển khai thành công. Bạn có thể thấy cụm từ xác nhận được hiển thị trong console..
  
  
  
-Bây giờ, nếu bạn xem tệp deployedABI, thông tin abi được lưu trữ. Truy cập địa chỉ hợp đồng được triển khai và lưu ý rằng địa chỉ của hợp đồng đã được lưu trữ. Chúng hoạt động tốt. Cuối cùng, khi bạn triển khai nó, thư mục sẽ được tạo. Nó có thư mục hợp đồng bên trong và hai tập tin json nằm trong thư mục hợp đồng. Chúng được gọi là artifact. Mỗi tệp chứa thông tin ABI của hợp đồng tương ứng cũng như tất cả các thông tin liên quan đến hợp đồng. ABI là tên viết tắt của giao diện nhị phân ứng dụng; trước đây chúng tôi đã lưu trữ một tệp đã triển khai trong đó. Trong abi, chúng ta thấy các hàm và biến được viết ở định dạng json mà  sử dụng cho hợp đồng AdditionGame.
+Bây giờ, nếu bạn nhìn vào file deployedABI, thông tin abi đã được lưu. Đến file deployed address và lưu ý rằng địa chỉ của contract được deploy đã được lưu lại. Nó đang hoạt động tốt. Cuối cùng, khi bạn deploy, một thư mục tên build sẽ được tạo nên. Nó chứa thư mục contracts ở bên trong và 2 file json trong thư mục contract. Chúng được gọi là artifact. Mỗi file artifact chứa thông tin ABI của hợp đồng tương ứng cũng như các thông tin liên quan đến hợp đồng. 
+
+AIB là cụm viết tắt tiếng Anh của  giao diện nhị phân ứng dụng; chúng tôi đã lưu trữ một file ABI đã deploy trong đó. Trong abi, chúng ta thấy các hàm và biến được viết ở định dạng json mà chúng ta sử dụng cho hợp đồng AdditionGame.
+
  
-Nói một cách đơn giản, khi bạn triển khai hợp đồng này lên blockchain, abi này đảm bảo chức năng trong hợp đồng và dữ liệu được trả về. Đó là nơi bạn xác định cách bạn có thể tương tác với hợp đồng. Nếu bạn đi xuống dưới cùng, có một phần mạng lưới. 1001 là ID mạng duy nhất của Klaytn. Địa chỉ là hợp đồng này hiện đang được triển khai đến địa chỉ này trên testnet Baobab.
- 
+Nói một cách đơn giản, khi bạn deploy contract này lên blockchain, abi này đảm bảo hàm trong contarct và dữ liệu được trả về. Đó là nơi bạn xác định cách bạn có thể tương tác với hợp đồng. Nếu bạn kéo xuống dưới cùng, sẽ có một phần mạng lưới. 1001 là ID mạng duy nhất của Klaytn. Địa chỉ là địa chỉ contract đang được deploy đến testnet Baobab.
+
+Cuối cùng, nếu bạn muốn deploy lại contract cho node Klaytn, bạn có thể sử dụng lệnh này. Ví dụ, khi chúng tôi cần sửa đổi contract, chúng tôi cần deploy lại nó cho node. 
  
 truffle deploy –compile-all –reset –network klaytn
  
  
-Cuối cùng, nếu bạn muốn triển khai lại hợp đồng cho node Klaytn, bạn có thể sử dụng lệnh này. Ví dụ, khi chúng ta cần sửa đổi hợp đồng, và cần triển khai lại node. “truffle deploy-compile-all -reset -network - Klaytn” biên soạn tất cả các hợp đồng. Reset sẽ giúp script file trong tệp  Migration trả về. Re-deploy cho hợp đồng node. Vâng. Hoàn tất. Mở tệp deployedAddress và bạn sẽ thấy rằng địa chỉ đã thay đổi. Từ nãy giờ, tôi đã triển khai Hợp đồng với mạng lưới Klaytn Baobab mà dùng truffles.
+“Compile all" tất cả contract biên soạn lại. Việc thiết lập lại buộc các file script trong thư mục Migrations chạy lại. Chạy nó để deploy lại contract cho node một lần nữa. Vâng. Hoàn tất. Mở file deployedAddress và bạn sẽ thấy rằng địa chỉ đã thay đổi. Như vậy, tôi đã hoàn thành deploy Contract với network Klaytn Baobab bằng truffle. 
+ 
+## 5.5 Account verification UI
  
  
- 
- 
- 
-## 5.5 Xác minh tài khoản UI
- 
- 
-Hãy bắt đầu bằng cách đăng nhập bằng tài khoản của bạn được tạo bằng ví baobab. 
-There were two ways for us to verify our accounts.
- Đầu tiên, Bạn có thể sử dụng kết hợp keystore file và mật khẩu; thứ hai, xác minh bằng private key. 
-Cách chúng tôi thực hiện là xác minh thông qua keystore file và mật khẩu. 
-Đầu tiên, tôi sẽ viết mã html. 
+Hãy bắt đầu bằng cách đăng nhập bằng tài khoản bạn đã tạo bằng ví baobab. 
+Có 2 cách để chúng ta xác thực tài khoản. 
+Đầu tiên, bạn có thể sử dụng kết hợp file keystore và mật khẩu; thứ hai, xác minh bằng private key. 
+ Ở đây, chúng ta sẽ thực hiện cách thứ nhất là kết hợp file keystore và mật khẩu. 
+Đầu tiên, tôi sẽ viết code html. 
 Truy cập Index.html và thêm nội dung bên trong body tag.
   <div class="container">
     <div class="row">
@@ -239,67 +211,49 @@ Truy cập Index.html và thêm nội dung bên trong body tag.
  
 Hãy tạm dừng video này ngay bây giờ và viết code này. 
 Thiết lập rất đơn giản. 
-Các lớp trong div bootstrapping để làm UI trông đẹp.
- Tôi sẽ bỏ qua phần mô tả bootstrapn. 
-Trước hết, tôi sẽ giải thích ở phần trên. 
+Thuộc tính class ở trong thẻ div sử dụng bootstrapping để giúp UI trông đẹp hơn.
+Tôi sẽ bỏ qua phần mô tả bootstrap.
+Trước hết, tôi đặt các cụm từ giải thích lên trên.  
 Dưới đây tôi đã thêm các nút đăng nhập và đăng xuất. 
-Khi tôi nhấp vào nút đăng nhập, nó sẽ khởi động cửa sổ phương thức. 
-Khi tôi nhấp vào nút đăng xuất chức năng handleLogout sẽ được thực hiện. 
+Khi tôi nhấp vào nút đăng nhập, nó sẽ khởi động cửa sổ modal. 
+Khi tôi nhấp vào nút đăng xuất  hàm The handleLogout sẽ được thực thi. 
 Lưu ý rằng tôi đặt nút đăng xuất không xuất hiện trong css. 
-Chúng ta chạy app và kiểm tra code chúng tôi đã viết có hoạt động không. 
-Chạy lệnh npm run dev trên terminal. 
-Chạy Chrome và truy cập localhost: địa chỉ 8081. 
-Vâng, nó không đẹp lắm, nhưng view có vẻ tốt. 
-Bây giờ, hãy tạo một phương thức sẽ hiện lên khi chúng ta nhấp vào nút đăng nhập. ‘https://bootstrapdocs.com/v3.3.6/docs/javascript/#modals” Nếu bạn truy cập trang web bootstrap này, bạn có thể nhận được code phương thức.. 
-Sao chép phần này và quay lại tệp html. 
- Tôi sẽ dán nó bên ngoài container div. 
-Bây giờ hãy thay đổi nội dung của phương thức này. 
-Đầu tiên, đặt id div thành loginModal.
-section.
+Hãy chạy app và kiểm tra xem code có đang hoạt động đúng không nhé! 
+Chạy lệnh npm run dev trong terminal. 
+Mở Chrome và truy cập địa chỉ localhost:8081. 
+Vâng, nhìn nó không đẹp lắm, nhưng view có vẻ ổn. 
+Bây giờ, hãy tạo một modal để nó mở ra khi chúng ta nhấp vào nút đăng nhập. ‘https://bootstrapdocs.com/v3.3.6/docs/javascript/#modals” 
+Nếu bạn truy cập đến trang bootstrap này, bạn có thể lấy được code modal. 
+Sao chép phần này và quay về file html. 
+Tôi sẽ dán nó bên ngoài container thẻ div. 
+Bây giờ hãy thay đổi nội dung của modal này. 
+Đầu tiên, đặt div id = loginModal.
+
   <div class="modal fade" tabindex="-1" role="dialog" id="loginModal">
  
-Bạn sẽ thích nó, phương thức này sẽ mở khi bạn nhấn vào nút đăng nhập. 
-Nó phù hợp với phương thức cùng với giá trị của thuộc tính dữ liệu của nút đăng nhập ở trên. 
-Tiếp theo, chúng tôi sẽ thay đổi kích thước của phương thức trở nên nhỏ hơn.
+Bạn nên làm như thế, vì nó cho phép modal mở ra khi bạn nhấp vào nút login. 
+Nó khớp modal với giá trị data-target của nút đăng nhập ở trên. 
+Tiếp theo, chúng ta sẽ  làm cho kích thước modal nhỏ lại . Xoá toàn bộ phần modal header. \
  
   <div class="modal-dialog modal-sm">
  
+Và xoá nội dung bên trong body modal. 
+Bây giờ, thêm phần để tải file keystore và nhập mật khẩu.
+Keystore  
+Cài dạng input là file và để hàm handleimport được gọi trên event onchange. Và phần dưới, thêm vào phần cho mật khẩu. 
  
-Xóa tất cả các phần tiêu đề ở section. 
-Ngoài ra, xóa nội dung bên trong phương thức. 
- Bây giờ thêm phần tệp keystore và mật khẩu.
-<div class="form-group">
-   <label for="keystore">Keystore</label>
-   <input type="file" id="keystore" onchange="App.handleImport()">
-</div>
+Copy và paste ở đây, và đổi tên.
  
-input vào dưới dạng tệp và làm cho hàm xử lý được gọi là onchange event..
- Và phần dưới , thêm mật khẩu (비밀번호). 
+Nếu giá trị được ghi trong cửa sổ nhập mật khẩu, gọi hàm handlePassword.
+Và tôi đã thêm phần để hiển thị thông báo khi xác minh thành công hoặc xảy ra lỗi. 
+Cuối cùng, đổi close thành 닫기 và đổi 'save changes' thành 제출. 
  
-Copy và dán trên cùng.
-<div class="form-group">
-  <label for="input-password">비밀번호</label>
-  <input type="password" class="form-control" id="input-password" onchange="App.handlePassword()">
-   <p class="help-block" id="message"></p>
-</div>
+Thêm thuộc tính id và cho phép gọi hàm handleLogin hiển thị khi nhấp vào. 
+Vâng, bây giờ tôi sẽ kiểm tra giao diện để xem code vừa hoàn thành có hoạt động tốt không. 
+Nhấp vào nút đăng nhập. Modal đã hiện ra với các tuỳ chọn là chọn tải lên một file và nhập mật khẩu vào. Như vậy, tôi đã hoàn thành hướng dẫn thiết kế UI cho xác thực tài khoản. 
  
- 
-Nếu giá trị được ghi trong cửa sổ nhập mật khẩu, hàm đó được gọi là handlePassword..
- Và tôi đã thêm phần được hiển thị dưới dạng tin nhắn khi xác minh thành công hoặc xảy ra lỗi. 
-Cuối cùng, close thành 닫기(close) và thay đổi 'safe changes' thành 'submission`.
-<button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
-        	<button type="button" class="btn btn-primary" id="submit" onclick="App.handleLogin()">제출</button>
- 
-Thêm thuộc tính id và cho phép hàm handleLogin hiển thị khi nhấp vào. 
-Vâng, bây giờ tôi sẽ kiểm tra xem code vừa hoàn thành có hoạt động tốt trong chế độ xem hay không. 
-Nhấp vào nút đăng nhập. 
-Vậy thì, modal đã hoạt động và bạn có tùy chọn để chọn tập tin và nhập mật khẩu. 
-Cho đến nay, tôi đã tạo UI xác minh tài khoản. 
- 
- 
-## 5.6 Logic xác minh tài khoản (keystore validation)
- 
- 
+
+## 5.6 Account verification logic (keystore validation)
  
 Bởi vì chúng ta đã tạo UI được hiển thị ở trên, bây giờ thực hiện logic cho nó hoạt động.
  Trong Index.js, có nhiều hàm khác nhau trong constant gọi là App. 
