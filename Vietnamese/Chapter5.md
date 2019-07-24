@@ -255,355 +255,262 @@ Nhấp vào nút đăng nhập. Modal đã hiện ra với các tuỳ chọn là
 
 ## 5.6 Account verification logic (keystore validation)
  
-Bởi vì chúng ta đã tạo UI được hiển thị ở trên, bây giờ thực hiện logic cho nó hoạt động.
- Trong Index.js, có nhiều hàm khác nhau trong constant gọi là App. 
-Và cuối cùng, khi bạn kéo xuống, bạn sẽ thấy rằng điều đầu tiên khi bạn tải trang, bắt đầu start function trong constant app. 
-Vì vậy, chúng ta sẽ triển khai chức năng start, nhưng trước đó, chúng tôi cần tải caver.js tương tác với blockchain Klaytn và khởi tạo nó để có thể sử dụng cho BApp.
-import Caver from "caver-js";
+Chúng ta đã hoàn thành phần thiết kế UI, bây giờ hãy đưa logic vào để nó hoạt động được.
+Trong file Index.js, có nhiều hàm trong hằng constant gọi là App. 
+Và khi bạn kéo xuống dưới, điều đầu tiên bạn sẽ thấy đó là khi tải trang, một hàm start đang hiển thị trong constant app. 
+Vì vậy, chúng ta sẽ đưa hàm start vào, nhưng trước tiên, chúng ta cần tải thư viện caver.js để tương tác với blockchain Klaytn và khởi tạo nó để dùng cho BApp. Kéo lên trên cùng, import Caver from "caver-js";
  
-Ở đầu, nhập caver.js. 
-Và tạo một hằng số cho việc thiết lập môi trường làm việc.
+và tạo một constant cho cài đặt môi trường. 
  
 const config = {
   rpcURL: 'https://api.baobab.klaytn.net:8651'
 }
  
- 
-rpcURL trong cấu hình. 
-Chúng tôi đã xác định node Klaytn nào kết nối và sử dụng. 
-Tôi đã nói đó là baobab testnet. 
-Cuối cùng, chúng ta sẽ tạo hằng số khởi tạo rpcURL bằng cách pass nó đến cấu trúc Caver.
+Có một rpcURL trong config.
+Chúng ta đã xác định node Klaytn nào được chọn để kết nối và sử dụng. 
+Tôi đã chọn mạng thử nghiệm baobab. 
+Cuối cùng, chúng ta sẽ tạo hằng số khởi tạo rpcURL bằng cách pass nó đến tạo hàm Caver.
 const cav = new Caver(config.rpcURL);
  
  
-Công việc khởi tạo đã kết thúc và hằng số cav này hiện có sẵn trong ứng dụng.
- Bây giờ bạn phải bắt đầu chức năng, nhưng trước đó, trước tiên bạn phải kiểm tra xem tài khoản đã được xác minh qua hay chưa thông qua cession. 
-Tuy nhiên, tôi sẽ nói phần này  trong bài giảng sau, vì vậy bây giờ hãy để trống start function bây giờ. 
-Trước tiên, hãy thực hiện chức năng handleImport.
- Chúng ta có thể nhấp vào nút đăng nhập và chọn tệp keystore sau khi pop-up modal. 
-Tuy nhiên, tệp này phải được xác thực cho dù có thực sự là tệp keystore hợp lệ hay không. 
-Chúng ta hãy làm điều đó trong chức năng handleimport. 
-Đầu tiên, chúng ta tạo FileReader và đặt nó trong một constant.
-const fileReader = new FileReader();
+Việc khởi tạo đã kết thúc và hằng số cav này hiện có sẵn trong App.
+Bây giờ bạn cần khởi động hàm. Nhưng, trước hết, trong hàm start, bạn cần kiểm tra xem tài khoản đã được xác thực qua session hay chưa. Tuy nhiên, tôi sẽ làm phần này sau vì session sẽ được trình bày trong bài giảng tiếp theo. Vì thế, tôi sẽ để trống hàm start. 
+Trước tiên, hãy thực hiện hàm handleImport.
+Chúng ta có thể nhấp vào nút đăng nhập và chọn file keystore sau khi pop-up modal hiện ra. 
+Tuy nhiên, file này phải được xác thực cho dù nó khả dụng hay không. 
+Chúng ta hãy làm việc này trong hàm handleimport. 
+Trước hết, chúng ta tạo một hằng const fileReader = new FileReader() 
  
  
-Và sử dụng chức năng readAsText để đọc tệp đã chọn.
+và dùng hàm readAsText để đọc file được chọn. 
 fileReader.readAsText(event.target.files[0]);
  
  
-event.target.files, phần này có nghĩa là tệp chúng tôi đã chọn. 
-Khi quá trình thực thi readAsText hoàn tất, việc tải FileReader đang xảy ra.
-fileReader.onload = (event) => {  	
-  
+phần này ý chỉ file chúng ta đã chọn. Khi quá trình thực thi readAsText hoàn tất, onload event của FileReader sẽ xuất hiện. fileReader.onload = (event) => {
+
+event nhận được bởi lệnh gọi lại, nói cách khác, nội dung bây giờ của file có thể được dùng trong khối code này. Nội dung của file này sẽ được kiểm tra xem nó có phải là file keystore khả dụng hay không. 
+
+ Đầu tiên, thêm một try catch block vào. 
+try {
+} catch (event) {
 }
  
-Sự kiện nhận được sẽ gọi lại, hay một nghĩa khác, Nội dung của tệp, giờ đây có thể được sử dụng trong mã của Block này. 
-Nội dung của tệp này sẽ được kiểm tra xem đó có phải là keystore hợp lệ hay không. 
-Đầu tiên, thử lấy Block bên trong.
- 
-  try {
-   	
-  } catch (event) {
-   	
-  }
- 
- 
-Bây giờ chúng tôi sẽ kiểm tra liệu nội dung câu có hợp lệ hay không, nói cách khác, nếu đây là tệp keystore thực.
+Bây giờ chúng ta sẽ kiểm tra bằng câu nếu thì, nếu nội dung của file là khả dụng hay không, nói cách khác, nếu đó đúng là một file keystore. 
 if (!this.checkValidKeystore(event.target.result)) {
- 
 }
  
- 
-Tôi đã chuyển nội dung của tệp mà chúng ta đã đọc cho hàm checkValidKeystore nhưu là đối số.
- Bây giờ hãy xem lại hàm checkValidKeystore. 
-Hàm này lấy keystore làm đối số và nhận tệp. 
-Và tệp keystore tôi nhận được là tệp json. 
-Tôi sẽ thay đổi nó thành Javascript để sử dụng các thuộc tính trong tệp json này làm biến.
+Tôi đã chuyển nội dung của file chúng ta đã đọc qua hàm checkValidKeystore như một đối số.
+Bây giờ hãy thêm nội dung cho hàm checkValidKeystore. 
+Hàm này lấy keystore làm đối số và nhận file. 
+Và file keystore tôi nhận được là file json. 
+Tôi sẽ thay đổi nó thành Javascript object để sử dụng các thuộc tính trong file json này làm biến.
 	const parsedKeystore = JSON.parse(keystore);
  
- 
-Tôi đã sử dụng hàm json để phân tích nội dung của tệp keystore, chuyển nó thành object và lưu trữ nó trong hằng số. 
-Chúng ta nên làm gì tiếp theo? 
-Đảm bảo rằng các thuộc tính cần thiết cho cấu hình keystore, nhập chính xác. 
-Hãy xem tập tin keystore và xem những gì chúng ta cần. 
-Các yếu tố thiết yếu của cấu hình keystore là phiên bản, id, địa chỉ và tiền điện tử. 
-Nếu không có bốn trường này, nó không thể trở thành tệp keystore. 
-Vì vậy, tôi sẽ kiểm tra nó thông qua code.
+Tôi dùng hàm json parse để phân tích nội dung của file keystore, chuyển nó thành một object và lưu nó trong một hằng. Chúng ta nên làm gì tiếp theo? 
+
+Hãy đảm bảo rằng các thuộc tính cần cho định dạng file keystore của bạn đã được nhập hoàn chỉnh. Hãy nhìn vào file keystore và xem chúng ta cần những gì. Các yếu tố cần thiết cho định dạng keystore là version, id, address, và crypto. Nếu thiếu 4 trường này, file keystore sẽ không khả dụng. Vì thế, tôi sẽ kiểm tra nó bằng code. 
+
 const isValidKeystore = parsedKeystore.version &&
-  	parsedKeystore.id &&
-  	parsedKeystore.address &&
-  	parsedKeystore.crypto;
+
+parsedKeystore.id &&
+  	
+parsedKeystore.address &&
+  	
+parsedKeystore.crypto;
  
  
-Cuối cùng, quay lại hằng số này.
+Cuối cùng, return hằng này. 
+
 return isValidKeystore;
  
  
-Tôi kéo lên lại và xác minh nếu tệp tôi vừa nhập là tệp keystore hợp lệ.. 
-Nếu không, tin nhắn thông báo không hợp lệ và kết thúc chức năng.
-$('#message').text('유효하지 않은 keystore 파일입니다.');
-return;
+Tôi kéo lại lên trên và xác nhận xem file tôi vừa import có phải là một file keystore khả dụng hay không. Nếu không, message sẽ hiển thị không khả dụng dụng và kết thúc hàm. $('#message').text('유효하지 않은 keystore 파일입니다.'); return;
  
-Nếu nó vượt qua bước xác minh, chúng tôi sẽ lưu nội dung của tệp keystore vào hàm biến toàn cầu.
-Đầu tiên chúng ta cần tạo một biến toàn cầu. Tạo nó trước khi bắt đầu function
+Nếu tôi xác thực thành công, tôi sẽ lưu file keystore vào một biến toàn cục. Trước tiên, chúng ta cần tạo một biến toàn cục. Tạo hàm “Auth" trên hàm Start. 
  
-auth: {
-	accessType: 'keystore',
-	keystore: '',
-	password: ''
-  },
+auth: { accessType: 'keystore', keystore: '', password: '' },
  
+Có ba trường trong object Auth.
+accessType là một phương thức xác thực, chứa một dạng keystore và một dạng private key.
+Chúng ta đang thao tác với dạng keystore. 
+Cuối cùng, password là trường chứa mật khẩu sẽ được kết hợp với file keystore.
+Nếu chúng ta quay lại hàm và vượt qua bước xác nhận, this.auth.keystore = event.target.result;
  
-Có ba trường trong trong Auth object.
- AccessType là một phương thức xác minh, gồm loại keystore và private key.. 
-Chúng ta đang tiến hành với loại keystore. 
-Keystore lưu trữ toàn bộ nội dung của tệp.
- Cuối cùng, password là chứa mật khẩu sẽ kết hợp với tệp keystore. 
-Nếu chúng ta quay trở lại chức năng và vượt qua bước xác nhận, sẽ hiển thị,
-this.auth.keystore = event.target.result;
- 
- 
-Gửi toàn bộ nội dung của tệp được tải đến keystore của biến auth mà chúng ta đã tạo. 
-Sau đó, gửi tin nhắn nói rằng tôi đã thành công.
+gửi toàn bộ nội dung của file được tải đến trường keystore của biến auth chúng ta đã tạo ra. Sau đó, gửi đi thông báo rằng tôi đã thành công. 
+
 $('#message').text('keystore 통과. 비밀번호를 입력하세요.');
  
-Nếu có thể hãy nhập mật khẩu trong trường password.
+Cho phép gõ mật khẩu trong trường password ngay lập tức. document.querySelector('#input-password').focus();
  
-document.querySelector('#input-password').focus();
- 
-Cuối cùng, trong khi đọc tệp, nếu phát hiện lỗi, hãy gửi thông báo lỗi trong Block và ngừng chức năng này.
-$('#message').text('유효하지 않은 keystore 파일입니다.');
+Cuối cùng, khi đọc file, nếu có bất kì lỗi nào, gửi đi thông báo trong block catch và kết thúc hàm. 
+
+Copy $('#message').text('유효하지 않은 keystore 파일입니다.'); 
 return;
  
- 
-Vâng, chức năng Handleimport xử lý tốt. 
-Hãy kiểm tra ngay bây giờ. Chọn tệp keystore. 
-Thông báo sẽ được hiển thị và phần trọng tâm sẽ được chuyển đến phần có thể nhập mật khẩu. 
-Để kiểm tra trường hợp ngược lại, hãy để chọn một tập tin ngẫu nhiên. 
-Ok, thông báo lỗi đã xuất hiện. 
-Nhưng nó vẫn hoạt động tốt. 
-Bây giờ, hãy tạo chức năng lưu trữ mật khẩu trong hàm biến toàn cầu khi chúng ta nhập mật khẩu. 
-Nó rất đơn giản. 
-Nếu bạn truy cập html, handlepassword sẽ thông báo khi bạn nhập mật khẩu. 
-TSau đó, tại hàm handlepassword,
-this.auth.password = event.target.value;
- 
-Lấy mật khẩu thông qua html và sau đó, dán nó vào trường mật khẩu của hàm biến toàn cầu auth.
- Nó rất đơn giản. 
-Nãy giờ, tôi đã thực hiện tệp xác thực tệp keystore.
-Trong bài giảng tiếp theo, tôi sẽ tạo một khóa bí mật và thêm thông tin tài khoản của tôi vào Ví.
- 
-## 5.7 Xác minh tài khoản (tích hợp ví)
- 
+Vâng, hàm Handleimport đã được triển khai. Hãy kiểm tra lại xem. 
 
-Chúng tôi đã hoàn thành phần truy xuất tệp keystore và nhập mật khẩu, 
-ây giờ chúng ta sẽ kiểm tra xem tài khoản có được xác minh thành công hay không khi chúng tôi gửi thông tin này đến node baobab.
-Trước đó, tôi sẽ thay thế http trong rpcURL thành https. 
+Nhấp vào nút đăng nhập và chọn file keystore. Ô điền mật khẩu sẽ hiện ra và trỏ chuột sẽ đặt sẵn trong đó để bạn điền mật khẩu. Để kiểm tra trường hợp đối lập, hãy chọn tải lên một file ngẫu nhiên. Ok, thông báo lỗi đã hiện ra. Nó vẫn hoạt động tốt. 
+
+Bây giờ, hãy tạo một hàm để lưu mật khẩu vào một biến toàn cục khi chúng ta nhâp mật khẩu. Việc này sẽ rất đơn giản thôi. Nếu bạn di chuyển đến html, hàm handlepassword sẽ được gọi khi bạn nhập mật khẩu vào. Sau đó, tại hàm handlepassword, this.auth.password = event.target.value;
+
+Lấy giá trị mật khẩu qua event onchange trong html, sau đó, gán nó vào trường password của biến auth toàn cục. Đơn giản như vậy thôi. Như vậy tôi đã hoàn thành bài giảng xác thực file keystore. Trong bài giảng tiếp theo, tôi sẽ tạo một secret key và thêm thông tin tài khoản vào ví.
+ 
+## 5.7 Account verification (integrate wallet)
+
+Chúng ta đã hoàn thành phần lấy file keystore và điền mật khẩu. Bây giờ, chúng ta sẽ kiểm tra xem tài khoản được xác thực thành công hay không khi gửi thông tin đến node baobab nhé.
+
+Trước hết, tôi sẽ thay thế http trong rpcURL thành https. 
 Hãy xem Index.html. 
-Khi tôi nhấp vào node gửi, nó gửi đến hàm handlelogin. 
-Vì vậy, hãy thực hiện chức năng. 
-Đầu tiên, hãy chắc chắn rằng accesstype là keystore.
-if (this.auth.accessType === 'keystore') { 
-}
+Khi tôi nhấp vào nút submit, nó gọi hàm handlelogin. 
+Vì vậy, hãy thực hiện hàm. 
+Đầu tiên, hãy đảm bảo rằng accesstype là một keystore.
+if (this.auth.accessType === 'keystore') { }
 
-Lý do chúng ta viết “if” là khi xác minh tài khoản, chúng ta sử dụng keystore hoặc private key.
-Bây giờ chúng ta chỉ sử dụng keystore. 
-Tuy nhiên, tôi đã thêm các câu lệnh if này để khi bạn muốn sử dụng private key để xác minh,
- bạn có thể sử dụng nó. Hãy thêm “try catch” ngay bên dưới. 
- 
- 
+Lý do tôi viết câu lệnh “if" là vì khi xác thực một tài khoản, chúng ta có thể sử dụng keystore hoặc private key. Tuy nhiên, bây giờ chúng ta chỉ dùng keystore thôi. Nên tôi sẽ thêm câu lệnh “if" vào để khi bạn muốn xác thực bằng private key thì bạn vẫn có thể làm được. Hãy thêm try catch vào ngay bên dưới.
+
 try {       
-} catch (e) 
-}
+} catch (e)}
 
 Đã đến lúc sử dụng instance caver.
-Tôi sẽ đưa ra câu hỏi cho bạn. 
-Chúng ta có thể kiếm được gì từ sự kết hợp của tệp keystore và mật khẩu? 
-Nếu bạn nhớ tốt, bạn có thể biết ngay. 
-Có, bạn có thể nhận khóa cá nhân của bạn. 
-Với khóa cá nhân này sẽ cho phép bạn tạo ta một instance Ví. 
-Vì vậy, điều đầu tiên bạn cần làm là lấy secret key (khóa bí mật) thông qua tập tin keystore và mật khẩu..
+Tôi sẽ đặt một câu hỏi cho bạn. 
+Chúng ta có thể thu về được gì từ sự kết hợp giữa tệp keystore và mật khẩu? 
+Nếu để ý thì bạn sẽ biết câu trả lời ngay. Vâng, bạn có thể lấy được private key. Secret key này sẽ cho phép bạn tạo ra một instance Wallet. 
+Vì vậy, điều đầu tiên bạn cần làm là lấy secret key (khóa bí mật) thông qua tập keystore file và password. 
 const privateKey = cav.klay.accounts.decrypt(this.auth.keystore, this.auth.password).privateKey;
 
-Bạn có thể sử dụng chức năng giải mã thông qua tài khoản của instance caver. 
- Nó có nghĩa là giải mã. 
- Nếu bạn giải mã nó, bạn có thể trở về  đối tượng tài khoản được mã háo bằng cách chuyển nội dung của tệp keystore và mật khẩu như đối số. 
-Có nhiều thành viên khác nhau trong đối tượng và trong số đó, chúng ta nhận được private key và lưu trữ nó trong hằng số. 
-Nếu có lỗi sai trong giải mã, tin nhắn sẽ thông báo.
+Bạn có thể dùng hàm decrypt thông qua tài khoản thành viên của instance caver. Mục đích là để mã hoá. Nếu bạn mã hoá nó, bạn có thể trở về object tài khoản đã mã hoá bằng cách truyền nội dung của file keystore và password như những đối số. Có nhiều thành viên trong object, và trong đó, chúng ta sẽ lấy private key và lưu vào constant. Nếu có lỗi trong quá trình mã hoá, thông báo sẽ được hiện ra. 
+Copy và paste dòng ở trên, chỉ thay đổi nội dung 
+
 $('#message').text('비밀번호가 일치하지 않습니다.');
 $(‘#message’).text(‘password is not matched.’);
  
-Nếu không có lỗi, nó sẽ tạo ra instance ví thông qua secret key của bạn.
+Nếu không có lỗi, nó sẽ tạo một instance Wallet từ secret key của bạn. 
  
 this.integrateWallet(privateKey);
 
-
-
-Đưa private key cho hàm integwallet. 
-Bây giờ, truy cập vào hàm integwallet. 
-Ở dâu,chúng ta thêm code để lấy instance Ví instance bằng cách sử dụng privatekey.
+Truyền private key đến hàm integratewallet. Bây giờ, hãy đi đến hàm integratewallet. Tại đây, chúng ta thêm code đã lấy được từ instance Wallet bằng cách sử dụng private key. 
  
 const walletInstance = cav.klay.accounts.privateKeyToAccount(privateKey);
  
-
-walletinstance có thông tin tài khoản của tôi. 
-Sau đó thêm instance này vào Ví của tôi.
+walletinstance chứa thông tin tài khoản của tôi. Sau đó thêm instance này vào wallet của tôi.
 cav.klay.accounts.wallet.add(walletInstance)
  
+Nếu bạn thêm account vào caver wallet, bạn có thể dễ dàng gọi lại thông tin account bằng instance caver khi bạn thực hiện một giao dịch trong tương lai. 
 
-Nếu bạn thêm tài khoản vào ví caver, 
-bạn có thể dễ dàng gọi lại thông tin tài khoản của mình thông qua instance caver khi bạn tạo ra một giao dịch trong tương lai. 
 Bước tiếp theo là lưu trữ instance ví trong session lưu trữ. 
-SessionStorage sẽ lưu trữ instance Wallet trong không gian lưu trữ trong trình duyệt web cho đến khi tab được đóng hoặc trình duyệt web bị đóng.
+Bước tiếp theo là lưu instance Wallet vào session storage. Session storage sẽ lưu instance Wallet trên trình duyệt web cho đến khi đóng tab hoặc tắt trình duyệt. 
 sessionStorage.setItem('walletInstance', JSON.stringify(walletInstance))
- 
- 
 
-SetItem nhận giá trị key value là một cặp. 
-Tham số đầu tiên là key và tham số thứ hai là value. 
-Vì vậy, tôi sẽ phải tải thông tin tài khoản của mình vào session sau. 
-Khi bạn gọi WalletInstance bằng key value, giá trị được lưu trong cặp sẽ tự động tải.
+SetItem sẽ nhận cặp tham số giá trị key. Tham số thứ nhất là key và tham số thứ hai là giá trị. Vì thế, tôi sẽ cần phải tải thông tin tài khoản vào session sau. Khi bạn gọi walletInstance với một gía trị key, giá trị được lưu trong cặp tham số sẽ tự động tải. 
+
 Lý do sử dụng sessionStorage là để giữ cho tài khoản được đăng nhập. 
-Bởi vì thông tin tài khoản của tôi được lưu trữ trong ví caver của tôi biến mất khi tôi truy cập trang web khác hoặc trang làm mới thông tin đó. 
-Tuy nhiên, nếu bạn lưu vào bộ nhớ session, 
-thông tin tài khoản của bạn sẽ vẫn được duy trì ngay cả khi bạn truy cập một trang web khác trong một thời gian và sau đó quay lại trang đó hoặc làm mới trang. 
-Vì vậy, tôi sẽ triển khai session instance wallet trong phần sau khi bắt đầu function và tiếp tục đăng nhập. 
-Ngay bây giờ tôi cần cập nhật giao diện (UI) người dùng. 
-Bây giờ chúng ta đã hoàn thành xác minh tài khoản thông qua integWallet, chúng ta cần thay đổi UI một cách thích hợp.
+Vì tài khoản được lưu trong caver wallet sẽ biến mất sau khi tôi chuyển sang một site khác hoặc làm mới trang. 
+Tuy nhiên, nếu bạn lưu vào session storage, thông tin của bạn sẽ được lưu lại mặc cho bạn chuyển sang site khác một lúc rồi quay trở lại hay làm mới trang. Vì thế, sau đó tôi sẽ triển khai một session instance Wallet trong hàm start và giữ trạng thái đăng nhập cho tài khoản. Ngay lúc này, tôi cần cập nhật UI. 
+Chúng ta đã hoàn thành xác thực tài khoản qua integrateWallet, chúng ta cần thay đổi UI cho phù hợp. 
+
 this.changeUI(walletInstance);  
 
-Tôi đang gửi instance Wallet tới hàm ChangeUI . 
-Vậy chúng ta phải làm gì với hàm ChangeUI? 
- Đóng lại modal.
+Tôi đang gửi một instance Wallet tới hàm ChangeUI . 
+Vậy chúng ta nên làm gì với hàm ChangeUI? Chúng ta sẽ chuyển đến hàm changeUI. 
+Đóng modal lại.
 $('#loginModal').modal('hide');
  
 
-Ẩn nút đăng nhập.
+và ẩn nút đăng nhập.
 $("#login").hide();
  
-Ngoài ra, thay đổi nút Đăng xuất mà bạn đã ẩn trước đó.
+Thay đổi nút logout bạn đã ẩn trước đó luôn. 
  
 $('#logout').show();
 
-Và vì bạn đã đăng nhập, tôi muốn địa chỉ tài khoản của tôi hiển thị .
+Vì đã đăng nhập tài khoản rồi nên tôi muốn hiển thị địa chỉ ví. 
 $('#address').append('<br>' + '<p>' + '내 계정 주소: ' + walletInstance.address + '</p>');   
  
 
-Mã code này cho tôi biết rằng nó là địa chỉ tài khoản trong html trong đó thuộc tính id là địa chỉ. 
-Tôi sẽ truy cập  index.html và thêm 1 div.
-  <div class="text-center" id="address"></div>    
+Code này cho tôi biết rằng nó đã hiển thị địa chỉ tài khoản trong html nơi thuộc tính id là địa chỉ. Tôi sẽ đến index.html và thêm một thẻ div. Thẻ này được thêm ở dưới tag h3. 
+Vâng, bạn có thể nhìn thấy địa chỉ tài khoản của tôi tại vị trí này. Giờ hãy thử kiểm tra xem. 
 
-Vâng, bạn có thể thấy địa chỉ tài khoản của tôi tại vị trí này. 
-Tôi sẽ thực hiện tại đây. 
-Bây giờ hãy kiểm tra nó. 
-Nhấp vào nút Đăng nhập và mở tệp keystore. 
-Nếu bạn nhập mật khẩu và nhấn nút gửi, tài khoản của bạn sẽ được xác minh và nút đăng xuất xuất hiện. 
+Nhấp vào nút Đăng nhập và mở file keystore. 
+Nếu bạn nhập mật khẩu và nhấn nút gửi, tài khoản của bạn sẽ được xác minh và nút đăng xuất sẽ hiện ra. 
+Phía dưới chính là địa chỉ tài khoản của tôi. Cuối cùng, hãy thực thi hàm để log out. 
 Dưới đây bạn có thể thấy địa chỉ tài khoản của tôi. 
-Cuối cùng, hãy thực hiện hàm để đăng xuất. 
-Truy cập Index.html. 
-Lưu ý rằng khi tôi nhấp vào nút đăng xuất, tôi gọi đến hàm handlelogout. 
-Tôi sẽ truy cập. 
-Ở đây chúng ta sẽ gọi một hàm là removeWallet.
-this.removeWallet();
- 
+Đến Index.html. 
+Lưu ý rằng khi tôi nhấp vào nút đăng xuất, tôi gọi hàm handlelogout. 
+Tại đây, chúng ta sẽ gọi hàm removeWallet. this.removeWallet();
 
-chúng ta sẽ xóa ví và xóa bộ sessionstorage với hàm này. 
-Truy cập hàm removeWallet và thêm mã code này.
+
+Chúng ta sẽ xóa địa chỉ ví và xóa sessionstorage bằng hàm này. 
+
+Đến hàm removeWallet và thêm code này vào.
 cav.klay.accounts.wallet.clear();
  
-Đây là quá trình xóa instance Wallet của tôi: thông tin tài khoản đã được thêm vào ví. 
-Sau đó, xóa session.
+Đây là công đoạn xoá instance Wallet của tôi chứa các thông tin tài khoản đã được thêm vào ví. Sau đó, xoá session đi. 
  
 sessionStorage.removeItem('walletInstance');
 
-Khi bạn xóa nó, chỉ cần nhập giá trị key value. 
-Cuối cùng, nó sẽ gửi tới hàm reset và ends.
+Khi bạn xóa nó, chỉ cần nhập giá trị key. Cuối cùng, nó gọi hàm reset và kết thúc. 
+
 this.reset();
  
-
-hàm reset này chỉ đơn giản là khởi tạo biến toàn cầu auth. 
-Truy cập hàm reset và khởi tạo auth.
+hàm reset này chỉ đơn giản là khởi tạo biến toàn cục auth. 
+Truy cập hàm reset và khởi tạo biến auth.
 this.auth = {
-      keystore: '',
-      password: ''
-    };
- 
+keystore: '',
+password: ''
+};
 
-Ngoài ra còn có một accesstype trong Auth. 
-Nhưng, bạn không phải xóa accesstype vì dù sao nó cũng là một keystore. 
+Ngoài ra còn có một accesstype trong Auth. Nhưng, bạn không phải xóa accesstype vì dù sao nó cũng là một keystore. 
 Thay vào đó, khi chúng ta đăng nhập, một giá trị sẽ được nhập vào keystore và mật khẩu. 
 Tôi muốn đăng xuất và xóa nó một cách an toàn. 
-Quay trở lại hàm handleLogout và đặt code làm mới trang và hoàn thành nó. 
-Lý do cho việc làm mới là để trở về giao diện người dùng trạng thái ban đầu.
+Quay trở lại hàm handleLogout, viết code làm mới trang và hoàn thành nó. 
+Lý do cho việc làm mới trang là để nó trở về giao diện người dùng trạng thái ban đầu.
 location.reload();
  
 
-Bây giờ hãy thử nghiệm và hoàn thành nó. 
-Nhấp vào nút Đăng xuất, thông tin tài khoản sẽ biến mất và bạn được đưa trở lại màn hình khởi tạo bằng cách làm mới nó. 
-Bây giờ bạn hoàn thành logic xác minh tài khoản của mình, 
-hãy hoàn thành phần phần này mà xác minh tài khoản thông qua session lưu trữ trong bài giảng tiếp theo.
+Bây giờ hãy kiểm tra và kết thúc công đoạn này. 
+Nhấp vào nút Đăng xuất, thông tin tài khoản sẽ biến mất và bạn được đưa trở lại màn hình khởi tạo bằng cách làm mới trang. 
+Như vậy bạn đã thêm logic xác thực tài khoản thành công. Hãy tiếp tục đến với bước lưu xác thực tài khoản trên session storage trong bài giảng tiếp theo. 
  
  
-## 5.8 Session tài khoản 
+## 5.8 Account Session
 
-Hãy xem điều gì xảy ra khi chúng ta đăng nhập và làm mới trang. 
-Nhấp vào nút đăng nhập và chọn tệp keystore. 
-Trong trạng thái này, Nhấn F5 để làm mới. 
- Sau đó, nó sẽ được thiết lập lại. 
-Sẽ tốt hơn nếu tôi tiếp tục đăng nhập. 
+Điều gì sẽ xảy ra khi chúng ta đăng nhập và làm mới trang? 
+Nhấp vào nút đăng nhập và chọn file keystore. Điền mật khẩu vào. Bấm nút submit. Tôi đã đăng nhập thành công.  
+Ở bước này, bấm F5 để làm mới trang. 
+Trang sẽ được reset.
+Sẽ thật tốt nếu tài khoản vẫn trong trạng thái đã đăng nhập.
 Làm thế nào để tôi làm điều đó? 
-Nếu chúng ta đăng nhập thành công, chúng ta đã lưu thông tin lưu trữ tài khoản vào session lưu trữ. 
-Tôi sẽ sử dụng nó bây giờ. 
-Hàm đầu tiên được tải khi BApp chạy là hàm start. 
-Ở đây tôi lấy thông tin tài khoản của tôi được lưu trữ trong session lưu trữ. 
-Vì thế, chúng ta hãy truy cập hàm start,
+Nếu chúng ta đăng nhập thành công, tài khoản sẽ được lưu trong session storage. Tôi sẽ làm như vậy ngay. 
+Hàm đầu tiên được tải khi chạy BApp là hàm start. Ở đây tôi lấy thông tin tài khoản đã được lưu trong session storage. Hãy đến hàm start,
+
 const walletFromSession = sessionStorage.getItem('walletInstance');
  
-
-Nếu bạn sử dụng getItem và chuyển giá trị của key, giá trị đó sẽ được tìm nạp và lưu trữ trong constant. 
- Tôi đã lưu instance Wallet của tôi. 
+Nếu bạn sử dụng getItem và truyền giá trị của key, giá trị đó sẽ được tìm nạp và lưu trữ trong constant. 
+Tôi đã lưu instance Wallet của tôi. 
 Tiếp theo, hãy đảm bảo hằng số WalletFromSession chứa giá trị.
 if (walletFromSession) {
- 
-}
- 
-
-Nếu có một giá trị, tạo ra một try catch
-try { 
-     
+try {
 } catch (e) {
- 
-  }
- 
+}
+Thêm lại thông tin tài khoản vào caver wallet. cav.klay.accounts.wallet.add(JSON.parse(walletFromSession));
 
-Sau đó thêm thông tin tài khoản của bạn trở lại ví caver.
-cav.klay.accounts.wallet.add(JSON.parse(walletFromSession));
+Khi trang được làm mới hoặc bạn truy cập lại trang, thông tin tài khoản đã được thêm vào Ví sẽ bị xóa, vì vậy tôi thêm nó trở lại qua session này. 
 
-Khi trang được làm mới hoặc truy cập lại, thông tin tài khoản hiện được thêm vào Ví sẽ bị xóa, vì vậy tôi thêm nó trở lại qua session này. 
-Cập nhật giao diện người dùng (UI) để hiển thị rằng bạn đã đăng nhập như tiếp theo.
-  this.changeUI(JSON.parse(walletFromSession));
- 
-
-Nó sẽ chuyển thành nút đăng xuất và cho tôi xem địa chỉ tài khoản của bạn.  
+Cập nhật giao diện người dùng (UI) để hiển thị rằng bạn đã đăng nhập.
+this.changeUI(JSON.parse(walletFromSession));
+UI sẽ hiển thị một nút đăng xuất và địa chỉ tài khoản của bạn.  
 Cuối cùng, khi giá trị trong sessionStorage không phải là instance Wallet hợp lệ, nó sẽ chuyển đến câu lệnh catch. 
- Sau đó xóa walletinstance trong session lưu trữ.
+Hãy xoá walletinstance trong session storage. 
 sessionStorage.removeItem('walletInstance');
  
-Đã thực hiện xong ở đây. 
-Bây giờ, hãy để thử nghiệm nó.
-Khi bạn làm mới, nó sẽ tiếp tục đăng nhập mà không trở về trạng thái khởi tạo. 
- Nãy giờ, chúng ta đã thực hiện một phần của việc duy trì xác minh tài khoản.
+Vậy là xong. Bây giờ hãy kiểm tra lại. Khi bạn tải lại trang, tài khoản vẫn được đăng nhập mà không trở về trạng thái khởi tạo. 
+Như vậy, chúng ta đã hoàn thành một phần của công đoạn duy trì xác minh tài khoản.
+
+## 5.9 KLAY transfer via contract (deposit)
  
- 
- 
- 
-## 5.9 Chuyển KLAY qua hợp đồng (deposit)
- 
- 
-Bây giờ tôi sẽ gửi KLAY đến hợp đồng bằng cách sử dụng tài khoản quản trị. 
- Đầu tiên, hãy tạo một giao diện người dùng (UI). 
+Bây giờ tôi sẽ gửi KLAY đến contract đang sử dụng. 
+Đầu tiên, hãy tạo một giao diện người dùng (UI). 
 Bạn có thể tạo nó dưới hàng class div.
- 
  
 <br />     
  
@@ -623,43 +530,37 @@ Bạn có thể tạo nó dưới hàng class div.
     </div>
  
 
-Vui lòng làm mờ video và thêm phần này. 
+Vui lòng bấm dừng video và thực hiện thao tác này.
 Tôi sẽ giải thích ngắn gọn. 
-Tôi đã thiết lập phần UI để gửi tiền vào hợp đồng vô hình thông qua css. 
-Chúng ta đã thiết lập hàm deposit để chạy khi chúng ta nhập số tiền và nhấn nút gửi. 
+Tôi đã thiết lập phần UI để gửi tiền vào hợp đồng thông qua css. 
+Chúng tôi cũng đã thiết lập hàm deposit để nó khởi chạy khi tôi nhập vào số lượng và nhấn nút chuyển tiền.
 Bây giờ hãy đến hàm deposit và thực hiện nó. 
  
-Tôi sẽ giải thích ở đây làm thế nào để thực hiện nó đầu tiên. 
+Tôi sẽ giải thích cách thực hiện trước.
 Chuyển Klay sang hợp đồng chỉ có thể được thực hiện với tài khoản chủ sở hữu. 
-Điều này chỉ có thể với tài khoản của người đã tạo ra Hợp đồng.
-Nói cách khác, chỉ có người quản trị mới có thể gửi nó.
-Nếu chúng ta đang sử dụng tài khoản chủ sở hữu, chúng ta sẽ truy cập hàm deposit trong hợp đồng và chuyển khoản KLAY.  
+Việc chuyển Klay đi chỉ có thể được thực hiện bởi chủ của contract. 
+Nói cách khác, chỉ có người tạo ra event này là được quyền chuyển tiền. Nếu chúng ta đang sử dụng tài khoản chủ sở hữu, chúng ta sẽ truy cập hàm deposit trong hợp đồng và chuyển khoản KLAY.  
 Quy trình rất đơn giản. 
-Đầu tiên, chúng ta sẽ tạo hàm instance để chúng ta có thể truy cập vào hợp đồng mà chúng ta đã tạo. 
-Khi bạn tạo một instance hợp đồng, bạn cần thông tin abi và địa chỉ của hợp đồng bạn đã tạo. 
-Trong các hằng số cav ở trên cùng, 
+Đầu tiên, chúng ta sẽ tạo hàm instance để chúng ta có thể truy cập vào hợp đồng mà chúng ta đã deploy. 
+Khi tạo một instance contract, bạn cần abi và địa chỉ của contract đã deploy. Dưới hằng cav ở phía trên, 
 const agContract = new cav.klay.Contract(DEPLOYED_ABI, DEPLOYED_ADDRESS);
 
-Ở deployed_abi và deployed_address là các hằng số toàn cục có thể được sử dụng trong BApp. 
-Khi chúng ta phái triển hợp đồng, chúng ta lưu thông tin vào tệp deployedabi và tệp deployedaddreess. 
-Đặt nó trong gói web để chúng ta có thể đọc thông tin này và nó sử dụng nó như một hằng số toàn cục. 
-Nếu bạn truy cập tệp Webpack.config.js, sẽ có một phần chú thích. 
-Giải quyết điều này ngay bây giờ. 
-At compile time in webpacks, run this part to set global constants called deployed address and deployed abi.
+deployed_abi và deployed_address là các hằng số toàn cục có thể được sử dụng trong BApp. 
+Khi deploy contract, chúng ta lưu thông tin vào file deployedabi và file deployedaddreess. 
+Cài nó vào trong webpack thì chúng ta có thể đọc được thông tin này và sử dụng nó như một hằng toàn cục.
+Nhấp vào file Webpack.config.js, bạn sẽ thấy phần chú thích ở đây. Hãy giải chúng. 
  
-Nói một cách đơn giản, chúng ta đọc tệp deployedaddres và gán địa chỉ hợp đồng cho hằng số toàn cục. 
-Theo cách tương tự, chúng ta lưu trữ thông tin abi trong các hằng số toàn cục có trong tệp deployedabi. 
-Hãy để lại cho tập tin Index.js.
+Nói một cách đơn giản, chúng ta đọc file deployedaddres và gán địa chỉ hợp đồng cho hằng số toàn cục. 
+Theo cách tương tự, chúng ta lưu trữ thông tin abi trong các hằng số toàn cục có trong file deployedabi. 
+Hãy trở lại file Index.js.
  
- 
-
-Vì vậy, hãy nhớ rằng cả thông tin abi và địa chỉ được gửi cho người tạo ra instance hợp đồng chuyển qua các hằng số toàn cục được tạo bởi webpack.  
-Bây giờ chúng ta đã tạo một instance 4 hợp đồng, chúng ta sẽ tiếp tục với hàm deposit. 
-Có một cái gì đó chúng ta phải kiểm tra trước khi gửi tiền.
- Bạn nên xác minh rằng tài khoản bạn vừa đăng nhập là tài khoản chủ sở hữu. 
+Vì vậy, hãy nhớ rằng cả thông tin abi và địa chỉ được gửi cho người tạo ra instance contract chuyển qua các hằng số toàn cục được tạo bởi webpack.  
+Bây giờ chúng ta đã tạo một instance 4 contract, chúng ta sẽ tiếp tục với hàm deposit. 
+Có một điều chúng ta phải kiểm tra trước khi gửi tiền.
+Bạn nên xác minh rằng tài khoản bạn vừa đăng nhập là tài khoản chủ sở hữu. 
 Vì vậy, tôi phải đưa ra hai mẫu thông tin. 
 Đầu tiên, tôi đang truy xuất thông tin tài khoản hiện đang đăng nhập.
-Thứ hai, tôi sẽ lấy biến trạng thái chủ sở hữu được lưu trong hợp đồng. 
+Thứ hai, tôi sẽ lấy biến trạng thái chủ sở hữu được lưu trong contract. 
 Đầu tiên, tôi sẽ lấy thông tin đăng nhập của tôi.
 const walletInstance = this.getWallet();
 
@@ -671,59 +572,48 @@ if (cav.klay.accounts.wallet.length) {
 Wallet [0] là tài khoản đầu tiên được thêm vào Wallet, tài khoản tôi hiện đang đăng nhập. 
 Bạn đã hoàn thành xong hàm.  
 Tiếp theo, hãy gọi giá trị của biến trạng thái của chủ sở hữu trong hợp đồng. 
- Truy cập hàm callOwner
-return await agContract.methods.owner().call();
+Truy cập hàm callOwner return await agContract.methods.owner().call();
  
+Chúng ta sẽ truy cập hàm chủ sở hữu thông qua instance contract additiongame mà chúng ta đã tạo và gọi giá trị. 
 
-chúng ta sẽ truy cập hàm chủ sở hữu thông qua thể hiện instance hợp đồng additiongame mà chúng ta đã tạo và gọi giá trị. 
-Sử dụng từ khóa đang chờ để nhận các giá trị không đồng bộ. 
-Vì chúng ta đã tạo các nội dung cần thiết trước khi gửi tiền cho bạn, chúng ta sẽ tiếp tục với hàm deposit.
+Sử dụng await keyword để nhận các giá trị không đồng bộ. 
+Vì chúng ta đã tạo các nội dung cần thiết trước khi gửi tiền đi, chúng ta sẽ tiếp tục với hàm deposit.
 if (walletInstance) {
  
-    }
- 
+}
 
 Nếu một instance wallet tồn tại thông qua hàm getwallet, 
-so sánh địa chỉ tài khoản đã đăng nhập hiện tại với địa chỉ tài khoản của chủ sở hữu được trả lại từ hợp đồng.
+so sánh địa chỉ tài khoản đã đăng nhập hiện tại với địa chỉ tài khoản của chủ sở hữu được trả lại từ contract.
 if (await this.callOwner() !== walletInstance.address) return; 
- 
 
 Nếu chúng ta so sánh chúng, nhưng chúng là các giá trị khác nhau, chúng ta không thể tiến hành nữa và chúng ta chấm dứt hàm.
- Nếu nó giống nhau
-else {
-}
+Nếu nó giống nhau else {}
  
+Nhận giá trị đầu vào Html var amount = $('#amount').val();
 
-Nhận giá trị đầu vào Html .
-var amount = $('#amount').val();
-
-nếu giá tri đầu vào tồn tại
-if (amount) {
-}
+nếu giá tri đầu vào tồn tại if (amount) {}
  
 Gửi giá trị cho hàm deposit bằng cách sử dụng một instance contract.
  
 agContract.methods.deposit().send({
- 
-})
+ })
 
 Ở đây chúng tôi gửi một đối tượng giao dịch như là một hệ số gửi.
 Chúng ta cần xác định ba điều. 
-Đầu tiên chúng ta phải nói ai đang gọi hàm này.
+Đầu tiên chúng ta phải xác định ai đang gọi hàm này.
 from: walletInstance.address,
  
 Tôi đã nói rằng chúng ta sẽ gọi hàm này bằng tài khoản hiện đang đăng nhập.
-Lưu ý rằng địa chỉ của Walletinstance là tài khoản đã hoàn tất xác minh tài khoản và nó có quyền tạo chữ ký trong giao dịch.
+Lưu ý rằng địa chỉ của Walletinstance là tài khoản đã được xác minh và nó có quyền tạo chữ ký trong giao dịch.
 Vì vậy, tôi có thể đặt bất kỳ địa chỉ nào trong ‘from'. 
 Chỉ các địa chỉ đã được xác minh trong BApp có thể được sử dụng làm giá trị. 
-Và đặt gas sẽ được tiêu thụ là 250.000.
+Và đặt phí gas là 250.000.
  
 gas: '250000',
  
 
 Vì hàm deposit trong hợp đồng có thể thanh khoản, bạn phải thông qua trường giá trị.
 value:
- 
 
 Chúng ta phải chuyển đổi số nhận được từ đầu vào html sang peb là đơn vị tối thiểu của KLAY. 
 Chuyển đổi nó bằng cách sử dụng utility của thư viện caver.
