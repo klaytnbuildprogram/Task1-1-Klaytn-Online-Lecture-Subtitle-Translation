@@ -591,7 +591,7 @@ Nếu nó giống nhau else {}
  
 Nhận giá trị đầu vào Html var amount = $('#amount').val();
 
-nếu giá tri đầu vào tồn tại if (amount) {}
+nếu giá trị đầu vào tồn tại if (amount) {}
  
 Gửi giá trị cho hàm deposit bằng cách sử dụng một instance contract.
  
@@ -651,49 +651,46 @@ return;
 Tôi đã hoàn thành phần gửi KLAY cho hàm deposit của hợp đồng và tôi sẽ thay đổi UI và kiểm tra nó trong phần tiếp theo. 
  
  
-## 5.10 Chuyển  KLAY thông qua hợp đồng (thay đổi và kiểm tra UI)
+## 5.10 KLAY transfer via contract (UI change and testing)
  
- 
-
 Tôi sẽ thử thay đổi UI và thử nghiệm. 
 Khi chúng ta gửi KLAY đến hàm deposit ở bài trước và nhận được biên lai, giao dịch đã thành công. 
 Tôi nên làm gì sau khi thành công? 
 Sẽ thật tuyệt nếu hệ thống có thể hiển thị cho tôi tin nhắn nhắc nhở.
    alert(amount + " KLAY를 컨트랙에 송금했습니다.");  
  
-
-Và tôi sẽ làm mới trang để xem số dư của hợp đồng.
+Và tôi sẽ làm mới trang để xem số dư của contract.
    location.reload();     
 .
 
 Tôi đã nói rằng tôi sẽ làm cho số dư của hợp đồng được hiển thị. 
-Hãy nhớ rằng chúng ta đã tạo một hàm sẽ tải số dư của hợp đồng khi chúng ta viết hợp đồng thông minh. 
-Chúng ta sẽ gọi hàm getBalance này để có thể thấy số dư của hợp đồng. 
+Hãy nhớ rằng chúng ta đã tạo một hàm sẽ tải số dư của contract khi chúng ta viết smart contract. 
+Chúng ta sẽ gọi hàm getBalance để có thể thấy số dư của hợp đồng. 
 Trước tiên, chúng ta sẽ thêm div hiển thị số dư của hợp đồng trong html. 
 Truy cập Index.html và thêm div dưới địa chỉ hiển thị địa chỉ tài khoản của tôi.
   <div class="text-center" id="contractBalance"></div>
 
-Và sau đó chúng ta sẽ cho bạn thấy số dư của hợp đồng ở đây. 
-Bây giờ, chế độ xem đã sẵn sàng, hãy tạo một hàm mà có thể tải số dư từ backend. 
-Truy cập hàm callcountractbalance và thêm code.
+Và sau đó chúng ta sẽ thấy số dư của hợp đồng ở đây. 
+Bây giờ, chế độ xem đã sẵn sàng, hãy tạo một hàm để tải số dư từ backend. 
+Đến hàm callcountractbalance và viết code.
 return await agContract.methods.getBalance().call();
  
 
-Phần truy cập hàm getbalance thông qua instance hợp đồng và tải giá trị. Vâng, nó thật đơn giản. 
+Phần truy cập hàm getbalance thông qua instance contract và tải giá trị. Vâng, nó thật đơn giản. 
 Từ đâu tôi gọi hàm callcountractbalance? 
 Tôi nên gọi nó ở đâu? 
 Nếu giao dịch thành công trong hàm deposit và nhận được biên nhận, nó sẽ làm mới trang thông qua location.reload (). 
-Hàm đầu tiên nào thực thi khi trang được làm mới? 
+Hàm nào được thực thi đầu tiên khi trang được làm mới? 
 Hàm start được thực thi trước. 
 Sau đó, chúng ta gọi hàm changeUI từ hàm start. 
-Tôi cần thêm code để tải số dư hợp đồng từ hàm ChangeUI thay đổi UI ngay lập tức.
+Tôi cần thêm code để tải số dư contract từ hàm ChangeUI để thay đổi UI ngay lập tức.
 $('#contractBalance').append('<p>' + '이벤트 잔액: ' + cav.utils.fromPeb(await this.callContractBalance(), "KLAY") + ' KLAY' + '</p>');     
 
 Nó khá dài. 
 Tôi sẽ giải thích.
-chúng ta sẽ thêm thông báo vào phần hiển thị số dư hợp đồng Trong html. 
+Chúng ta sẽ thêm thông báo vào phần hiển thị số dư contract trong html. 
 Gọi hàm callContractBalance để lấy số dư. 
-Tuy nhiên, số dư sau đó được tải vào đơn vị tối thiểu của KLAY, peb. 
+Tuy nhiên, số dư được quy đổi sang đơn vị tối thiểu của KLAY là peb. 
 Điều đó sẽ khiến bạn khó thấy được còn lại bao nhiêu, vì đơn vị này quá lớn. 
 Vì vậy, utility caver có hàm gọi là fromPeb.
 Nó là một hàm có thể chuyển đổi từ peb sang đơn vị khác. 
@@ -701,8 +698,8 @@ Tôi đã chỉ định trong tham số thứ hai để chuyển đổi sang KLA
 Kết quả là, nó cho thấy số dư hợp đồng được chuyển đổi thành KLAY trong html.
  
 
-Cuối cùng, việc chuyển KLAY vào hợp đồng phải được thiết lập chỉ cho tài khoản chủ sở hữu. 
-Bạn chỉ phải cấp phép cho việc tạo ra các sự kiện. 
+Cuối cùng, việc chuyển KLAY vào contract phải được thiết lập chỉ cho tài khoản chủ sở hữu. 
+Bạn chỉ phải cấp quyền cho organizer của event. 
 Vì vậy, tôi sẽ thay đổi nó để hiển thị UI chỉ có thể được chuyển khi tôi đăng nhập bằng tài khoản chủ sở hữu. Chuyển đến hàm changeUI
 if (await this.callOwner() === walletInstance.address) {
       $("#owner").show(); 
@@ -713,28 +710,28 @@ Trong html, div chủ sở hữu được đặt ẩn theo mặc định.
 Vì vậy, khi bạn đăng nhập bằng tài khoản chủ sở hữu, bạn sẽ thấy phần này.
 Bây giờ hãy thử kiểm tra. 
 Tôi sẽ tạo lại nó một lần. 
-Trước tiên, hãy đảm bảo rằng khóa bí mật của tài khoản của bạn được nhập chính xác vào truffle.js. 
-Tôi sẽ triển khai lại nó từ terminal.
-‘truffle deploy -compile-all -reset -network klaytn’ Tôi đang triển khai lại nó cho những người chưa làm. 
-Việc triển khai của bạn đã kết thúc. 
-Hãy kiểm tra nó bằng cách chạy npm run dev. Nhấn F12 để mở cửa sổ giao diện console. 
+Trước tiên, hãy đảm bảo rằng secret key của tài khoản của bạn được nhập chính xác vào truffle.js. 
+Tôi sẽ deploy lại từ terminal.
+‘truffle deploy -compile-all -reset -network klaytn’ Tôi đang deploy lại nó cho những người chưa deploy. 
+Việc deploy đã kết thúc. 
+Hãy kiểm tra lại bằng cách chạy npm run dev. Nhấn F12 để mở cửa sổ giao diện console. 
 Nhấp vào nút Đăng nhập
 Vì bạn đã đăng nhập bằng tài khoản chủ sở hữu của mình, bạn có thể thấy phần bạn có thể gửi tiền. 
 Hãy gửi tiền ngay bây giờ. Gửi 1 KLAY.
  
  
 
-Bạn có thể thấy thông tin hàm băm và nhận thông tin thông qua log trên console khi giao dịch của bạn thành công. 
+Bạn có thể thấy thông tin hàm băm và biên nhận thông qua log trên console khi giao dịch của bạn thành công. 
 Tin nhắn thông báo hoạt động tốt. 
 Có vẻ như thời gian cần thiết cho giao dịch là ít hơn 3 giây. 
 Trong 3 giây này, có bốn quy trình từ tạo giao dịch đến tạo block và truyền nó tới mạng lưới khi giao dịch hoàn tất. 
 So với các nền tảng blockchain khác, tốc độ xử lý rất nhanh. 
 Nhấp vào tin nhắn thông báo, làm mới trang và hàm start được gọi đầu tiên, 
-à số dư hợp đồng cập nhật được hiển thị bởi hàm ChangeUI trong đó. 
-hàm transaction đang hoạt động tốt.. 
-Tôi muốn có một công cụ tải spinner cho thấy giao dịch có hoạt động tốt hay không.Tôi muốn có một công cụ tải spinner cho thấy giao dịch có hoạt động tốt hay không.
-This is not a requirement, but I recommend you to do it for a good UI. 
-Truy cập Index.js and truy xuất spin.js trên cùng.
+và số dư contract mới được hiển thị bởi hàm ChangeUI trong đó. 
+Hàm transaction đang hoạt động tốt.
+Tôi muốn có một công cụ tải spinner để kiểm tra giao dịch có hoạt động tốt hay không.
+Đây không phải là yêu cầu bắt buộc, nhưng tôi gợi ý bạn nên thêm vào để cải thiện UI.
+Đến Index.js và import spin.js ở trên đầu.
 import {Spinner} from 'spin.js';
 
 Đi đến hàm showspinner và trả về instance spinner.
@@ -744,7 +741,7 @@ var target = document.getElementById('spin');
 Gọi hàm này từ hàm deposit
 var spinner = this.showSpinner();
  
-Sau khi nhận nhận biên lai, dừng spinner.
+Sau khi nhận biên lai, dừng spinner.
  
   spinner.stop();  
 
@@ -753,16 +750,16 @@ Cuối cùng thêm một div để hiển thị spinner trong html.<br /> dướ
  
 
 Bây giờ hãy thử kiểm tra. 
-Vâng. Khi spinner xuất hiện, một cảnh ngoạn mục hơn đang được tạo ra.
-hàm chuyển hoạt động tốt và giao diện người dùng được phản ánh tốt. 
-Cho đến nay, tôi đã chi trả cho việc chuyển KLAY từ tài khoản chủ sở hữu tới hợp đồng.
+Vâng. Khi spinner xuất hiện, một kết quả tuyệt vời đang được tạo ra.
+Hàm chuyển hoạt động tốt và giao diện người dùng được phản ánh tốt. 
+Như vậy, tôi đã hoàn thành hướng dẫn chuyển KLAY từ tài khoản chủ sở hữu tới contract. 
 
-## 5.11 Tạo 1 số ngẫu nhiên
+## 5.11 Generating a random number
 
-Bây giờ hãy thử làm một phần thú vị. 
-Hãy tạo hai số ngẫu nhiên được sử dụng để cộng vào. 
-Tôi sẽ làm Html đầu tiên 
-Vui lòng thêm code này trực tiếp trên div spin.
+Bây giờ hãy thử làm một điều thú vị sau. 
+Hãy tạo hai số ngẫu nhiên để dùng cho phép tính cộng. 
+Tôi sẽ làm Html trước. 
+Hãy viết thêm code này lên trên div spin.
 <div class="row text-center">
         <div id="game" style="display: none;">   
           <div class="yellow-box" id="start">       
@@ -782,10 +779,10 @@ Vui lòng thêm code này trực tiếp trên div spin.
 <br />
  
 
-Tôi làm cho nó không nhìn thấy với css. 
+Tôi ẩn nó với css. 
 Và tôi sẽ làm cho nó hiển thị sau khi tôi đăng nhập. 
 Nhấp vào nút bắt đầu gọi hàm generateNumbers. 
-Sau đó, hàm sẽ tạo hai số, một cho num1 và một cho num2. 
+Sau đó, hàm sẽ tạo hai số, num1 và num2. 
 Được sử dụng cho phép tính cộng. 
 Và có một trường input để viết câu trả lời.
 Cuối cùng, có một nút để gửi câu trả lời của bạn. 
@@ -821,14 +818,14 @@ Tiếp theo, tạo một cái khác.
  
 var num2 = Math.floor((Math.random() * 50) + 10);
  
-Bây giờ chúng ta sẽ lưu giá trị đã cộng tăng từ hai số trong session lưu trữ. 
+Bây giờ chúng ta sẽ lưu giá trị đã cộng tăng từ hai số trong session storage. 
 Tôi sẽ lưu câu trả lời.
  
 sessionStorage.setItem('result', num1 + num2);    
 
 Điều này sau đó sẽ đưa câu trả lời chính xác trở lại khi người dùng trả lời và sẽ cố gắng so sánh các câu trả lời được cung cấp bởi người dùng. 
 Bây giờ chúng ta đã tạo ra các số, chúng ta sẽ phải sử dụng nó. 
-Khi tôi nhấp vào Start trong html, tôi sẽ ẩn phần bắt đầu này và làm cho nó hiển thị câu hỏi div below. Và đồng thời, tôi sẽ làm cho hai số được tạo từ hàm hiển thị trong các trường num1 và num2. 
+Khi tôi nhấp vào Start trong html, tôi sẽ ẩn phần bắt đầu này và làm cho nó hiển thị question trong thẻ div dưới. Và đồng thời, tôi sẽ làm hiển thị hai số đã được tạo từ hàm trong các trường num1 và num2. 
 Chúng ta hãy quay trở lại hàm và thực hiện những gì chúng ta vừa nói.
 $('#start').hide();
  
@@ -838,50 +835,45 @@ $('#num1').text(num1);
 $('#num2').text(num2);
 
 Hãy để nó hiển thị các số được tạo ra trong các trường num1 và num2. 
-Nó hiển thị câu hỏi div
+Và hiển thị div question 
 $('#question').show(); 
 	
 
-Cuối cùng, di chuyển trọng tâm đến nơi tôi viết câu trả lời để tôi có thể trả lời ngay.
+Cuối cùng, dùng focus để tạo chỗ viết câu trả lời.
 document.querySelector('#answer').focus();
 
 Tôi sẽ kiểm tra nó ngay bây giờ. 
-Khi bạn bấm Start, các số ngẫu nhiên của bạn được tạo và hiển thị bằng html. 
-Ngay sau đó, tập trung di chuyển đến nơi tôi viết câu trả lời. 
-Đây là sự kết thúc bài hôm nay và tôi sẽ cố gắng tạo một bộ Timer trong bài giảng tiếp theo.
+Khi bạn bấm Start, các số ngẫu nhiên của bạn được xuất ra và hiển thị bằng html. 
+Ngay sau đó, focus tạo ra ô trống để bạn viết câu trả lời. 
+Bài học hôm nay xin kết thúc tại đây. Tôi sẽ trở lại với nội dung tạo timer trong bài giảng tới. 
 
-## 5.12  Tạo bộ Timer
+## 5.12 Generating a timer
 
-
-
-Tạo một bộ timer và thiết lập timeout cho vấn đề phép cộng trong 3 giây.
- Truy cập Html và tạo một div hiển thị bộ đếm thời gian. Tôi sẽ làm cho nó ngay dưới div spin.
+Tạo một bộ timer và thiết lập timeout cho phép cộng là 3 giây.
+Truy cập Html và tạo một div hiển thị bộ đếm thời gian. Tôi sẽ làm ngay dưới div spin.
 <div class="row text-center">
         <p id="timer"></p>
       </div>   
  
-Truy cập index.js và chuyển đến hàm showtimer. Ở đây chúng ta sử dụng hàm setInterval để hiển thị số cần đếm ngược. chúng ta sẽ làm cho vấn đề biến mất sau 3 giây và màn hình trở lại click Start.
- 
+Truy cập index.js và chuyển đến hàm showtimer. Ở đây chúng ta sử dụng hàm setInterval để hiển thị số cần đếm ngược. Chúng ta sẽ làm cho phép tính biến mất sau 3 giây và màn hình trở lại click Start.
 
 Tạo một biến để lưu trong 3 giây.
 $('#timer').text(seconds);
 
-Hiển thị số 3 trực tiếp vào html đang hiển thị bộ Timer. 
+Viết trực tiếp số 3 vào html đang hiển thị bộ Timer. 
 Tôi sử dụng hàm setinterval và đặt nó ở khoảng thời gian 1 giây.
   var interval = setInterval(function() {  
   }, 1000);
- 
+ 1000 có nghĩa là 1 giây. 
 
 Bây giờ, tôi có thể chạy một cái gì đó trong khoảng thời gian 1 giây.
 $('#timer').text(--seconds);  
  
 
 Giảm số từng số một và nó hiện thị trong html. 
-Bây giờ, giá trị của biến giây này là 0, nghĩa là reset lại nó khi setinterval bằng 0 sau 3 giây.
+Bây giờ, giá trị của biến second này là 0, nghĩa là reset nó khi setinterval bằng 0 sau 3 giây.
 if (seconds <= 0) {
 }     
- 
-Khi Seconds là 0
  
 $('#timer').text('');
  
@@ -893,71 +885,63 @@ Khởi tạo phần hiển thị số
 Cũng khởi tạo đầu vào là câu trả lời.
 $('#question').hide();
  
-Cài đặt div không hiển thị ra vấn đề. Và,
+Cài đặt div không hiển thị question. Và,
  
 $('#start').show();          
  
 
-Hiển thị div một lần nữa mà bạn có thể nhấp vào start. Cuối cùng,
+Hiển thị lại div để bạn có thể nhấp vào start. Cuối cùng,
   clearInterval(interval);
- 
 
 Sử dụng ClearInterval để dừng thời gian chạy trong setinterval. Vâng, tôi đã tạo ra hàm showtimer. Bây giờ hãy gọi hàm này trong hàm generateNumbers.
 this.showTimer();
  
-Nếu bạn làm điều này, ngay khi bạn nhấp vào Start, bộ Timer sẽ được tạo và đếm ngược sẽ được bắt đầu. Hãy thử kiểm tra.
-Bấm vào Start. Một bộ Timer sẽ được tạo ra bên dưới và bắt đầu đếm ngược trong 3 giây. Sau 3 giây, nó được thiết lặp lại.
-Cho đến nay, tôi đã tạo ra một bộ đếm thời gian.
+Nếu bạn làm điều này, ngay khi bạn nhấp vào Start, bộ Timer sẽ được tạo và bắt đầu đếm ngược. Hãy thử kiểm tra.
+Bấm vào Start. Một bộ Timer sẽ được tạo ra bên dưới và bắt đầu đếm ngược trong 3 giây. Sau 3 giây, nó được thiết lập lại.
+Như vậy, chúng ta đã tạo được một bộ đếm giờ. 
  
+## 5.13 Submitting answers and receiving KLAY
  
- 
-## 5.13 Gửi câu trả lời và nhận KLAY
- 
-Đây là bài giảng cuối cùng. Nếu người dùng gửi câu trả lời và câu trả lời là chính xác, hãy thực hiện phần gửi KLAY đến tài khoản người dùng từ hợp đồng. Chuyển đến hàm submitAnswer. Tải giá trị của câu trả lời đúng được lưu trữ trong session lưu trữ.
+Đây là bài giảng cuối cùng. Nếu người dùng gửi câu trả lời và câu trả lời là chính xác, hãy thực hiện gửi KLAY đến tài khoản người dùng từ contract. Đến hàm submitAnswer. Tải giá trị của câu trả lời đúng được lưu trữ trong session storage.
 const result = sessionStorage.getItem('result');
  
 
 Và, lưu trữ các câu trả lời mà người dùng đã thực hiện trong các biến.
 var answer = $('#answer').val();  
- 
 
-Now, do a comparison.
+Hãy làm một phép so sánh. 
+ 
 if (answer === result) { }
  
-
-Nếu người dùng đã trả lời đúng câu trả lời, nhấn nút xác nhận trong khi mở cửa sổ tin nhắn xác nhận và gửi KLAY cho người dùng.
+Nếu người dùng trả lời đúng, nhấn nút xác nhận trong khi mở cửa sổ tin nhắn xác nhận và gửi KLAY cho người dùng.
 if (confirm("대단하네요^^ 0.1 KLAY 받기")) { }
- 
 
-Nếu người dùng nhấp vào nút OK, hãy đảm bảo số dư trong hợp đồng ít nhất là 0,1 KLAY trước khi gửi.
+Nếu người dùng nhấp vào nút OK, hãy đảm bảo số dư trong contract ít nhất là 0,1 KLAY trước khi gửi.
 if (await this.callContractBalance() >= 0.1) { }
 
 Nếu vậy, hãy gọi hàm receiveKlay.
 this.receiveKlay();
  
-
-Nếu hàm không tồn tại, gửi tin nhắn thông báo.
+Nếu không có, hãy gửi thông báo.
 else { alert("죄송합니다. 컨트랙의 KLAY가 다 소모되었습니다."); }    
  
 
-Cuối cùng, nếu người dùng không nhận được câu trả lời chính xác, hãy gửi thông báo.
+Cuối cùng, nếu câu trả lời của người dùng không chính xác, hãy gửi thông báo. 
 else { alert("땡! 초등학생도 하는데 ㅠㅠ"); }
- 
- 
- 
+
 
 Có hàm submitanswer ở đây. 
 Hãy thử nó một lần. 
-Tin nhắn này được hiển thị khi câu trả lời sai. 
-Khi điều này được thực hiện, một cửa sổ tin nhắn xác nhận sẽ xuất hiện để nhận được KLAY. 
-Khi bạn bấm OK, bạn sẽ gọi hàm receiveklay để chuyển KLAY. 
-Tôi chưa thực hiện nó xong. 
-Hãy thực hiện hàm này.
-Đây là hàm cuối cùng của chúng ta.
+Thông báo này hiện ra khi câu trả lời không đúng. 
+Nhấp vào nút Start, khi bạn trả lời đúng, một cửa sổ thông báo sẽ hiện ra để xác nhận việc nhận được KLAY. 
+Khi nhấn và nút OK, bạn sẽ gọi hàm receiveklay để chuyển KLAY. 
+Tôi vẫn chưa thực thi lệnh này.
+Chúng ta hãy triển khai hàm này.
+Đây sẽ là hàm cuối cùng trong chuỗi bài giảng. 
  
-Khi người dùng trả lời đúng câu trả lời, họ trả phí giao dịch thông qua tài khoản của họ và nhận được KLAY. 
-chúng ta sẽ chuyển đổi 0,1 KLAY trong hàm transfer của hợp đồng của chúng ta sang peb và chuyển nó làm một đối số. 
-Trước tiên, hãy chỉ cho bạn cách tải bằng cách sử dụng một spinner vòng trong quá trình xử lý giao dịch.
+Khi người dùng trả lời đúng câu, họ sẽ trả phí giao dịch thông qua tài khoản của họ và nhận được KLAY. Khi bạn nhìn thấy hàm transfer trong contract, chúng ta sẽ chuyển đổi 0,1 KLAY trong hàm transfer contract sang peb và truyền nó làm một đối số. 
+
+Trước tiên, tôi sẽ chỉ cho bạn cách tải bằng cách sử dụng một spinner trong quá trình xử lý giao dịch.
 var spinner = this.showSpinner();
 
 Ngoài ra, chúng ta cần địa chỉ tài khoản được xác minh là cần thiết cho giao dịch, vì vậy, hãy tải instance Ví.
@@ -968,25 +952,24 @@ Nếu giá trị của instance ví không tồn tại, hãy thoát khỏi hàm.
 if (!walletInstance) return;  
  
 
-Nếu vậy, sử dụng instance hợp đồng để truy cập hàm transfer trong hợp đồng.
+Nếu vậy, sử dụng instance contract để truy cập hàm transfer trong contract.
 agContract.methods.transfer().send({
 })
  
-Hàm transfer của hợp đồng nhận một đối số. 
+Hàm transfer của contract nhận một đối số. 
 Bạn cần sử dụng utility caver để chuyển đổi KLAY sang peb.
  
 cav.utils.toPeb(“0.1”, "KLAY")
- 
-Và bạn nói rằng bạn cần gửi một đối tượng giao dịch vào trong tham số gửi. 
-Bạn cần chỉ định ai gọi hàm này và gas limits cần được đặt.
+Khi bạn làm như vậy, 0.1 Klay sẽ được đổi thành Peb. Và bạn nói rằng bạn cần gửi một đối tượng giao dịch vào trong tham số send. 
+Bạn cần chỉ định ai gọi hàm này và đặt gas limit. 
  
 from: walletInstance.address,
 gas: '250000'
  
-Thông qua instance wallet, địa chỉ xác minh tài khoản của bạn và đặt gas trong vòng 250.000. 
+Truyền instance wallet, địa chỉ tài khoản đã được xác minh và đặt phí gas khoảng 250.000. 
 Lưu ý rằng trường giá trị là không bắt buộc. 
-Tôi sẽ không chuyển giá trị vì hàm transfer không phải là một khoản phải trả. 
-Nếu bạn làm điều này, bạn đã hoàn thành tất cả thì các giá trị sẽ được thông qua.  
+
+Tôi sẽ không chuyển giá trị vì hàm transfer không phải là dạng payable. Vì dạng của hàm deposit là payable nên trường giá trị đã được truyền đi. Nhưng trường giá trị ở đây không phải dạng hàm payabe nên nó không được truyền. 
 Bây giờ, sau khi giao dịch được xử lý, bạn nên kiểm tra xem nó có thành công hay không. 
 Tôi có thể kiểm tra xem nó (deposit) có thành công hay không thông qua .once. 
 Tuy nhiên, có một cách khác. 
@@ -999,18 +982,18 @@ Chờ không đồng bộ và nhân giá trị biên nhận.
 if (receipt.status) { }
 
 Có một trường được gọi là trạng thái trong đối tượng Receipt. 
-Nếu điều này là đúng, nó thành công 
-Vì vậy, nếu bạn thành công, Dừng spinner.
+Nếu điều này là đúng, nó thành công. 
+Vì vậy, nếu bạn thành công, dừng spinner.
 spinner.stop(); 
  
 
-Ngoài ra, hiển thị tin nhắn thông báo
+Và hiển thị thông báo
 alert("0.1 KLAY가 " + walletInstance.address + " 계정으로 지급되었습니다.");      
  
 
 Ngoài ra, hãy tạo một liên kết trong html để có thể kiểm tra giao dịch được xử lý trực tiếp từ scope. 
 Tôi sẽ tạo ra một div mới. 
-Tôi sẽ làm cho nó theo div Timer.
+Đặt ngay dưới div timer. 
 <div class="row text-center">
    <div id="transaction"></div>
 </div>  
@@ -1019,11 +1002,11 @@ Tôi sẽ làm cho nó theo div Timer.
  
 
 Bạn sẽ thấy liên kết trong phần này. 
-Quay trở lại hàm và xóa div giao dịch đầu tiên.
+Quay trở lại hàm và xóa div transaction đầu tiên.
     $('#transaction').html("");
  
 
-Tôi xóa dữ liệu div giao dịch để hiển thị một liên kết mới mỗi khi giao dịch được tạo. 
+Tôi xóa dữ liệu div transaction để hiển thị một liên kết mới mỗi khi giao dịch được tạo. 
 Tiếp theo, tôi sẽ thêm một liên kết.
     $('#transaction')
       .append(`<p><a href='https://baobab.klaytnscope.com/tx/${receipt.txHash}' 
@@ -1032,32 +1015,32 @@ Tiếp theo, tôi sẽ thêm một liên kết.
  
 Trong biên nhận được trả lại bởi promise, 
 Thông qua trường transactionhash đến tham số url của site KlaytnScope để bạn có thể thấy thông tin giao dịch vừa được xử lý. 
-Cuối cùng, hiển thị cho bạn số dư hợp đồng được cập nhật mới nhất trong html.
+Cuối cùng, hiển thị số dư contarct mới nhất, được cập nhật  trong html.
  
 return agContract.methods.getBalance().call()
   .then(function (balance) {
 });        
  
-Gọi hàm getBalance của hợp đồng để gọi lại số dư còn lại trong hợp đồng.
+Gọi hàm getBalance của contract để gọi số dư còn lại trong contract.
  
  $('#contractBalance').html("");          
  
 
-Xóa hiện thị số dư hiện có và hiển thị số dư cập nhật ngay lập tức.
+Xóa hiển thị số dư hiện có và hiển thị số dư cập nhật ngay lập tức.
 $('#contractBalance').append('<p>' + '이벤트 잔액: ' + cav.utils.fromPeb(balance, "KLAY") + ' KLAY' + '</p>');           
  
-Toàn bộ quá trình hoàn thành cho đến nay. 
+Như vậy, toàn bộ quy trình đã được hoàn thành.
 Bây giờ, hãy thử kiểm tra.
 Lần này, tôi cố gắng đăng nhập bằng một tài khoản khác, không phải tài khoản chủ sở hữu.
 Bạn có thể tiếp tục với tài khoản chủ sở hữu.
 Nếu bạn đã tạo một tài khoản khác, bạn cũng có thể dùng thử.
-
- 
-Nếu bạn giải quyết vấn đề và nhấn nút OK, hàm receiveKlay sẽ được gọi.
-Thông báo thông báo được hiển thị và giao dịch đã được hoàn thành.
-Bạn có thể đóng tin nhắn thông báo và thấy rằng số dư của bạn đã giảm.
-Số dư trong hợp đồng đã bị giảm khi nó chuyển đến tài khoản của bạn.
+Đầu tiên, đăng nhập. Chọn một tài khoản khác. Xác thực tài khoản. 
+Hãy giải phép tính. 
+Nếu bạn giải phép tính và nhấn nút OK, hàm receiveKlay sẽ được gọi.
+Thông báo được hiển thị và giao dịch đã được hoàn thành.
+Bạn có thể đóng tin nhắn thông báo và thấy rằng số dư đã giảm.
+Số dư trong contract đã giảm vì Klaytn đã được chuyển đến tài khoản của bạn.
 Và liên kết đã được tạo ra ở phía dưới.
-Nếu bạn nhấp vào liên kết, bạn có thể thấy thông tin về chúng ta vừa tạo trên scope.
+Nếu bạn nhấp vào liên kết, bạn có thể thấy các thông tin chúng ta vừa tạo trên scope.
 Nhấp vào địa chỉ tài khoản của bạn và bạn sẽ thấy số dư đang tăng lên.
-Cho đến nay, tôi đã cố gắng giải quyết vấn đề và chuyển KLAY trong hợp đồng vào tài khoản của mình.
+Như vậy, tôi đã giải phép tính và chuyển KLAY từ contract đến tài khoản của mình.
