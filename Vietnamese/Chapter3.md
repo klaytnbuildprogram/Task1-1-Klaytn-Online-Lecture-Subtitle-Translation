@@ -4,48 +4,42 @@
 
 
 
- Trong các tập trước, chúng ta đã cùng nhau thảo luận về những vấn đề mà blockchain hiện tại đang gặp phải. Bây giờ hãy nói về cách blockchain Klaytn giải quyết vấn đề bằng thuật toán đồng thuận. Có nhiều loại thuật toán đồng thuận, chẳng hạn như PoW (Bằng chứng công việc) hay PoS (Bằng chứng cổ phần), thường được sử dụng trong các Blockchain công khai (Public Blockchain) và PBFT (Ngưỡng chịu lỗi Byzantine thực tế) hoặc Raft, được sử dụng trong các Blockchain riêng tư (Private Blockchain). Nhìn chung, blockchain riêng tư có thể đạt được thỏa thuận nhanh hơn so với blockchain công khai. Đặc biệt, blockchain riêng tư dựa trên BFT có thể đạt được hiệu suất và hiệu quả cao bằng cách giới hạn số lượng nút tham gia mạng lưới. Tuy nhiên, cấu hình này giới hạn số lượng nút tham gia đồng thuận, làm giảm đi tính phi tập trung và chỉ một số nhóm nhỏ được tiết lộ về nội dung của kết quả đồng thuận. Do đó, nó hạn chế tính minh bạch và ảnh hưởng xấu đến lợi ích của blockchain.
+ Trong các tập trước, chúng ta đã cùng nhau thảo luận về những vấn đề mà blockchain hiện tại đang gặp phải. Bây giờ hãy nói về cách blockchain Klaytn giải quyết vấn đề bằng thuật toán đồng thuận. Có nhiều loại thuật toán đồng thuận, chẳng hạn như PoW (Proof-of-Work) hay PoS (Proof-of-Stake), thường được sử dụng trong các Public Blockchain và PBFT (Practical Byzantine Fault Tolerance) hoặc Raft, được sử dụng trong các Private Blockchain. Nhìn chung, private blockchain có thể đạt được đồng thuận nhanh hơn so với public blockchain. Đặc biệt, private blockchain dựa trên BFT có thể đạt được hiệu suất và hiệu quả cao bằng cách giới hạn số lượng node tham gia mạng lưới. Tuy nhiên, cấu hình này giới hạn số lượng node đồng thuận, làm giảm đi tính phi tập trung và chỉ một nhóm nhỏ node quyết định kết quả đồng thuận. Do đó, nó hạn chế tính minh bạch và ảnh hưởng xấu đến bản chất của blockchain.
 
-Mặt khác, Klaytn chọn thuật toán đồng thuận Istanbul BFT vì chúng tôi tin rằng bằng cách sử dụng tốt những ưu điểm của BFT, nó có thể kết hợp những điểm tốt nhất của cả blockchain công khai và riêng tư. Klaytn hướng đến việc trở thành một blockchain công khai mang lại hiệu suất và sự ổn định trong khi vẫn duy trì được tính bảo mật và minh bạch mạnh mẽ cho các doanh nghiệp lớn. Để đạt được mục tiêu này, Klaytn thông qua một mô hình tin tưởng cho các đồng thuận riêng được tiết lộ công khai. Nó bao gồm một số lượng nhỏ các nút riêng tư cùng đạt được sự đồng thuận, và các nút khác có thể truy cập công khai cũng như kiểm tra kết quả tạo khối. Bây giờ chúng ta hãy xem chi tiết về Istanbul BFT (Ngưỡng chịu lỗi Byzantine) mà Klaytn sử dụng làm thuật toán thỏa thuận.
-
-
+Mặt khác, Klaytn chọn thuật toán đồng thuận Istanbul BFT vì chúng tôi tin rằng bằng cách sử dụng tốt những ưu điểm của BFT, chúng tôi có thể kết hợp những điểm của cả public blockchain private blockchain. Klaytn hướng đến trở thành một public blockchain mang lại hiệu suất và sự ổn định trong khi vẫn duy trì được tính bảo mật và minh bạch cho các doanh nghiệp lớn. Để đạt được mục tiêu này, Klaytn thông qua một mô hình tín nhiệm cho các đồng thuận riêng được tiết lộ công khai. Nó bao gồm một số lượng nhỏ các private node đạt được sự đồng thuận, và các node khác có thể truy cập công khai cũng như kiểm tra kết quả tạo block. Bây giờ chúng ta hãy xem chi tiết về Istanbul BFT mà Klaytn sử dụng làm thuật toán đồng thuận.
 
 
-Quá trình đồng thuận của Istanbul BFT bao gồm ba bước. Chuẩn bị trước, chuẩn bị, và cam kết. Klaytn sử dụng một phương pháp round-robin (luân phiên) để chọn nút đề xuất (proposer) trong các nút đồng thuận mỗi vòng. Nó đưa ra đề xuất. Các nút đồng thuận còn lại là nút xác thực (validator). Nó thực hiện việc xác minh.
+Quá trình đồng thuận của Istanbul BFT bao gồm ba bước. Pre-prepare, prepare, và commit. Klaytn sử dụng giải thuật điều phối round-robin để chọn node proposer trong các node đồng thuận trong mỗi vòng. Khi node proposer được chọn ra, các node đồng thuận còn lại đóng vai trò là validator, thực hiện việc xác minh giao dịch. 
 
-Nếu bạn nhìn vào hình, có những nút đề xuất, nút xác thực 1, 2, 3, và vân vân. Trong số đó, các nút được đánh dấu X là ở là đang ở trong tình trạng bị lỗi. Có nghĩa rằng nó đang không hoạt động bình thường như một nút xác minh. Khi máy tính bị hỏng, mạng lưới bị ngắt kết nối, hoặc máy tính gây hại có thể khiến điều này xảy ra.
+Nhìn vào hình, bạn có thể thấy node proposer, validator 1, 2, 3, và vân vân. Trong số đó, node đang được đánh dấu X là node đang ở trong tình trạng bị lỗi. Có nghĩa rằng nó đang không hoạt động bình thường như một node xác thực. Khi máy tính bị hỏng, mạng lưới bị ngắt kết nối, hoặc máy tính gây hại có thể khiến điều này xảy ra.
 
-Bước đầu tiên là "đề xuất" đưa ra từ một trong các nút đồng thuận được chọn làm nút đề xuất. 
-Bước thứ hai là chuẩn bị trước nơi nút đề xuất tạo khối và đưa ra đề xuất cho các nút khác. 
-Sau đó, gửi đề xuất đến nút xác thực 1, nút xác thực 2, và nút xác thực 3. 
+Bước đầu tiên là "propose", chọn một node đồng thuận ra làm proposer.  
+Bước thứ hai là pre-prepare nơi proposer tạo khối và đưa ra đề xuất cho các node khác. 
+Sau đó, gửi đề xuất đến validator 1, validator 2, và đến validator 3. 
 Đây là bước để được thông qua cùng với thông điệp.
 
+Trong bước prepare thứ 3, khi validator 1, 2, hoặc 3 nhận được thông điệp từ proposer chúng gửi đi thông báo đã nhận được thành công đến các node khác. Validator 1 gửi thông báo tới cả 3 node. Validator 2 cũng gửi thông báo tới 3 node. 
+Tuy nhiên, validator 3 không gửi mà chỉ nhận thông báo vì nó đang bị lỗi.
+
+Vào cuối giai đoạn prepare, bạn có thể biết được có bao nhiêu node đang hoạt động trong hệ thống. Giống như hình ảnh này, có 3 node đang tồn tại: proposer, validator 1, và validator 2.
+Quá trình này đảm bảo tất cả các validator nằm trong cùng một vòng.
 
 
-Trong bước chuẩn bị thứ 3, khi nút xác thực 1, 2, hoặc 3 nhận được thông điệp từ nút đề xuất, chúng gửi đi thông điệp đã nhận được thành công đến các nút khác. Nút xác thực 1 và 2 sẽ gửi thông điệp tới cả 3 nút. 
-Tuy nhiên, nút xác thực 3 không gửi mà chỉ nhận thông điệp vì nó hiện đang bị lỗi.
+Cuối cùng, trong giai đoạn commit, quá trình tương tác với các node khác diễn ra để quyết định xem có nên chấp nhận một block nhận được từ một proposer không. Ví dụ, nó sẽ gửi phản hồi tới các node để kiểm tra xem block được gửi từ node proposer là đúng hay sai. Nếu hơn 2/3 số node đồng ý, khối đó sẽ được chấp thuận ngay lập tức. Sau cùng, phán quyết sẽ được đưa ra trong giai đoạn commit. Điều đó có nghĩa là ở giai đoạn này, việc thiếu sót finality không còn nữa và kết quả cuối cùng không thể thay đổi được hình thành. Kết quả không còn mơ hồ như PoW của Bitcoin hay Ethereum. 
 
-Vào cuối trạng thái chuẩn bị, bạn có thể xem có bao nhiêu nút bên trong hệ thống. Giống như hình ảnh này, chúng ta có thể thấy rằng cả 3 đều tồn tại: nút đề xuất, nút xác thực 1, và nút xác thực 2. 
-Quá trình này đảm bảo cho tất cả các nút xác minh nằm trong cùng một vòng.
+Vì vậy, ưu điểm ở đây là tương tác tạo ra sự đồng thuận và kết quả được quyết định ngay lập tức. Tuy nhiên, có một nhược điểm là lưu lượng tăng theo cấp số nhân khi số node đồng thuận tăng lên. Phần này được thiết lập để chỉ chọn một phần của node đồng thuận và duy trì hình thức BFT.
 
+Hãy tìm hiểu cách tạo ra block và truyền đi trong bài học tiếp theo.
 
+## 3.2 Block generation and dissemination
 
-
-Cuối cùng, trong giai đoạn cam kết, quá trình giao tiếp với các nút khác diễn ra để quyết định xem có nên chấp nhận một khối nhận được từ một nút đề xuất không. Ví dụ, nó sẽ gửi phản hồi tới các nút để kiểm tra xem khối từ nút đề xuất là đúng hay sai. Nếu hơn 2/3 số nút đồng ý, khối đó sẽ được chấp thuận ngay lập tức. Sau cùng, nó được quyết định trong giai đoạn cam kết và cuối cùng sẽ được tạo ra. Điều đó có nghĩa là ở giai đoạn này, việc thiếu sót tính hữu hạn không còn nữa và trạng thái cuối cùng không thể thay đổi được hình thành. Nó không ở trong trạng thái mơ hồ như PoW.
-
-Vì vậy, ưu điểm của nó là đồng thuận nhờ vào giao tiếp và hoàn thành ngay lập tức. Tuy nhiên, có một nhược điểm là lưu lượng tăng theo cấp số nhân khi số nút đồng thuận tăng lên. Phần này được thiết lập để chỉ chọn một phần của nút đồng thuận và duy trì hình thức BFT.
-
-Hãy xem cách khối được tạo ra và lan truyền trong bài học tiếp theo.
-
-## 3.2 Tạo và lan truyền khối
-Chúng ta hãy cùng xem cách Klaytn tạo và lan truyền các khối để đáp ứng được trải nghiệm người dùng.
+Chúng ta hãy cùng xem cách Klaytn tạo và lan truyền các block để đáp ứng được trải nghiệm người dùng.
 
 Đầu tiên hãy quan sát chu trình tạo khối. Chu trình tạo khối của Klaytn được gọi là một 'vòng', một khối mới được tạo ra mỗi vòng và một vòng mới bắt đầu ngay sau khi vòng trước đó kết thúc. Thời gian tạo khối mất khoảng 1 giây.
 
 
-
-Hãy xem cách nút đề xuất và Ủy ban lựa chọn công việc. 
-Trong mỗi vòng, nút đề xuất tạo ra các khối được kéo ra từ một trong các nút của Hội đồng quản trị một cách ngẫu nhiên nhưng dứt khoát. Hội đồng quản trị là tập hợp các nút cốt lõi hoặc nút đồng thuận. Nếu bạn nhìn vào ảnh, những vòng tròn này là các nút đồng thuận, trong đó màu xanh được chọn là nút đề xuất của vòng hiện tại. Và sau đó chọn một nhóm các nút đồng thuận làm ủy ban của vòng đó. Chúng là những nút xác thực màu hồng được lựa chọn bởi ủy ban. Cụ thể hơn, mỗi nút đồng thuận sử dụng một số ngẫu nhiên bắt nguồn từ đầu khối gần nhất để tiến hành mã hóa nhằm chứng minh rằng nó đã được chọn cho vòng này.
+Hãy xem cách hoạt động của proposer và Committee Selection. 
+Trong mỗi vòng, proposer tạo ra các block được kéo ra từ một trong các node của Governance Concil một cách ngẫu nhiên nhưng dứt khoát. Hội đồng quản trị là tập hợp các node cốt lõi hoặc node đồng thuận. Nếu bạn nhìn vào ảnh, những vòng tròn này là các node đồng thuận, trong đó node màu xanh là proposer của vòng hiện tại. Và sau đó chọn một nhóm các nút đồng thuận làm ủy ban của vòng đó. Chúng là những nút xác thực màu hồng được lựa chọn bởi ủy ban. Cụ thể hơn, mỗi nút đồng thuận sử dụng một số ngẫu nhiên bắt nguồn từ đầu khối gần nhất để tiến hành mã hóa nhằm chứng minh rằng nó đã được chọn cho vòng này.
 
 
 
